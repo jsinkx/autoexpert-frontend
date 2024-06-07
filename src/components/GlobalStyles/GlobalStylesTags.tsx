@@ -7,7 +7,7 @@ export const GlobalStyleTags = createGlobalStyle`
 html {
 	height: 100%;
 	color: ${Colors.BLACK};
-	background-color: ${Colors.WHITE_BACKGROUND_COLOR};
+	background-color: ${Colors.WHITE};
 
 	::selection {
 		color: ${Colors.WHITE};

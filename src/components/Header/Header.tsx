@@ -1,13 +1,19 @@
-import { FC } from 'react'
+import { ComponentPropsWithoutRef, FC } from 'react'
 
-import { StyledHeader } from './Header.styles'
+import { paths } from '@shared/paths'
 
-type HeaderProps = {}
+import { StyledCustomLink, StyledHeader } from './Header.styles'
 
-export const Header: FC<HeaderProps> = () => {
+type HeaderProps = {} & ComponentPropsWithoutRef<'header'>
+
+export const Header: FC<HeaderProps> = ({ ...props }) => {
 	return (
-		<StyledHeader>
-			<h1> Автоэксперт </h1>
+		<StyledHeader {...props}>
+			<nav>
+				<h1 className="header__logo--text">
+					<StyledCustomLink to={paths.reviews}>Автоэксперт</StyledCustomLink>
+				</h1>
+			</nav>
 		</StyledHeader>
 	)
 }

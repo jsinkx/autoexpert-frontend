@@ -1,13 +1,21 @@
-import { FC } from 'react'
+import { ComponentPropsWithoutRef, FC } from 'react'
+
+import { CustomLink } from '@components/CustomLink/CustomLink'
 
 import { StyledFooter } from './Footer.styles'
 
-type FooterProps = {}
+type FooterProps = {} & ComponentPropsWithoutRef<'footer'>
 
-export const Footer: FC<FooterProps> = () => {
+const DEVELOPER_GITHUB_URL = 'https://github.com/jsinkx'
+
+export const Footer: FC<FooterProps> = ({ ...props }) => {
 	return (
-		<StyledFooter>
-			<p> Code by jsink </p>
+		<StyledFooter {...props}>
+			<p className="footer__paragraph--developer-info">
+				<CustomLink to={DEVELOPER_GITHUB_URL} target="_blank" className="footer__paragraph--developer-info__link">
+					Code by jsink_
+				</CustomLink>
+			</p>
 		</StyledFooter>
 	)
 }
