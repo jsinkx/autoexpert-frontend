@@ -1,5 +1,5 @@
 export const paths = {
 	any: '*',
 	reviews: '/',
-	home: '/home',
+	aboutUs: '/about-us',
 } as const

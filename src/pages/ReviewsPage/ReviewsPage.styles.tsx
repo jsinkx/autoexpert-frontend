@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const StyledReviewsPage = styled.div`
 	.page__title {
+		margin-top: 0;
 		font-size: 2em;
 
 		@media (max-width: 920px) {

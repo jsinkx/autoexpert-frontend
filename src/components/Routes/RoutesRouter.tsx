@@ -13,6 +13,10 @@ const { ReviewsPage } = lazily(
 	() => import(/* webpackChunkName: "ReviewsPage" */ '@pages/ReviewsPage/ReviewsPage'),
 )
 
+const { AboutUsPage } = lazily(
+	() => import(/* webpackChunkName: "AboutUsPage" */ '@pages/AboutUsPage/AboutUsPage'),
+)
+
 const routes = [
 	{
 		element: <ErrorBoundaryLayout />,
@@ -24,6 +28,10 @@ const routes = [
 			{
 				path: paths.reviews,
 				element: <ReviewsPage />,
+			},
+			{
+				path: paths.aboutUs,
+				element: <AboutUsPage />,
 			},
 		],
 	},
