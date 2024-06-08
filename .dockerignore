@@ -27,3 +27,9 @@ debug
 *.njsproj
 *.sln
 *.sw?
+
+# Other
+README.md
+alias.bat
+.husky
+.git

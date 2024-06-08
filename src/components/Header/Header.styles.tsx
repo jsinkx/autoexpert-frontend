@@ -22,10 +22,16 @@ export const StyledHeader = styled.header`
 	padding-block: 5px;
 
 	.header__logo--text {
-		display: inline;
+		display: flex;
+		align-items: center;
 		height: 40px;
 		margin: 0;
 		font-size: 1.9em;
 		user-select: none;
+
+		&__logo {
+			width: 40px;
+			margin-right: 10px;
+		}
 	}
 `

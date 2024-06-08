@@ -140,6 +140,26 @@ export const StyledReviewsPage = styled.div`
 			// ReviewsPageLoaded
 
 			.loaded-reviews {
+				@media (max-width: 920px) {
+					&__block {
+						&__title {
+							text-align: center;
+						}
+
+						&__tags {
+							&__tag {
+								margin-inline: auto;
+							}
+						}
+
+						&__reviews {
+							&__review {
+								margin-inline: auto;
+							}
+						}
+					}
+				}
+
 				&__block {
 					margin-top: 20px;
 

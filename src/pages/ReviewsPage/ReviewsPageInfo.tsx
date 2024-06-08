@@ -1,6 +1,6 @@
 import { Emoji } from '@components/Emoji/Emoji'
 
-import ALL_SITE_SOURCES from '@assets/images/all-site-sources-3.png'
+import ALL_SITE_SOURCES from '@assets/images/all-site-sources.webp'
 import EMOJI_APPLE_BAR_CHART from '@assets/images/emoji/emoji-apple-bar-chart.webp'
 import EMOJI_APPLE_ROBOT from '@assets/images/emoji/emoji-apple-robot.webp'
 

@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import AUTO_RU_LOGO from '@assets/images/auto-ru-logo.png'
-import AVITO_LOGO from '@assets/images/avito-logo.png'
-import DROM_LOGO from '@assets/images/drom-logo.png'
+import AUTO_RU_LOGO from '@assets/images/auto-ru-logo.webp'
+import AVITO_LOGO from '@assets/images/avito-logo.webp'
+import DROM_LOGO from '@assets/images/drom-logo.webp'
 
 type ReviewSiteSourceIconProps = {
 	source: string

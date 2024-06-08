@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./src/assets/images/autoexpert-logo.png" alt="autoexpert" width="100"/>
+<img src="./src/assets/images/autoexpert-logo.webp" alt="autoexpert" width="100"/>
 
 # Autoexpert
 
