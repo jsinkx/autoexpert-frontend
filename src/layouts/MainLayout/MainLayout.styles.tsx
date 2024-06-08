@@ -12,6 +12,7 @@ export const StyledMainLayout = styled.div`
 	}
 
 	.main-layout__main-content {
-		height: 100%;
+		margin-top: 35px;
+		flex: 1 0 auto;
 	}
 `

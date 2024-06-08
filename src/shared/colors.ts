@@ -7,6 +7,9 @@ export enum Colors {
 	INACTIVE_GREY_FONT = '#989898',
 	INACTIVE_LIGHT_GREY_BORDER = '#D2D5D8',
 	BLACK = '#000000',
+	RED = '#fdeded',
+	ORANGE = '#fef9ca',
+	GREEN = '#edf7ed',
 	BLUE = '#015CC9',
-	RED = '#FF0000',
+	BLUE_ELEMENT_BACKGROUND_COLOR = '#e5f6fd',
 }
