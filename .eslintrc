@@ -16,7 +16,8 @@
 				["@pages", "./src/pages"],
 				["@redux", "./src/redux"],
 				["@shared", "./src/shared"],
-				["@utils", "./src/utils"]
+				["@utils", "./src/utils"],
+				["@entities", "./src/entities"]
 			  ],
 			  "extensions": [".ts", ".tsx"]
 			}

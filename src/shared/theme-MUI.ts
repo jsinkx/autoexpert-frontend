@@ -13,10 +13,6 @@ export const themeMUI = createTheme(
 			secondary: {
 				main: Colors.BLACK,
 			},
-
-			error: {
-				main: Colors.RED,
-			},
 		},
 
 		typography: {

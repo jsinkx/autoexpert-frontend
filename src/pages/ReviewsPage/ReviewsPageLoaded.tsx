@@ -113,18 +113,19 @@ const MOCK_REVIEWS = [
 
 export const ReviewsPageLoaded = () => {
 	return (
-		<div className="loaded-reviews">
-			<section className="loaded-reviews__block">
-				<h3 className="loaded-reviews__block__title">Самые часто встречаемые слова</h3>
-				<div className="loaded-reviews__block__tags">
-					{MOCK_TAGS.map(({ title, count }) => (
-						<Tag key={title} title={title} count={count} className="loaded-reviews__block__tags__tag" />
+		<div className="reviews-loaded">
+			<section className="reviews-loaded__block">
+				<h3 className="reviews-loaded__block__title">Самые часто встречаемые слова</h3>
+				<div className="reviews-loaded__block__tags">
+					{MOCK_TAGS.map(({ title, count }, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<Tag key={index} title={title} count={count} className="reviews-loaded__block__tags__tag" />
 					))}
 				</div>
 			</section>
-			<section className="loaded-reviews__block">
-				<h3 className="loaded-reviews__block__title">Отзывы пользователей</h3>
-				<div className="loaded-reviews__block__reviews">
+			<section className="reviews-loaded__block">
+				<h3 className="reviews-loaded__block__title">Отзывы пользователей</h3>
+				<div className="reviews-loaded__block__reviews">
 					{MOCK_REVIEWS.map(({ text, brand, model, body, score, source, sourceUrl }, index) => (
 						<Review
 							// eslint-disable-next-line react/no-array-index-key
@@ -137,7 +138,7 @@ export const ReviewsPageLoaded = () => {
 							source={source}
 							sourceUrl={sourceUrl}
 							tags={MOCK_TAGS}
-							className="loaded-reviews__block__reviews__review"
+							className="reviews-loaded__block__reviews__review"
 						/>
 					))}
 				</div>

@@ -1,4 +1,10 @@
 import { FC, useState } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { selectCarsState } from '@redux/slices/cars/selectors'
+import { setCurrentSiteSources } from '@redux/slices/cars/slice'
+
+import useAppSelector from '@hooks/useAppSelector'
 
 import {
 	Checkbox,
@@ -13,10 +19,11 @@ import {
 
 type CarParametersSiteSourcesProps = {}
 
-const MOCK_SITE_SOURCES = ['auto.ru', 'drom', 'avito']
-
 export const CarParametersSiteSources: FC<CarParametersSiteSourcesProps> = () => {
-	const [selectedSiteSources, setSelectedSiteSources] = useState<string[]>(MOCK_SITE_SOURCES)
+	const dispatch = useDispatch()
+
+	const { currentSiteSources, siteSources } = useAppSelector(selectCarsState)
+
 	const [isFocused, setIsFocused] = useState(false)
 
 	const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -28,29 +35,33 @@ export const CarParametersSiteSources: FC<CarParametersSiteSourcesProps> = () =>
 			target: { value },
 		} = event
 
-		setSelectedSiteSources(typeof value === 'string' ? value.split(',') : value)
+		const newSiteSources = typeof value === 'string' ? value.split(',') : value
+
+		dispatch(setCurrentSiteSources(newSiteSources))
 	}
+
+	if (!siteSources.length) return null
 
 	return (
 		<div className="car-parameters">
 			<p className="car-parameters__label"> Выбор источников </p>
 			<FormControl sx={{ width: '300px' }} size="small">
-				{selectedSiteSources.length === 0 && !isFocused && (
-					<InputLabel>{MOCK_SITE_SOURCES.length} источника(-ов)</InputLabel>
+				{currentSiteSources.length === 0 && !isFocused && (
+					<InputLabel>{siteSources.length} источника(-ов)</InputLabel>
 				)}
 				<Select
 					multiple
-					value={selectedSiteSources}
+					value={currentSiteSources}
 					onChange={handleChangeSiteSources}
 					onFocus={handleFocus}
 					onBlur={handleFocus}
 					renderValue={(selected) => selected.join(', ')}
 					className="car-parameters__select"
 				>
-					{MOCK_SITE_SOURCES.map((siteSource) => (
+					{siteSources.map((siteSource) => (
 						<MenuItem key={siteSource} value={siteSource}>
 							<ListItemIcon>
-								<Checkbox checked={selectedSiteSources.indexOf(siteSource) > -1} />
+								<Checkbox checked={currentSiteSources.indexOf(siteSource) > -1} />
 							</ListItemIcon>
 							<ListItemText primary={siteSource} />
 						</MenuItem>

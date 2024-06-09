@@ -47,7 +47,7 @@ const selectTagsInText = (text: string, tags: TagType[]) => {
 	})
 }
 
-const MAX_REVIEW_TEXT_LENGTH = 460
+const MAX_REVIEW_TEXT_LENGTH = 430
 
 export const Review: FC<ReviewProps> = ({
 	text,

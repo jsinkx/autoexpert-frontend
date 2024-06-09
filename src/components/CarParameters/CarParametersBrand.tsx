@@ -1,72 +1,51 @@
-import { FC, SyntheticEvent, useState } from 'react'
+import { FC, SyntheticEvent } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { selectCarsState } from '@redux/slices/cars/selectors'
+import { setCurrentBody, setCurrentBrand, setCurrentModel } from '@redux/slices/cars/slice'
+
+import useAppSelector from '@hooks/useAppSelector'
 
 import { Autocomplete, TextField } from '@mui/material'
 
 type CarParametersBrandProps = {}
 
-const MOCK_CAR_BRANDS = [
-	'Audi',
-	'BMW',
-	'Mercedes',
-	'Volkswagen',
-	'Toyota',
-	'Nissan',
-	'Hyundai',
-	'Kia',
-	'Ford',
-	'Chevrolet',
-	'Porsche',
-	'Jaguar',
-]
-const MOCK_CAR_MODELS = [
-	'A6',
-	'A8',
-	'C3',
-	'C4',
-	'C5',
-	'C6',
-	'C7',
-	'C8',
-	'S3',
-	'S4',
-	'S5',
-	'S6',
-	'S7',
-	'S8',
-	'X3',
-	'X4',
-	'X5',
-	'X6',
-	'X7',
-	'X8',
-]
-const MOC_CAR_BODY = ['LIFTBACK', 'HATCHBACK', 'SEDAN']
-
 export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
-	const [carBrand, setCarBrand] = useState('')
-	const [carModel, setCarModel] = useState('')
-	const [carBody, setCarBody] = useState('')
+	const dispatch = useDispatch()
+
+	const { cars, currentBrand, currentModel, currentBody } = useAppSelector(selectCarsState)
 
 	const handleChangeCarBrand = (_: SyntheticEvent<Element, Event>, value: string | null) => {
-		value && setCarBrand(value)
+		dispatch(setCurrentBrand(value))
+		dispatch(setCurrentModel(null))
+		dispatch(setCurrentBody(null))
 	}
 
 	const handleChangeCarModel = (_: SyntheticEvent<Element, Event>, value: string | null) => {
-		value && setCarModel(value)
+		dispatch(setCurrentModel(value))
+		dispatch(setCurrentBody(null))
 	}
 
 	const handleChangeCarBody = (_: SyntheticEvent<Element, Event>, value: string | null) => {
-		value && setCarBody(value)
+		dispatch(setCurrentBody(value))
 	}
+
+	const carBrands = cars.map((car) => car.brand)
+	const selectedCar = cars.filter((car) => car.brand === currentBrand)[0]
+	const carModels = selectedCar?.models.map((model) => model.model) || []
+	const selectedCarModel = selectedCar?.models.filter((model) => model.model === currentModel)[0]
+	const carBody = selectedCarModel?.body || []
+
+	if (!cars.length) return null
 
 	return (
 		<div className="car-parameters">
 			<p className="car-parameters__label"> Марка </p>
 			<Autocomplete
-				options={MOCK_CAR_BRANDS}
-				value={carBrand}
-				onChange={handleChangeCarBrand}
 				isOptionEqualToValue={(option, value) => option === value}
+				options={carBrands}
+				value={currentBrand}
+				onChange={handleChangeCarBrand}
 				renderInput={(params) => {
 					// @ts-ignore
 					return <TextField {...params} size="small" placeholder="Марка" />
@@ -74,12 +53,12 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 				sx={{ width: 300 }}
 				className="car-parameters__input"
 			/>
-			{!!carBrand && (
+			{!!currentBrand && (
 				<>
 					<p className="car-parameters__label"> Модель </p>
 					<Autocomplete
-						options={MOCK_CAR_MODELS}
-						value={carModel}
+						options={carModels}
+						value={currentModel}
 						onChange={handleChangeCarModel}
 						isOptionEqualToValue={(option, value) => option === value}
 						renderInput={(params) => {
@@ -91,12 +70,12 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 					/>
 				</>
 			)}
-			{!!carBrand && !!carModel && (
+			{!!currentBrand && !!currentModel && (
 				<>
 					<p className="car-parameters__label"> Корпус </p>
 					<Autocomplete
-						options={MOC_CAR_BODY}
-						value={carBody}
+						options={carBody}
+						value={currentBody}
 						onChange={handleChangeCarBody}
 						isOptionEqualToValue={(option, value) => option === value}
 						renderInput={(params) => {

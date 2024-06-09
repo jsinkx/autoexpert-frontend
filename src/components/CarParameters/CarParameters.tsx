@@ -1,5 +1,11 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
+import { isValidGetReviewsParams } from '@utils/is-valid-get-reviews-params'
+
+import { selectCarsState } from '@redux/slices/cars/selectors'
+
+import useAppSelector from '@hooks/useAppSelector'
+
 import { Button } from '@mui/material'
 
 import { StyledCarParameters } from './CarParameters.styles'
@@ -22,15 +28,19 @@ export const CarParameters: FC<CarParametersProps> = ({
 	isDisplaySynonyms,
 	...props
 }) => {
-	const isValidParams = true
+	const { currentKeyword, currentBrand, currentModel, currentBody } = useAppSelector(selectCarsState)
+	const isValidParams = isValidGetReviewsParams(currentKeyword, currentBrand, currentModel, currentBody)
 
 	return (
 		<StyledCarParameters {...props}>
 			{isDisplayKeywordSearch && <CartParametersKeywordsSearch />}
 			{isDisplayBrandParams && <CarParametersBrand />}
+			{/* FIXME: if we have reviews, render this option */}
 			{isDisplaySiteSources && <CarParametersSiteSources />}
 			{isDisplaySynonyms && <CarParametersSynonyms />}
-			{isValidParams && <Button variant="contained">Получить обзоры</Button>}
+			<Button variant="contained" disabled={!isValidParams.isValid}>
+				{isValidParams.message}
+			</Button>
 		</StyledCarParameters>
 	)
 }

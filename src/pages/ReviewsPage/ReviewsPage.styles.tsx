@@ -140,7 +140,7 @@ export const StyledReviewsPage = styled.div`
 
 			// ReviewsPageLoaded
 
-			.loaded-reviews {
+			.reviews-loaded {
 				@media (max-width: 920px) {
 					&__block {
 						&__title {
@@ -195,6 +195,14 @@ export const StyledReviewsPage = styled.div`
 						}
 					}
 				}
+			}
+		}
+
+		// ReviewsPageError
+		.reviews-error {
+			&__alert {
+				display: flex;
+				align-items: center;
 			}
 		}
 	}

@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
 export const StyledNotFoundPage = styled.div`
-	margin-top: 8vh;
-
 	.page__title {
+		margin-top: 0;
 		font-size: 2.5em;
 		user-select: none;
 	}
