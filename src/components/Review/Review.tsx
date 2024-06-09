@@ -1,17 +1,19 @@
 import { ComponentPropsWithoutRef, FC, Fragment, useState } from 'react'
 
 import { CustomLink } from '@components/CustomLink/CustomLink'
-import { TagType } from '@components/Tag/Tag.types'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { IconButton } from '@mui/material'
+import { IconButton, Skeleton } from '@mui/material'
+
+import { Tag } from '@entities/tag.types'
 
 import { ReviewRateIcon } from './ReviewRateIcon'
 import { ReviewSiteSourceIcon } from './ReviewSiteSourceIcon'
 import { StyledReview } from './Reviews.styles'
 
 type ReviewProps = {
+	isLoading?: boolean
 	text: string
 	brand: string
 	model: string
@@ -19,12 +21,12 @@ type ReviewProps = {
 	score: string
 	source: string
 	sourceUrl: string
-	tags?: TagType[]
+	tags?: Tag[]
 } & ComponentPropsWithoutRef<'div'>
 
 const PUNCTUATION_REGEXP = /[\s.,%]/g
 
-const selectTagsInText = (text: string, tags: TagType[]) => {
+const selectTagsInText = (text: string, tags: Tag[]) => {
 	const textArray = text.split(' ')
 
 	return textArray.map((spitedText, index) => {
@@ -50,6 +52,7 @@ const selectTagsInText = (text: string, tags: TagType[]) => {
 const MAX_REVIEW_TEXT_LENGTH = 430
 
 export const Review: FC<ReviewProps> = ({
+	isLoading,
 	text,
 	brand,
 	model,
@@ -67,7 +70,11 @@ export const Review: FC<ReviewProps> = ({
 		setIsExpandedReview(!isExpandedReview)
 	}
 
-	return (
+	return isLoading ? (
+		<StyledReview $isLoading $score={score} title="Загрузка" {...props}>
+			<Skeleton variant="rectangular" height={130} />
+		</StyledReview>
+	) : (
 		<StyledReview $score={score} {...props}>
 			<div className="review__title">
 				<ReviewRateIcon score={score} />

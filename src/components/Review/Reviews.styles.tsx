@@ -4,6 +4,7 @@ import { Colors } from '@shared/colors'
 
 type StyledReviewProps = {
 	$score: string
+	$isLoading?: boolean
 }
 
 const getColorByScore = (score: string) => {
@@ -22,6 +23,13 @@ export const StyledReview = styled.article<StyledReviewProps>`
 	border-radius: 4px;
 	background-color: ${({ $score }) => getColorByScore($score)};
 	box-sizing: border-box;
+
+	${({ $isLoading }) =>
+		$isLoading &&
+		`
+		padding: 0;
+		background-color: initial;
+	`}
 
 	.review__site-source-icon {
 		width: 30px;

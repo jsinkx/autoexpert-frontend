@@ -111,25 +111,49 @@ const MOCK_REVIEWS = [
 	},
 ]
 
+const LOADING_TAGS = Array.from({ length: 17 }, () => ({ title: '', count: 0 }))
+const LOADING_REVIEWS = Array.from({ length: 3 }, () => ({
+	text: '',
+	brand: '',
+	model: '',
+	body: '',
+	score: '',
+	source: '',
+	sourceUrl: '',
+}))
+
 export const ReviewsPageLoaded = () => {
+	const isLoading = false
+
+	const tags = MOCK_TAGS.length === 0 || isLoading ? LOADING_TAGS : MOCK_TAGS
+
+	const reviews = MOCK_REVIEWS.length === 0 || isLoading ? LOADING_REVIEWS : MOCK_REVIEWS
+
 	return (
 		<div className="reviews-loaded">
 			<section className="reviews-loaded__block">
 				<h3 className="reviews-loaded__block__title">Самые часто встречаемые слова</h3>
 				<div className="reviews-loaded__block__tags">
-					{MOCK_TAGS.map(({ title, count }, index) => (
-						// eslint-disable-next-line react/no-array-index-key
-						<Tag key={index} title={title} count={count} className="reviews-loaded__block__tags__tag" />
+					{tags.map(({ title, count }, index) => (
+						<Tag
+							// eslint-disable-next-line react/no-array-index-key
+							key={index}
+							isLoading={isLoading}
+							title={title}
+							count={count}
+							className="reviews-loaded__block__tags__tag"
+						/>
 					))}
 				</div>
 			</section>
 			<section className="reviews-loaded__block">
 				<h3 className="reviews-loaded__block__title">Отзывы пользователей</h3>
 				<div className="reviews-loaded__block__reviews">
-					{MOCK_REVIEWS.map(({ text, brand, model, body, score, source, sourceUrl }, index) => (
+					{reviews.map(({ text, brand, model, body, score, source, sourceUrl }, index) => (
 						<Review
 							// eslint-disable-next-line react/no-array-index-key
 							key={index}
+							isLoading={isLoading}
 							text={text}
 							brand={brand}
 							model={model}

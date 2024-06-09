@@ -3,9 +3,6 @@ import styled from 'styled-components'
 export const StyledCarParameters = styled.article`
 	margin-bottom: 20px;
 	display: inline;
-	/* flex-direction: column;
-	align-items: center; */
-	/* border: 1px solid red; */
 
 	.car-parameters {
 		margin-bottom: 20px;
@@ -38,5 +35,12 @@ export const StyledCarParameters = styled.article`
 		.car-parameters__search {
 			width: 300px;
 		}
+	}
+
+	.car-parameter__error {
+		margin-bottom: 20px;
+		display: flex;
+		align-items: center;
+		font-size: 1em;
 	}
 `

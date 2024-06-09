@@ -2,11 +2,14 @@ import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { selectCarsState } from '@redux/slices/cars/selectors'
-import { setCurrentSiteSources } from '@redux/slices/cars/slice'
+import { fetchCarParameters, setCurrentSiteSources } from '@redux/slices/cars/slice'
 
+import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
 import {
+	Alert,
+	Button,
 	Checkbox,
 	FormControl,
 	InputLabel,
@@ -21,6 +24,7 @@ type CarParametersSiteSourcesProps = {}
 
 export const CarParametersSiteSources: FC<CarParametersSiteSourcesProps> = () => {
 	const dispatch = useDispatch()
+	const asyncDispatch = useAppDispatch()
 
 	const { currentSiteSources, siteSources } = useAppSelector(selectCarsState)
 
@@ -40,7 +44,16 @@ export const CarParametersSiteSources: FC<CarParametersSiteSourcesProps> = () =>
 		dispatch(setCurrentSiteSources(newSiteSources))
 	}
 
-	if (!siteSources.length) return null
+	const refetchCarParameters = () => {
+		asyncDispatch(fetchCarParameters())
+	}
+
+	if (!siteSources.length)
+		return (
+			<Alert severity="error" className="car-parameter__error">
+				Не удалось получить источники <Button onClick={refetchCarParameters}> обновить </Button>
+			</Alert>
+		)
 
 	return (
 		<div className="car-parameters">

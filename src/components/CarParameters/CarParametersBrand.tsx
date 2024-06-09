@@ -2,16 +2,23 @@ import { FC, SyntheticEvent } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { selectCarsState } from '@redux/slices/cars/selectors'
-import { setCurrentBody, setCurrentBrand, setCurrentModel } from '@redux/slices/cars/slice'
+import {
+	fetchCarParameters,
+	setCurrentBody,
+	setCurrentBrand,
+	setCurrentModel,
+} from '@redux/slices/cars/slice'
 
+import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
-import { Autocomplete, TextField } from '@mui/material'
+import { Alert, Autocomplete, Button, TextField } from '@mui/material'
 
 type CarParametersBrandProps = {}
 
 export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 	const dispatch = useDispatch()
+	const asyncDispatch = useAppDispatch()
 
 	const { cars, currentBrand, currentModel, currentBody } = useAppSelector(selectCarsState)
 
@@ -30,13 +37,22 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 		dispatch(setCurrentBody(value))
 	}
 
+	const refetchCarParameters = () => {
+		asyncDispatch(fetchCarParameters())
+	}
+
 	const carBrands = cars.map((car) => car.brand)
 	const selectedCar = cars.filter((car) => car.brand === currentBrand)[0]
 	const carModels = selectedCar?.models.map((model) => model.model) || []
 	const selectedCarModel = selectedCar?.models.filter((model) => model.model === currentModel)[0]
 	const carBody = selectedCarModel?.body || []
 
-	if (!cars.length) return null
+	if (!cars.length)
+		return (
+			<Alert severity="error" className="car-parameter__error">
+				Не удалось получить автомобили <Button onClick={refetchCarParameters}> обновить </Button>
+			</Alert>
+		)
 
 	return (
 		<div className="car-parameters">

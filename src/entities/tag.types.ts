@@ -1,4 +1,4 @@
-export type TagType = {
+export type Tag = {
 	title: string
 	count: number
 }
