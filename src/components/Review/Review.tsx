@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC, useState } from 'react'
+import { ComponentPropsWithoutRef, FC, Fragment, useState } from 'react'
 
 import { CustomLink } from '@components/CustomLink/CustomLink'
 import { TagType } from '@components/Tag/Tag.types'
@@ -22,19 +22,23 @@ type ReviewProps = {
 	tags?: TagType[]
 } & ComponentPropsWithoutRef<'div'>
 
+const PUNCTUATION_REGEXP = /[\s.,%]/g
+
 const selectTagsInText = (text: string, tags: TagType[]) => {
 	const textArray = text.split(' ')
 
 	return textArray.map((spitedText, index) => {
-		const formattedWord = spitedText.toLowerCase().replace(/[\s.,%]/g, '')
+		const formattedWord = spitedText.toLowerCase().replace(PUNCTUATION_REGEXP, '')
+		const punctuation = spitedText.match(PUNCTUATION_REGEXP)
 		const tagsTitles = tags.map((tag) => tag.title.toLowerCase())
 
 		if (tagsTitles.includes(formattedWord)) {
 			return (
 				// eslint-disable-next-line react/no-array-index-key
-				<span key={index} className="review__text__word--founded-in-tags">
-					{spitedText}
-				</span>
+				<Fragment key={index}>
+					<span className="review__text__word--founded-in-tags">{spitedText.replace(PUNCTUATION_REGEXP, '')}</span>
+					<span>{punctuation?.join('')}</span>
+				</Fragment>
 			)
 		}
 
@@ -43,7 +47,7 @@ const selectTagsInText = (text: string, tags: TagType[]) => {
 	})
 }
 
-const MAX_REVIEW_TEXT_LENGTH = 398
+const MAX_REVIEW_TEXT_LENGTH = 460
 
 export const Review: FC<ReviewProps> = ({
 	text,

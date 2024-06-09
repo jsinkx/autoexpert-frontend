@@ -175,6 +175,7 @@ export const StyledReviewsPage = styled.div`
 					}
 
 					&__tags {
+						width: 90%;
 						max-height: 300px;
 						display: flex;
 						justify-content: left;
