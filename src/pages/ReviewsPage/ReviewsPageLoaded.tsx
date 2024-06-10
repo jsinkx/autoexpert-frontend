@@ -1,117 +1,25 @@
+import { memo } from 'react'
+
+import { Status } from '@shared/status'
+
+import { selectReviews } from '@redux/slices/reviews/selectors'
+
+import useAppSelector from '@hooks/useAppSelector'
+
 import { Review } from '@components/Review/Review'
 import { Tag } from '@components/Tag/Tag'
 
-const MOCK_TAGS = [
-	{
-		title: 'Комфорт',
-		count: 25,
-	},
-	{
-		title: 'Авто',
-		count: 21,
-	},
-	{
-		title: 'Новый',
-		count: 20,
-	},
-	{
-		title: 'Отличный',
-		count: 15,
-	},
-	{
-		title: 'Не',
-		count: 15,
-	},
-	{
-		title: 'Интересный',
-		count: 15,
-	},
-	{
-		title: 'Мощный',
-		count: 10,
-	},
-	{
-		title: 'Динамичный',
-		count: 9,
-	},
-	{
-		title: 'Корейский',
-		count: 8,
-	},
-	{
-		title: 'Разный',
-		count: 6,
-	},
-	{
-		title: 'Веселый',
-		count: 5,
-	},
-	{
-		title: 'Практичный',
-		count: 5,
-	},
-	{
-		title: 'Глубокий',
-		count: 5,
-	},
-	{
-		title: 'Личный',
-		count: 2,
-	},
-	{
-		title: 'Авто',
-		count: 1,
-	},
-]
+import { Review as ReviewType } from '@entities/review.types'
+import { Tag as TagType } from '@entities/tag.types'
 
-const MOCK_REVIEWS = [
-	{
-		text:
-			'Отличный автомобиль, придуманный для скорости и комфорта, у каждого должен быть такой автомобиль, или период владения. Не достатков не заметил, если вовремя ухаживать за авто, проблем нет, своевременное обслуживание и самое важное качественное мало. Телевизоры назад можно было бы, советую всем отличный авто, на повседневную езду самое то. Но это не точно, не уверен, что это будет такое, но с ним все в порядке. Спасибо. Приятного дня. ',
-		brand: 'Porsche',
-		model: 'Cayenne Turbo S',
-		body: 'CROSSOVER',
-		score: 'Позитивный',
-		source: 'avito',
-		sourceUrl:
-			'https://www.avito.ru/otzyvy_vladelcev/auto/porsche/cayenne_turbo_s/vnedorozhnik-ASgBAgICBETgtg2GmSjitg2IoSjmtg2~tyjQvA7Mk4sD',
-	},
-	{
-		text:
-			'Отличный автомобиль, придуманный для скорости и комфорта, у каждого должен быть такой автомобиль, или период владения. Не достатков не заметил, если вовремя ухаживать за авто, проблем нет, своевременное обслуживание и самое важное качественное мало. Телевизоры назад можно было бы, советую всем отличный авто, на повседневную езду самое то',
-		brand: 'Porsche',
-		model: 'Cayenne Turbo S',
-		body: 'CROSSOVER',
-		score: 'Негативный',
-		source: 'auto.ru',
-		sourceUrl:
-			'https://www.avito.ru/otzyvy_vladelcev/auto/porsche/cayenne_turbo_s/vnedorozhnik-ASgBAgICBETgtg2GmSjitg2IoSjmtg2~tyjQvA7Mk4sD',
-	},
-	{
-		text:
-			'Отличный автомобиль, придуманный для скорости и комфорта, у каждого должен быть такой автомобиль, или период владения. Не достатков не заметил, если вовремя ухаживать за авто, проблем нет, своевременное обслуживание и самое важное качественное мало. Телевизоры назад можно было бы, советую всем отличный авто, на повседневную езду самое то',
-		brand: 'Porsche',
-		model: 'Cayenne Turbo S',
-		body: 'CROSSOVER',
-		score: 'Нейтральный',
-		source: 'drom',
-		sourceUrl:
-			'https://www.avito.ru/otzyvy_vladelcev/auto/porsche/cayenne_turbo_s/vnedorozhnik-ASgBAgICBETgtg2GmSjitg2IoSjmtg2~tyjQvA7Mk4sD',
-	},
-	{
-		text:
-			'Отличный автомобиль, придуманный для скорости и комфорта, у каждого должен быть такой автомобиль, или период владения. Не достатков не заметил, если вовремя ухаживать за авто, проблем нет, своевременное обслуживание и самое важное качественное мало. Телевизоры назад можно было бы, советую всем отличный авто, на повседневную езду самое то, Отличный автомобиль, придуманный для скорости и комфорта, у каждого должен быть такой автомобиль, или период владения. Не достатков не заметил, если вовремя ухаживать за авто, проблем нет, своевременное обслуживание и самое важное качественное мало. Телевизоры назад можно было бы, советую всем отличный авто, на повседневную езду самое то, Отличный автомобиль, придуманный для скорости и комфорта, у каждого должен быть такой автомобиль, или период владения. Не достатков не заметил, если вовремя ухаживать за авто, проблем нет, своевременное обслуживание и самое важное качественное мало. Телевизоры назад можно было бы, советую всем отличный авто, на повседневную езду самое то, hf42hfhfj3eijfejwfioweojfwjfjpewjfjieowfjpioewjpfpjwefpjwepojf',
-		brand: 'Porsche',
-		model: 'Cayenne Turbo S',
-		body: 'CROSSOVER',
-		score: 'Нейтральный',
-		source: 'avito',
-		sourceUrl:
-			'https://www.avito.ru/otzyvy_vladelcev/auto/porsche/cayenne_turbo_s/vnedorozhnik-ASgBAgICBETgtg2GmSjitg2IoSjmtg2~tyjQvA7Mk4sD',
-	},
-]
+import { ReviewsPageError } from './ReviewsPageError'
 
-const LOADING_TAGS = Array.from({ length: 17 }, () => ({ title: '', count: 0 }))
+const LOADING_TAGS = Array.from({ length: 17 }, () => ({
+	id: '',
+	title: '',
+	lemma: '',
+	count: 0,
+})) as TagType[]
 const LOADING_REVIEWS = Array.from({ length: 3 }, () => ({
 	text: '',
 	brand: '',
@@ -120,26 +28,33 @@ const LOADING_REVIEWS = Array.from({ length: 3 }, () => ({
 	score: '',
 	source: '',
 	sourceUrl: '',
-}))
+})) as ReviewType[]
 
-export const ReviewsPageLoaded = () => {
-	const isLoading = false
+export const ReviewsPageLoaded = memo(() => {
+	const { status, reviews: reviewsData, tags: tagsData, tagsSorting } = useAppSelector(selectReviews)
 
-	const tags = MOCK_TAGS.length === 0 || isLoading ? LOADING_TAGS : MOCK_TAGS
+	const isLoading = status === Status.LOADING
+	const isError = status === Status.ERROR
 
-	const reviews = MOCK_REVIEWS.length === 0 || isLoading ? LOADING_REVIEWS : MOCK_REVIEWS
+	const tags = tagsData.length === 0 || isLoading ? LOADING_TAGS : tagsData
+	const reviews = reviewsData.length === 0 || isLoading ? LOADING_REVIEWS : reviewsData
+
+	const tagsSortingLabel = tagsSorting === 'desc' ? 'Популярные' : 'Непопулярные'
+
+	if (isError) return <ReviewsPageError />
 
 	return (
 		<div className="reviews-loaded">
 			<section className="reviews-loaded__block">
-				<h3 className="reviews-loaded__block__title">Самые часто встречаемые слова</h3>
+				<h3 className="reviews-loaded__block__title">{tagsSortingLabel} слова</h3>
 				<div className="reviews-loaded__block__tags">
-					{tags.map(({ title, count }, index) => (
+					{tags.map(({ id, title, lemma, count }, index) => (
 						<Tag
-							// eslint-disable-next-line react/no-array-index-key
-							key={index}
+							key={id || index}
+							id={id}
 							isLoading={isLoading}
 							title={title}
+							lemma={lemma}
 							count={count}
 							className="reviews-loaded__block__tags__tag"
 						/>
@@ -149,10 +64,10 @@ export const ReviewsPageLoaded = () => {
 			<section className="reviews-loaded__block">
 				<h3 className="reviews-loaded__block__title">Отзывы пользователей</h3>
 				<div className="reviews-loaded__block__reviews">
-					{reviews.map(({ text, brand, model, body, score, source, sourceUrl }, index) => (
+					{reviews.map(({ id, text, brand, model, body, score, source, sourceUrl }, index) => (
 						<Review
-							// eslint-disable-next-line react/no-array-index-key
-							key={index}
+							key={id || index}
+							id={id}
 							isLoading={isLoading}
 							text={text}
 							brand={brand}
@@ -161,7 +76,7 @@ export const ReviewsPageLoaded = () => {
 							score={score}
 							source={source}
 							sourceUrl={sourceUrl}
-							tags={MOCK_TAGS}
+							tags={tags}
 							className="reviews-loaded__block__reviews__review"
 						/>
 					))}
@@ -169,4 +84,4 @@ export const ReviewsPageLoaded = () => {
 			</section>
 		</div>
 	)
-}
+})

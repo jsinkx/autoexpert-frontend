@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { Emoji } from '@components/Emoji/Emoji'
 
 import ALL_SITE_SOURCES from '@assets/images/all-site-sources.webp'
@@ -6,7 +8,7 @@ import EMOJI_APPLE_ROBOT from '@assets/images/emoji/emoji-apple-robot.webp'
 
 const ALL_SITE_SOURCES_ALT = 'auto.ru, drom, avito'
 
-export const ReviewsPageInfo = () => {
+export const ReviewsPageInfo = memo(() => {
 	return (
 		<>
 			<h4 className="section-reviews__title">
@@ -33,4 +35,4 @@ export const ReviewsPageInfo = () => {
 			<img src={ALL_SITE_SOURCES} alt={ALL_SITE_SOURCES_ALT} className="section-reviews__image-site-sources" />
 		</>
 	)
-}
+})

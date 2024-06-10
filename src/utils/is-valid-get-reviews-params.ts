@@ -5,6 +5,7 @@ export const isValidGetReviewsParams = (
 	brand: CarBrand | null,
 	model: CarModel | null,
 	body: CarBody | null,
+	synonyms: string[],
 ) => {
 	let message = ''
 
@@ -14,6 +15,7 @@ export const isValidGetReviewsParams = (
 	else if (brand === '' || brand === null) message = 'Выберите марку автомобиля'
 	else if (model === '' || model === null) message = 'Выберете модель автомобиля'
 	else if (body === '' || body === null) message = 'Выберите корпус автомобиля'
+	else if (!synonyms.length) message = 'Выберите синонимы'
 
 	return {
 		message: message || 'Получить отзывы',

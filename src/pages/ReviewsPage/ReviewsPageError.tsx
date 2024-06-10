@@ -1,5 +1,6 @@
 import { selectCarsState } from '@redux/slices/cars/selectors'
 import { fetchCarParameters } from '@redux/slices/cars/slice'
+import { selectReviews } from '@redux/slices/reviews/selectors'
 
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
@@ -10,6 +11,9 @@ export const ReviewsPageError = () => {
 	const dispatch = useAppDispatch()
 
 	const { messageCars } = useAppSelector(selectCarsState)
+	const { message: messageReviews } = useAppSelector(selectReviews)
+
+	const message = messageCars || messageReviews
 
 	const refetchCarParameters = () => {
 		dispatch(fetchCarParameters())
@@ -17,10 +21,12 @@ export const ReviewsPageError = () => {
 
 	return (
 		<Alert severity="error" className="reviews-error__alert">
-			{messageCars}
-			<Button onClick={refetchCarParameters} color="error">
-				Обновить
-			</Button>
+			{message}
+			{messageCars && (
+				<Button onClick={refetchCarParameters} color="error">
+					Обновить
+				</Button>
+			)}
 		</Alert>
 	)
 }

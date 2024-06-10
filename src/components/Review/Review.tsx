@@ -6,6 +6,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { IconButton, Skeleton } from '@mui/material'
 
+import { Review as ReviewType } from '@entities/review.types'
 import { Tag } from '@entities/tag.types'
 
 import { ReviewRateIcon } from './ReviewRateIcon'
@@ -14,15 +15,9 @@ import { StyledReview } from './Reviews.styles'
 
 type ReviewProps = {
 	isLoading?: boolean
-	text: string
-	brand: string
-	model: string
-	body: string
-	score: string
-	source: string
-	sourceUrl: string
 	tags?: Tag[]
-} & ComponentPropsWithoutRef<'div'>
+} & ReviewType &
+	ComponentPropsWithoutRef<'div'>
 
 const PUNCTUATION_REGEXP = /[\s.,%]/g
 
@@ -32,9 +27,9 @@ const selectTagsInText = (text: string, tags: Tag[]) => {
 	return textArray.map((spitedText, index) => {
 		const formattedWord = spitedText.toLowerCase().replace(PUNCTUATION_REGEXP, '')
 		const punctuation = spitedText.match(PUNCTUATION_REGEXP)
-		const tagsTitles = tags.map((tag) => tag.title.toLowerCase())
+		const tagsLemmas = tags.map((tag) => tag.lemma.toLowerCase())
 
-		if (tagsTitles.includes(formattedWord)) {
+		if (tagsLemmas.includes(formattedWord)) {
 			return (
 				// eslint-disable-next-line react/no-array-index-key
 				<Fragment key={index}>
@@ -53,6 +48,7 @@ const MAX_REVIEW_TEXT_LENGTH = 430
 
 export const Review: FC<ReviewProps> = ({
 	isLoading,
+	id,
 	text,
 	brand,
 	model,
@@ -63,7 +59,7 @@ export const Review: FC<ReviewProps> = ({
 	tags = [],
 	...props
 }) => {
-	const selectedTagsInText = selectTagsInText(text, tags)
+	const selectedTagsInText = isLoading ? [] : selectTagsInText(text, tags)
 	const [isExpandedReview, setIsExpandedReview] = useState(false)
 
 	const handleClickExpandReview = () => {

@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC } from 'react'
+import { ComponentPropsWithoutRef, FC, memo } from 'react'
 
 import { paths } from '@shared/paths'
 
@@ -8,7 +8,7 @@ import { StyledCustomLink, StyledHeader } from './Header.styles'
 
 type HeaderProps = {} & ComponentPropsWithoutRef<'header'>
 
-export const Header: FC<HeaderProps> = ({ ...props }) => {
+export const Header: FC<HeaderProps> = memo(({ ...props }) => {
 	return (
 		<StyledHeader {...props}>
 			<nav>
@@ -19,4 +19,4 @@ export const Header: FC<HeaderProps> = ({ ...props }) => {
 			</nav>
 		</StyledHeader>
 	)
-}
+})

@@ -13,7 +13,7 @@ type TagProps = {
 } & TagType &
 	ComponentPropsWithoutRef<'div'>
 
-export const Tag: FC<TagProps> = ({ isLoading, title, count, ...props }) => {
+export const Tag: FC<TagProps> = ({ isLoading, title, lemma, count, ...props }) => {
 	const { width, height } = tagLoadingSizes[Math.floor(Math.random() * tagLoadingSizes.length)]!
 
 	return isLoading ? (
@@ -22,7 +22,7 @@ export const Tag: FC<TagProps> = ({ isLoading, title, count, ...props }) => {
 		</StyledTag>
 	) : (
 		<StyledTag title={`Встречается ${count} раз`} {...props}>
-			{title} ({count})
+			{lemma} ({count})
 		</StyledTag>
 	)
 }

@@ -162,4 +162,4 @@ export const {
 	setCurrentSynonyms,
 	setSynonyms,
 } = carsSlice.actions
-export const carsSliceReducer = carsSlice.reducer
+export const carsReducer = carsSlice.reducer

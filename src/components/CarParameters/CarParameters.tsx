@@ -3,7 +3,9 @@ import { ComponentPropsWithoutRef, FC } from 'react'
 import { isValidGetReviewsParams } from '@utils/is-valid-get-reviews-params'
 
 import { selectCarsState } from '@redux/slices/cars/selectors'
+import { fetchReviews } from '@redux/slices/reviews/slice'
 
+import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
 import { Button } from '@mui/material'
@@ -28,8 +30,28 @@ export const CarParameters: FC<CarParametersProps> = ({
 	isDisplaySynonyms,
 	...props
 }) => {
-	const { currentKeyword, currentBrand, currentModel, currentBody } = useAppSelector(selectCarsState)
-	const isValidParams = isValidGetReviewsParams(currentKeyword, currentBrand, currentModel, currentBody)
+	const dispatch = useAppDispatch()
+
+	const { currentKeyword, currentBrand, currentModel, currentBody, currentSynonyms } =
+		useAppSelector(selectCarsState)
+	const isValidParams = isValidGetReviewsParams(
+		currentKeyword,
+		currentBrand,
+		currentModel,
+		currentBody,
+		currentSynonyms,
+	)
+
+	const handleClickGetReviews = () => {
+		const params = {
+			words: currentSynonyms,
+			marks: [currentBrand!],
+			models: [currentModel!],
+			body_types: [currentBody!],
+		}
+
+		dispatch(fetchReviews(params))
+	}
 
 	return (
 		<StyledCarParameters {...props}>
@@ -38,7 +60,7 @@ export const CarParameters: FC<CarParametersProps> = ({
 			{/* FIXME: if we have reviews, render this option */}
 			{isDisplaySiteSources && <CarParametersSiteSources />}
 			{isDisplaySynonyms && <CarParametersSynonyms />}
-			<Button variant="contained" disabled={!isValidParams.isValid}>
+			<Button onClick={handleClickGetReviews} variant="contained" disabled={!isValidParams.isValid}>
 				{isValidParams.message}
 			</Button>
 		</StyledCarParameters>

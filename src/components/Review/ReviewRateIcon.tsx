@@ -10,12 +10,10 @@ type ReviewRateIconProps = {
 
 export const ReviewRateIcon: FC<ReviewRateIconProps> = ({ score }) => {
 	switch (score) {
-		case 'Позитивный':
+		case 'POSITIVE':
 			return <SentimentSatisfiedAltIcon fontSize="large" />
-		case 'Негативный':
+		case 'NEGATIVE':
 			return <SentimentVeryDissatisfiedIcon fontSize="large" />
-		case 'Нейтральный':
-			return <SentimentNeutralIcon fontSize="large" />
 		default:
 			return <SentimentNeutralIcon fontSize="large" />
 	}

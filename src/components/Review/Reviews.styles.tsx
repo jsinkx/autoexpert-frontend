@@ -9,9 +9,9 @@ type StyledReviewProps = {
 
 const getColorByScore = (score: string) => {
 	switch (score) {
-		case 'Позитивный':
+		case 'POSITIVE':
 			return Colors.GREEN
-		case 'Негативный':
+		case 'NEGATIVE':
 			return Colors.RED
 		default:
 			return Colors.BLUE_ELEMENT_BACKGROUND_COLOR
