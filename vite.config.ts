@@ -5,6 +5,8 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 import reactRefresh from '@vitejs/plugin-react-swc'
 
+// vite config
+
 export default ({ mode }) => {
 	process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 

@@ -79,7 +79,7 @@ export const Review: FC<ReviewProps> = ({
 				</h5>
 
 				<CustomLink to={sourceUrl} target="_blank" className="review__title--source-url">
-					Прямая ссылка
+					Читать полностью
 					<ReviewSiteSourceIcon source={source} />
 				</CustomLink>
 			</div>

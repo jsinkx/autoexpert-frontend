@@ -44,6 +44,9 @@ export type FetchAdjectivesResult = {
 export type ReviewsSliceInitialState = {
 	status: Status
 	message: string
+	reviewsSorting: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' | ''
+	currentReviewsScores: string[]
+	_reviews: Review[]
 	reviews: Review[]
 	tagsSorting: 'asc' | 'desc'
 	tags: Tag[]

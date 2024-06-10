@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Colors } from '@shared/colors'
+
 export const StyledReviewsPage = styled.div`
 	.page__title {
 		margin-top: 0;
@@ -29,13 +31,23 @@ export const StyledReviewsPage = styled.div`
 			}
 		}
 
-		.article-car-parameters {
-			/* width: 340px; */
-			/* margin-left: 0; */
+		.section-settings {
 			height: 100%;
-			margin-right: 50px;
 			position: sticky;
 			top: 80px;
+
+			@media (max-width: 920px) or (max-height: 860px) {
+				position: relative;
+				top: 0;
+			}
+
+			&__article-car-parameters {
+				/* width: 340px; */
+				margin-right: 50px;
+			}
+
+			&__article-reviews-settings {
+			}
 		}
 
 		.section-reviews {
@@ -169,9 +181,56 @@ export const StyledReviewsPage = styled.div`
 					}
 
 					&__title {
-						margin-top: 0;
-						margin-bottom: 12px;
+						display: flex;
+						align-items: center;
 						font-size: 1.65em;
+						margin-bottom: 12px;
+
+						@media (max-width: 920px) {
+							flex-direction: column;
+						}
+
+						&__text {
+							margin: 0;
+							font-size: 1em;
+						}
+					}
+
+					&__title__breadcrumbs,
+					&__parameters__breadcrumbs {
+						margin-left: 10px;
+						transition: all 0.2s ease-in-out;
+						user-select: none;
+
+						&__breadcrumb {
+							cursor: pointer;
+							opacity: 0.7;
+
+							&:hover {
+								text-decoration: underline;
+							}
+						}
+
+						.active {
+							color: ${Colors.BLUE};
+							cursor: auto;
+							opacity: 1;
+
+							&:hover {
+								text-decoration: none;
+							}
+						}
+					}
+
+					&__parameters {
+						margin-block: -5px 10px;
+						display: flex;
+						align-items: center;
+						user-select: none;
+
+						@media (max-width: 920px) {
+							flex-direction: column;
+						}
 					}
 
 					&__tags {

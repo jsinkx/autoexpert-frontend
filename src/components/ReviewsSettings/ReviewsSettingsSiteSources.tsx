@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { selectCarsState } from '@redux/slices/cars/selectors'
@@ -20,9 +20,7 @@ import {
 	SelectChangeEvent,
 } from '@mui/material'
 
-type CarParametersSiteSourcesProps = {}
-
-export const CarParametersSiteSources: FC<CarParametersSiteSourcesProps> = () => {
+export const ReviewsSettingsSiteSources = () => {
 	const dispatch = useDispatch()
 	const asyncDispatch = useAppDispatch()
 

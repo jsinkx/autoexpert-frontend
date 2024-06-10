@@ -1,8 +1,11 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
+import { Status } from '@shared/status'
+
 import { isValidGetReviewsParams } from '@utils/is-valid-get-reviews-params'
 
 import { selectCarsState } from '@redux/slices/cars/selectors'
+import { selectReviews } from '@redux/slices/reviews/selectors'
 import { fetchReviews } from '@redux/slices/reviews/slice'
 
 import useAppDispatch from '@hooks/useAppDispatch'
@@ -12,7 +15,6 @@ import { Button } from '@mui/material'
 
 import { StyledCarParameters } from './CarParameters.styles'
 import { CarParametersBrand } from './CarParametersBrand'
-import { CarParametersSiteSources } from './CarParametersSiteSources'
 import { CarParametersSynonyms } from './CarParametersSynonyms'
 import { CartParametersKeywordsSearch } from './CartParametersKeywordsSearch'
 
@@ -34,13 +36,16 @@ export const CarParameters: FC<CarParametersProps> = ({
 
 	const { currentKeyword, currentBrand, currentModel, currentBody, currentSynonyms } =
 		useAppSelector(selectCarsState)
-	const isValidParams = isValidGetReviewsParams(
-		currentKeyword,
-		currentBrand,
-		currentModel,
-		currentBody,
-		currentSynonyms,
-	)
+
+	const { status: statusReviews } = useAppSelector(selectReviews)
+	const isValidParams = isValidGetReviewsParams({
+		keyword: currentKeyword,
+		brand: currentBrand,
+		model: currentModel,
+		body: currentBody,
+		synonyms: currentSynonyms,
+		isLoading: statusReviews === Status.LOADING,
+	})
 
 	const handleClickGetReviews = () => {
 		const params = {
@@ -57,8 +62,6 @@ export const CarParameters: FC<CarParametersProps> = ({
 		<StyledCarParameters {...props}>
 			{isDisplayKeywordSearch && <CartParametersKeywordsSearch />}
 			{isDisplayBrandParams && <CarParametersBrand />}
-			{/* FIXME: if we have reviews, render this option */}
-			{isDisplaySiteSources && <CarParametersSiteSources />}
 			{isDisplaySynonyms && <CarParametersSynonyms />}
 			<Button onClick={handleClickGetReviews} variant="contained" disabled={!isValidParams.isValid}>
 				{isValidParams.message}

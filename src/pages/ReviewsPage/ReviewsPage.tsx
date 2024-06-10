@@ -14,11 +14,12 @@ import { MainLayout } from '@layouts/MainLayout/MainLayout'
 import { LoadingPage } from '@pages/LoadingPage/LoadingPage'
 
 import { CarParameters } from '@components/CarParameters/CarParameters'
+import ReviewsSettings from '@components/ReviewsSettings/ReviewsSettings'
 
 import { StyledReviewsPage } from './ReviewsPage.styles'
 import { ReviewsPageError } from './ReviewsPageError'
 import { ReviewsPageInfo } from './ReviewsPageInfo'
-import { ReviewsPageLoaded } from './ReviewsPageLoaded'
+import { ReviewsPageLoaded } from './ReviewsPageLoaded/ReviewsPageLoaded'
 
 export const ReviewsPage = () => {
 	const dispatch = useAppDispatch()
@@ -47,19 +48,25 @@ export const ReviewsPage = () => {
 	return (
 		<MainLayout>
 			<StyledReviewsPage>
-				<h2 className="page__title">{isReviewsLoaded ? `Отзывы об автомобилях ${carName}` : 'Подбор отзывов'}</h2>
+				<h2 className="page__title">
+					{isReviewsLoaded ? `Отзывы об автомобилях ${carName} ` : 'Подбор отзывов'}
+				</h2>
 				<div className="page__content">
 					{isCarsError ? (
 						<ReviewsPageError />
 					) : (
 						<>
-							<CarParameters
-								isDisplayBrandParams
-								isDisplaySiteSources
-								isDisplayKeywordSearch
-								isDisplaySynonyms
-								className="article-car-parameters"
-							/>
+							<div className="section-settings">
+								<CarParameters
+									isDisplayBrandParams
+									isDisplaySiteSources
+									isDisplayKeywordSearch
+									isDisplaySynonyms
+									className="section-settings__article-car-parameters"
+								/>
+								{isReviewsLoaded && <ReviewsSettings className="section-settings__article-reviews-settings" />}
+							</div>
+
 							<section className="section-reviews">
 								{isReviewsInit && <ReviewsPageInfo />}
 								{!isReviewsInit && <ReviewsPageLoaded />}

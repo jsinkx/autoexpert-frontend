@@ -1,3 +1,5 @@
+import { REVIEWS_SORTING_OPTIONS } from '@shared/reviews-sorting-options'
+
 import { GetReviewsResponse } from '@redux/slices/reviews/types'
 
 import { Review } from '@entities/review.types'
@@ -42,15 +44,19 @@ export const toReviewsAndTagsArray = (data: GetReviewsResponse) => {
 			} else tagsObject[lemmaKeyword].count++
 		})
 
+		const reviewText = thisReview.text
+
 		const review = {
 			id: reviewId,
-			text: thisReview.text.text,
-			brand: thisReview.text.mark,
-			model: thisReview.text.model,
-			body: thisReview.text.body_type,
-			score: thisReview.text.text_sentiment.label,
-			source: thisReview.text.source,
-			sourceUrl: thisReview.text.link,
+			text: reviewText.text,
+			brand: reviewText.mark,
+			model: reviewText.model,
+			body: reviewText.body_type,
+			score: Object.keys(REVIEWS_SORTING_OPTIONS).includes(reviewText.text_sentiment.label)
+				? reviewText.text_sentiment.label
+				: 'NEUTRAL',
+			source: reviewText.source,
+			sourceUrl: reviewText.link,
 		} as Review
 
 		reviews.push(review)

@@ -90,6 +90,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.21
         version: 18.3.0
+      '@types/react-virtualized':
+        specifier: ^9.21.30
+        version: 9.21.30
       '@types/throttle-debounce':
         specifier: ^5.0.2
         version: 5.0.2
@@ -1081,6 +1084,9 @@ packages:
 
   '@types/react-transition-group@4.4.10':
     resolution: {integrity: sha512-hT/+s0VQs2ojCX823m60m5f0sL5idt9SO6Tj6Dg+rdphGPIeJbJ6CxvBYkgkGKrYeDjvIpKTR38UzmtHJOGW3Q==}
+
+  '@types/react-virtualized@9.21.30':
+    resolution: {integrity: sha512-4l2TFLQ8BCjNDQlvH85tU6gctuZoEdgYzENQyZHpgTHU7hoLzYgPSOALMAeA58LOWua8AzC6wBivPj1lfl6JgQ==}
 
   '@types/react@18.3.3':
     resolution: {integrity: sha512-hti/R0pS0q1/xx+TsI73XIqk26eBsISZ2R0wUijXIngRK9R/e7Xw/cXVxQK7R5JjW+SV4zGcn5hXjudkN/pLIw==}
@@ -3988,6 +3994,11 @@ snapshots:
 
   '@types/react-transition-group@4.4.10':
     dependencies:
+      '@types/react': 18.3.3
+
+  '@types/react-virtualized@9.21.30':
+    dependencies:
+      '@types/prop-types': 15.7.12
       '@types/react': 18.3.3
 
   '@types/react@18.3.3':
