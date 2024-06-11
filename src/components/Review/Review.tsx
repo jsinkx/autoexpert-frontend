@@ -19,7 +19,7 @@ type ReviewProps = {
 	ComponentPropsWithoutRef<'div'>
 
 const ALL_SIGNS_REGEXP = /[s.,%():;!?"'«»!@#$%^&*-_=+[\]{}<>`~|/]/g
-const PUNCTUATION_REGEXP = /[\s.,%]/g
+const PUNCTUATION_REGEXP = /[\s.,!?...)%]/g
 
 const selectTagsInText = (text: string, tags: Tag[]) => {
 	const textArray = text.split(' ')

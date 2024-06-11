@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { FC } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { REVIEWS_SORTING_OPTIONS } from '@shared/reviews-sorting-options'
@@ -25,7 +25,15 @@ const LOADING_REVIEWS = Array.from({ length: 3 }, () => ({
 	sourceUrl: '',
 })) as ReviewType[]
 
-export const ReviewsPageLoadedReviews = memo(() => {
+type ReviewsPageLoadedReviewsProps = {
+	reviewsOnPage: number
+	currentPage: number
+}
+
+export const ReviewsPageLoadedReviews: FC<ReviewsPageLoadedReviewsProps> = ({
+	reviewsOnPage,
+	currentPage,
+}) => {
 	const dispatch = useDispatch()
 
 	const { status, reviews: reviewsData, reviewsSorting, tags } = useAppSelector(selectReviews)
@@ -65,24 +73,26 @@ export const ReviewsPageLoadedReviews = memo(() => {
 				{!reviews.length && !isLoading && (
 					<Alert severity="warning"> Не удалось подобрать по заданным параметрам </Alert>
 				)}
-				{reviews.map(({ id, text, tagsInText = [], brand, model, body, score, source, sourceUrl }, index) => (
-					<Review
-						key={id || index}
-						id={id}
-						isLoading={isLoading}
-						text={text}
-						tagsInText={tagsInText}
-						tags={tags}
-						brand={brand}
-						model={model}
-						body={body}
-						score={score}
-						source={source}
-						sourceUrl={sourceUrl}
-						className="reviews-loaded__block__reviews__review"
-					/>
-				))}
+				{reviews
+					.slice(reviewsOnPage * (currentPage - 1), (currentPage - 1) * reviewsOnPage + reviewsOnPage)
+					.map(({ id, text, tagsInText = [], brand, model, body, score, source, sourceUrl }, index) => (
+						<Review
+							key={id || index}
+							id={id}
+							isLoading={isLoading}
+							text={text}
+							tagsInText={tagsInText}
+							tags={tags}
+							brand={brand}
+							model={model}
+							body={body}
+							score={score}
+							source={source}
+							sourceUrl={sourceUrl}
+							className="reviews-loaded__block__reviews__review"
+						/>
+					))}
 			</div>
 		</section>
 	)
-})
+}

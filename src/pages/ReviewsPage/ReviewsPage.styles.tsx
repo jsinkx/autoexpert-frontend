@@ -42,11 +42,16 @@ export const StyledReviewsPage = styled.div`
 			}
 
 			&__article-car-parameters {
-				/* width: 340px; */
-				margin-right: 50px;
+				/* display: inline-flex;
+				justify-content: center;
+				flex-direction: column;
+				margin-bottom: 40px; */
 			}
 
 			&__article-reviews-settings {
+				/* display: inline-flex;
+				justify-content: center;
+				flex-direction: column; */
 			}
 		}
 
@@ -171,6 +176,10 @@ export const StyledReviewsPage = styled.div`
 							}
 						}
 					}
+				}
+
+				&__pagination {
+					margin-bottom: 20px;
 				}
 
 				&__block {

@@ -19,7 +19,7 @@ export default ({ mode }) => {
 				babel: {
 					plugins: [['babel-plugin-react-compiler']],
 				},
-			}), // HMR
+			}),
 			ViteMinifyPlugin({}), // Minify
 			splitVendorChunkPlugin(), // Split vendor chunks
 		],
