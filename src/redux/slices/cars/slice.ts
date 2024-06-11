@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import { axiosInstance } from '@shared/axios'
 import { Status } from '@shared/status'
@@ -77,30 +77,33 @@ const initialState: CarsSliceInitialState = {
 	currentSynonyms: [] as string[],
 }
 
-const carsSlice = createSlice({
+export const carsSlice = createSlice({
 	name: 'cars',
 	initialState,
 	reducers: {
-		setCurrentKeyword(state, action: { payload: string }) {
+		setCurrentKeyword(state, action: PayloadAction<string>) {
+			state.statusSynonyms = Status.LOADING
 			state.currentKeyword = action.payload
+			state.synonyms = []
+			state.currentSynonyms = []
 		},
-		setCurrentBrand(state, action: { payload: CarBrand | null }) {
+		setCurrentBrand(state, action: PayloadAction<CarBrand | null>) {
 			state.currentBrand = action.payload
 		},
-		setCurrentModel(state, action: { payload: CarModel | null }) {
+		setCurrentModel(state, action: PayloadAction<CarModel | null>) {
 			state.currentModel = action.payload
 		},
-		setCurrentBody(state, action: { payload: CarBody | null }) {
+		setCurrentBody(state, action: PayloadAction<CarBody | null>) {
 			state.currentBody = action.payload
 		},
-		setCurrentSiteSources(state, action: { payload: SiteSource[] }) {
+		setCurrentSiteSources(state, action: PayloadAction<SiteSource[]>) {
 			state.currentSiteSources = action.payload
 		},
-		setSynonyms(state, action: { payload: string[] }) {
+		setSynonyms(state, action: PayloadAction<string[]>) {
 			state.synonyms = action.payload
 			state.currentSynonyms = action.payload
 		},
-		setCurrentSynonyms(state, action: { payload: string[] }) {
+		setCurrentSynonyms(state, action: PayloadAction<string[]>) {
 			state.currentSynonyms = action.payload
 		},
 		resetCarsState(state) {

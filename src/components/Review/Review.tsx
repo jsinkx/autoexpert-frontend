@@ -15,26 +15,25 @@ import { StyledReview } from './Reviews.styles'
 
 type ReviewProps = {
 	isLoading?: boolean
-	tags?: Tag[]
 } & ReviewType &
 	ComponentPropsWithoutRef<'div'>
 
+const ALL_SIGNS_REGEXP = /[s.,%():;!?"'«»!@#$%^&*-_=+[\]{}<>`~|/]/g
 const PUNCTUATION_REGEXP = /[\s.,%]/g
 
 const selectTagsInText = (text: string, tags: Tag[]) => {
 	const textArray = text.split(' ')
 
 	return textArray.map((spitedText, index) => {
-		const formattedWord = spitedText.toLowerCase().replace(PUNCTUATION_REGEXP, '')
-		const punctuation = spitedText.match(PUNCTUATION_REGEXP)
-		const tagsLemmas = tags.map((tag) => tag.lemma.toLowerCase())
+		const formattedWord = spitedText.toLowerCase().replaceAll(ALL_SIGNS_REGEXP, '')
+		const tagsWords = tags.map((tag) => [tag.lemma.toLowerCase(), tag.title.toLowerCase()]).flat()
 
-		if (tagsLemmas.includes(formattedWord)) {
+		if (tagsWords.includes(formattedWord)) {
 			return (
 				// eslint-disable-next-line react/no-array-index-key
 				<Fragment key={index}>
 					<span className="review__text__word--founded-in-tags">{spitedText.replace(PUNCTUATION_REGEXP, '')}</span>
-					<span>{punctuation?.join('')}</span>
+					{spitedText.match(PUNCTUATION_REGEXP)?.join()}{' '}
 				</Fragment>
 			)
 		}
@@ -50,16 +49,17 @@ export const Review: FC<ReviewProps> = ({
 	isLoading,
 	id,
 	text,
+	tagsInText = [],
+	tags = [],
 	brand,
 	model,
 	body,
 	score,
 	source,
 	sourceUrl,
-	tags = [],
 	...props
 }) => {
-	const selectedTagsInText = isLoading ? [] : selectTagsInText(text, tags)
+	const selectedTagsInText = isLoading ? [] : selectTagsInText(text, [...tags, ...tagsInText])
 	const [isExpandedReview, setIsExpandedReview] = useState(false)
 
 	const handleClickExpandReview = () => {

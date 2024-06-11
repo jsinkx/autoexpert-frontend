@@ -1,3 +1,5 @@
+import { Tag } from './tag.types'
+
 export type ReviewId = string
 
 export type ReviewKeyWord = {
@@ -21,6 +23,8 @@ export type ReviewAdjective = {
 export type Review = {
 	id: ReviewId
 	text: string
+	tagsInText?: Tag[]
+	tags?: Tag[]
 	brand: string
 	model: string
 	body: string

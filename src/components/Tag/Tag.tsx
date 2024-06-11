@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
-import { tagLoadingSizes } from '@shared/tag-loading-sizes'
+import { tagsSkeletonSizes } from '@shared/tags-skeleton-sizes'
 
 import { Skeleton } from '@mui/material'
 
@@ -14,7 +14,7 @@ type TagProps = {
 	ComponentPropsWithoutRef<'div'>
 
 export const Tag: FC<TagProps> = ({ isLoading, title, lemma, count, ...props }) => {
-	const { width, height } = tagLoadingSizes[Math.floor(Math.random() * tagLoadingSizes.length)]!
+	const { width, height } = tagsSkeletonSizes[Math.floor(Math.random() * tagsSkeletonSizes.length)]!
 
 	return isLoading ? (
 		<StyledTag $isLoading title="Загрузка" {...props}>

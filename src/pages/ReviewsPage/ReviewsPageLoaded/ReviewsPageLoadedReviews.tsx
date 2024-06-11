@@ -28,7 +28,7 @@ const LOADING_REVIEWS = Array.from({ length: 3 }, () => ({
 export const ReviewsPageLoadedReviews = memo(() => {
 	const dispatch = useDispatch()
 
-	const { status, reviews: reviewsData, tags: tagsData, reviewsSorting } = useAppSelector(selectReviews)
+	const { status, reviews: reviewsData, reviewsSorting, tags } = useAppSelector(selectReviews)
 
 	const isLoading = status === Status.LOADING
 
@@ -65,19 +65,20 @@ export const ReviewsPageLoadedReviews = memo(() => {
 				{!reviews.length && !isLoading && (
 					<Alert severity="warning"> Не удалось подобрать по заданным параметрам </Alert>
 				)}
-				{reviews.map(({ id, text, brand, model, body, score, source, sourceUrl }, index) => (
+				{reviews.map(({ id, text, tagsInText = [], brand, model, body, score, source, sourceUrl }, index) => (
 					<Review
 						key={id || index}
 						id={id}
 						isLoading={isLoading}
 						text={text}
+						tagsInText={tagsInText}
+						tags={tags}
 						brand={brand}
 						model={model}
 						body={body}
 						score={score}
 						source={source}
 						sourceUrl={sourceUrl}
-						tags={tagsData}
 						className="reviews-loaded__block__reviews__review"
 					/>
 				))}

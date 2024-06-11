@@ -1,4 +1,3 @@
-import { memo } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { Status } from '@shared/status'
@@ -19,16 +18,17 @@ const LOADING_TAGS = Array.from({ length: 17 }, () => ({
 	title: '',
 	lemma: '',
 	count: 0,
+	isAdjective: true,
 })) as TagType[]
 
-export const ReviewsPageLoadedTags = memo(() => {
+export const ReviewsPageLoadedTags = () => {
 	const dispatch = useDispatch()
 
 	const { status, tags: tagsData, tagsSorting } = useAppSelector(selectReviews)
 
 	const isLoading = status === Status.LOADING
 
-	const tags = tagsData.length === 0 || isLoading ? LOADING_TAGS : tagsData
+	const tags = isLoading ? LOADING_TAGS : tagsData
 	const tagsSortingIsDesc = tagsSorting === 'desc'
 
 	const handleClickSetTagsSorting = (params: { isDesc: boolean }) => () => {
@@ -37,36 +37,42 @@ export const ReviewsPageLoadedTags = memo(() => {
 
 	return (
 		<section className="reviews-loaded__block">
-			<div className="reviews-loaded__block__title">
-				<h3 className="reviews-loaded__block__title__text">Слова</h3>
-				<Breadcrumbs aria-label="breadcrumb" className="reviews-loaded__block__title__breadcrumbs">
-					<span
-						onClick={handleClickSetTagsSorting({ isDesc: true })}
-						className={`reviews-loaded__block__title__breadcrumbs__breadcrumb ${tagsSortingIsDesc && 'active'}`}
-					>
-						популярные
-					</span>
-					<span
-						onClick={handleClickSetTagsSorting({ isDesc: false })}
-						className={`reviews-loaded__block__title__breadcrumbs__breadcrumb ${!tagsSortingIsDesc && 'active'}`}
-					>
-						непопулярные
-					</span>
-				</Breadcrumbs>
-			</div>
-			<div className="reviews-loaded__block__tags">
-				{tags.map(({ id, title, lemma, count }, index) => (
-					<Tag
-						key={id || index}
-						id={id}
-						isLoading={isLoading}
-						title={title}
-						lemma={lemma}
-						count={count}
-						className="reviews-loaded__block__tags__tag"
-					/>
-				))}
-			</div>
+			{(!!tags.length || isLoading) && (
+				<>
+					<div className="reviews-loaded__block__title">
+						<h3 className="reviews-loaded__block__title__text">Слова</h3>
+						<Breadcrumbs aria-label="breadcrumb" className="reviews-loaded__block__title__breadcrumbs">
+							<span
+								onClick={handleClickSetTagsSorting({ isDesc: true })}
+								className={`reviews-loaded__block__title__breadcrumbs__breadcrumb ${tagsSortingIsDesc && 'active'}`}
+							>
+								популярные
+							</span>
+							<span
+								onClick={handleClickSetTagsSorting({ isDesc: false })}
+								className={`reviews-loaded__block__title__breadcrumbs__breadcrumb ${!tagsSortingIsDesc && 'active'}`}
+							>
+								непопулярные
+							</span>
+						</Breadcrumbs>
+					</div>
+					<div className="reviews-loaded__block__tags">
+						{tags.map(({ id, title, lemma, count, isAdjective }, index) =>
+							isAdjective ? (
+								<Tag
+									key={id || index}
+									id={id}
+									isLoading={isLoading}
+									title={title}
+									lemma={lemma}
+									count={count}
+									className="reviews-loaded__block__tags__tag"
+								/>
+							) : null,
+						)}
+					</div>
+				</>
+			)}
 		</section>
 	)
-})
+}

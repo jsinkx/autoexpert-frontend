@@ -73,7 +73,14 @@ export const StyledReview = styled.article<StyledReviewProps>`
 		&__word--founded-in-tags {
 			padding-inline: 1px 3px;
 			border-radius: 4px;
-			background-color: ${Colors.ORANGE};
+			background-color: ${Colors.YELLOW};
+		}
+
+		.punctuation {
+			padding-inline: 0 !important;
+			border-radius: 0 !important;
+			background-color: inherit !important;
+			border: 1px solid blue;
 		}
 	}
 

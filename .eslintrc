@@ -46,7 +46,7 @@
 		"plugin:prettier/recommended",
 		"prettier"
 	],
-	"plugins": ["import", "react", "prettier"],
+	"plugins": ["import", "react", "eslint-plugin-react-compiler", "prettier"],
 	"root": true,
 	"rules": {
 		"prettier/prettier": [
@@ -90,7 +90,8 @@
 		"no-case-declarations": "off",
 		"no-restricted-globals": "off",
 		"no-control-regex": "off",
-		"react/no-deprecated": 0,
+		"react-compiler/react-compiler": 2,
+		"react/no-deprecated": "warn",
 		"react/no-unescaped-entities": "warn",
 		"react/no-string-refs": "warn",
 		"react/no-children-prop": 0,

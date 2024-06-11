@@ -6,23 +6,26 @@ import { Review } from '@entities/review.types'
 import { Tag } from '@entities/tag.types'
 
 export const toReviewsAndTagsArray = (data: GetReviewsResponse) => {
-	const reviews = [] as Review[]
+	const reviews: Review[] = []
 
 	const tagsObject: { [key: string]: Tag } = {}
 
 	Object.keys(data).forEach((reviewId) => {
 		const thisReview = data[reviewId]!
+		const tagsInText: Tag[] = []
 
 		thisReview.adjectives.forEach((adjective) => {
 			// Collect adjectives
+
 			const lemmaAdjective = adjective.adjective.lemma.toLowerCase()
 
-			const tagAdjective = {
+			const tagAdjective: Tag = {
 				id: `${adjective._id}_1`,
 				title: adjective.adjective.word,
 				lemma: lemmaAdjective,
 				count: 1,
-			} as Tag
+				isAdjective: true,
+			}
 
 			if (!tagsObject[lemmaAdjective]) {
 				tagsObject[lemmaAdjective] = tagAdjective
@@ -32,23 +35,28 @@ export const toReviewsAndTagsArray = (data: GetReviewsResponse) => {
 
 			const lemmaKeyword = adjective.key_word.lemma.toLowerCase()
 
-			const tagKeyword = {
+			const tagKeyword: Tag = {
 				id: `${adjective._id}_2`,
 				title: adjective.key_word.word,
 				lemma: lemmaKeyword,
 				count: 1,
-			} as Tag
+			}
 
 			if (!tagsObject[lemmaKeyword]) {
 				tagsObject[lemmaKeyword] = tagKeyword
 			} else tagsObject[lemmaKeyword].count++
+
+			tagsInText.push(...[tagAdjective, tagKeyword])
 		})
+
+		// Collect review
 
 		const reviewText = thisReview.text
 
-		const review = {
+		const review: Review = {
 			id: reviewId,
 			text: reviewText.text,
+			tagsInText,
 			brand: reviewText.mark,
 			model: reviewText.model,
 			body: reviewText.body_type,
@@ -57,7 +65,7 @@ export const toReviewsAndTagsArray = (data: GetReviewsResponse) => {
 				: 'NEUTRAL',
 			source: reviewText.source,
 			sourceUrl: reviewText.link,
-		} as Review
+		}
 
 		reviews.push(review)
 	})

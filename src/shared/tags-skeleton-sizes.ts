@@ -1,4 +1,4 @@
-export const tagLoadingSizes = [
+export const tagsSkeletonSizes = [
 	{
 		width: 123,
 		height: 22,

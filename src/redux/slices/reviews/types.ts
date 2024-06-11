@@ -2,6 +2,7 @@ import { Status } from '@shared/status'
 
 import { CarBody, CarBrand, CarModel } from '@entities/car.types'
 import { Review, ReviewAdjective, ReviewId, ReviewKeyWord } from '@entities/review.types'
+import { SiteSource } from '@entities/site-sources.types'
 import { Tag } from '@entities/tag.types'
 
 // API
@@ -44,6 +45,7 @@ export type FetchAdjectivesResult = {
 export type ReviewsSliceInitialState = {
 	status: Status
 	message: string
+	currentSiteSources: SiteSource[]
 	reviewsSorting: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' | ''
 	currentReviewsScores: string[]
 	_reviews: Review[]

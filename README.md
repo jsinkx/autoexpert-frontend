@@ -14,7 +14,7 @@ Car aggregation service with reviews
 
 - Vite
 - Typescript
-- React 18
+- React 19 RC
 - axios
 - react-router-dom
 - styled-components

@@ -3,9 +3,7 @@ import eslint from 'vite-plugin-eslint'
 import { ViteMinifyPlugin } from 'vite-plugin-minify'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-import reactRefresh from '@vitejs/plugin-react-swc'
-
-// vite config
+import react from '@vitejs/plugin-react'
 
 export default ({ mode }) => {
 	process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
@@ -17,7 +15,11 @@ export default ({ mode }) => {
 		plugins: [
 			tsconfigPaths(), // Load paths (aliases) from tsconfig
 			eslint(), // Linting
-			reactRefresh(), // HMR
+			react({
+				babel: {
+					plugins: [['babel-plugin-react-compiler']],
+				},
+			}), // HMR
 			ViteMinifyPlugin({}), // Minify
 			splitVendorChunkPlugin(), // Split vendor chunks
 		],

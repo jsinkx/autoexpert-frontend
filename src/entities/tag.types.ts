@@ -3,4 +3,5 @@ export type Tag = {
 	title: string
 	lemma: string
 	count: number
+	isAdjective?: boolean
 }

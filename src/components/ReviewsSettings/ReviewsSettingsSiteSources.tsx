@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { selectCarsState } from '@redux/slices/cars/selectors'
 import { fetchCarParameters, setCurrentSiteSources } from '@redux/slices/cars/slice'
+import { setCurrentSiteSources as setCurrentSiteSourcesInReviews } from '@redux/slices/reviews/slice'
 
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
@@ -40,11 +41,16 @@ export const ReviewsSettingsSiteSources = () => {
 		const newSiteSources = typeof value === 'string' ? value.split(',') : value
 
 		dispatch(setCurrentSiteSources(newSiteSources))
+		dispatch(setCurrentSiteSourcesInReviews(newSiteSources))
 	}
 
 	const refetchCarParameters = () => {
 		asyncDispatch(fetchCarParameters())
 	}
+
+	useEffect(() => {
+		dispatch(setCurrentSiteSourcesInReviews(siteSources))
+	}, [dispatch, siteSources])
 
 	if (!siteSources.length)
 		return (

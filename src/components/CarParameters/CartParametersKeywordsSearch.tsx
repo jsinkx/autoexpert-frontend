@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, useCallback, useEffect, useRef } from 'react'
+import { FC, MouseEventHandler, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
 import debounce from 'lodash.debounce'
@@ -14,7 +14,7 @@ import { FormControl, IconButton, InputAdornment, OutlinedInput } from '@mui/mat
 
 type CartParametersKeywordsSearchProps = {}
 
-const SEARCH_DEBOUNCE_DELAY_MS = 1.5 * 1000
+const SEARCH_DEBOUNCE_DELAY_MS = 0.8 * 1000
 
 export const CartParametersKeywordsSearch: FC<CartParametersKeywordsSearchProps> = () => {
 	const dispatch = useDispatch()
@@ -29,8 +29,8 @@ export const CartParametersKeywordsSearch: FC<CartParametersKeywordsSearchProps>
 	const getCarSynonyms = (keyword: string) => {
 		keyword !== '' ? asyncDispatch(fetchCarSynonyms(keyword)) : dispatch(setSynonyms([]))
 	}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const getCarSynonymsDebounced = useCallback(debounce(getCarSynonyms, SEARCH_DEBOUNCE_DELAY_MS), [])
+
+	const getCarSynonymsDebounced = debounce(getCarSynonyms, SEARCH_DEBOUNCE_DELAY_MS)
 
 	const handleChangeSearchByKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
 		dispatch(setCurrentKeyword(event.target.value))

@@ -174,11 +174,7 @@ export const StyledReviewsPage = styled.div`
 				}
 
 				&__block {
-					margin-top: 20px;
-
-					&:first-child {
-						margin-top: 0;
-					}
+					margin-bottom: 20px;
 
 					&__title {
 						display: flex;
