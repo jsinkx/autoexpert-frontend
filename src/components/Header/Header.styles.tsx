@@ -21,17 +21,24 @@ export const StyledHeader = styled.header`
 	background-color: ${Colors.BLACK};
 	padding-block: 5px;
 
-	.header__logo--text {
+	.header__nav {
 		display: flex;
+		justify-content: center;
 		align-items: center;
-		height: 40px;
-		margin: 0;
-		font-size: 1.9em;
-		user-select: none;
 
-		&__logo {
-			width: 40px;
+		&__logo--text {
+			display: flex;
+			align-items: center;
+			height: 40px;
+			margin: 0;
 			margin-right: 10px;
+			font-size: 1.9em;
+			user-select: none;
+
+			&__logo {
+				width: 40px;
+				margin-right: 10px;
+			}
 		}
 	}
 `

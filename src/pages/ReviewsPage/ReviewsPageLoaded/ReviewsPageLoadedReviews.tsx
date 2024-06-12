@@ -36,7 +36,13 @@ export const ReviewsPageLoadedReviews: FC<ReviewsPageLoadedReviewsProps> = ({
 }) => {
 	const dispatch = useDispatch()
 
-	const { status, reviews: reviewsData, reviewsSorting, tags } = useAppSelector(selectReviews)
+	const {
+		status,
+		reviews: reviewsData,
+		reviewsSorting,
+		countReviewsByScore,
+		tags,
+	} = useAppSelector(selectReviews)
 
 	const isLoading = status === Status.LOADING
 
@@ -63,7 +69,7 @@ export const ReviewsPageLoadedReviews: FC<ReviewsPageLoadedReviewsProps> = ({
 								className={`reviews-loaded__block__parameters__breadcrumbs__breadcrumb ${reviewsSorting === optionKey && 'active'}`}
 								key={optionKey}
 							>
-								{optionLabel}
+								{optionLabel} ({countReviewsByScore[optionKey as keyof typeof countReviewsByScore]})
 							</span>
 						)
 					})}

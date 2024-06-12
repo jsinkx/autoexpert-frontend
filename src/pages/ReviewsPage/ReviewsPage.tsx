@@ -24,10 +24,10 @@ import { ReviewsPageLoaded } from './ReviewsPageLoaded/ReviewsPageLoaded'
 export const ReviewsPage = () => {
 	const dispatch = useAppDispatch()
 
-	const { currentBrand, currentModel, statusCars } = useAppSelector(selectCarsState)
+	const { currentBrand, statusCars } = useAppSelector(selectCarsState)
 	const { status: statusReviews } = useAppSelector(selectReviews)
 
-	const carName = `${currentBrand} ${currentModel}`
+	const carName = currentBrand.join(', ')
 
 	const isCarsLoading = statusCars === Status.LOADING
 	const isCarsError = statusCars === Status.ERROR

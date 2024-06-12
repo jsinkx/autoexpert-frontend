@@ -41,9 +41,9 @@ export type CarsSliceInitialState = {
 
 	// Selected by user
 	currentKeyword: string
-	currentBrand: CarBrand | null
-	currentModel: CarModel | null
-	currentBody: CarBrand | null
+	currentBrand: CarBrand[]
+	currentModel: CarModel[]
+	currentBody: CarBrand[]
 	currentSiteSources: SiteSource[]
 	currentSynonyms: string[]
 }

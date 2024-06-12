@@ -6,6 +6,7 @@ import { axiosInstance } from '@shared/axios'
 import { REVIEWS_SORTING_OPTIONS } from '@shared/reviews-sorting-options'
 import { Status } from '@shared/status'
 
+import { countReviewsByScore } from '@utils/count-reviews-by-score'
 import { filterReviewsScores } from '@utils/filter-reviews-scores'
 import { filterReviewsSitesSources } from '@utils/filter-reviews-sites-sources'
 // import { filterReviewsSitesSources } from '@utils/filter-reviews-sites-sources'
@@ -54,6 +55,12 @@ const initialState: ReviewsSliceInitialState = {
 	currentReviewsScores: Object.keys(REVIEWS_SORTING_OPTIONS)!.slice(0, -1), // Remove last value with '', means all
 	_reviews: [] as Review[], // Clean reviews, to return for this array after filters
 	reviews: [] as Review[],
+	countReviewsByScore: {
+		POSITIVE: 0,
+		NEGATIVE: 0,
+		NEUTRAL: 0,
+		'': 0,
+	},
 	tagsSorting: 'desc',
 	tags: [] as Tag[],
 }
@@ -107,6 +114,12 @@ export const reviewsSlice = createSlice({
 
 			state.reviews = reviews
 			state._reviews = reviews
+			state.countReviewsByScore = {
+				POSITIVE: countReviewsByScore(reviews, 'POSITIVE'),
+				NEGATIVE: countReviewsByScore(reviews, 'NEGATIVE'),
+				NEUTRAL: countReviewsByScore(reviews, 'NEUTRAL'),
+				'': reviews.length,
+			}
 			state.tags = sortTags(action.payload.tags, state.tagsSorting === 'desc')
 			state.message = ''
 			state.status = Status.SUCCESS

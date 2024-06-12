@@ -50,9 +50,9 @@ export const CarParameters: FC<CarParametersProps> = ({
 	const handleClickGetReviews = () => {
 		const params = {
 			words: currentSynonyms,
-			marks: [currentBrand!],
-			models: [currentModel!],
-			body_types: [currentBody!],
+			marks: currentBrand,
+			models: currentModel,
+			body_types: currentBody,
 		}
 
 		dispatch(fetchReviews(params))

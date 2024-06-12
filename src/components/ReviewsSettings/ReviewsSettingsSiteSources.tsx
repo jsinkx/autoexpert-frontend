@@ -62,7 +62,7 @@ export const ReviewsSettingsSiteSources = () => {
 	return (
 		<div className="car-parameters">
 			<p className="car-parameters__label"> Выбор источников </p>
-			<FormControl sx={{ width: '300px' }} size="small">
+			<FormControl size="small" sx={{ width: '300px' }}>
 				{currentSiteSources.length === 0 && !isFocused && (
 					<InputLabel>{siteSources.length} источника(-ов)</InputLabel>
 				)}

@@ -36,22 +36,31 @@ export const StyledReviewsPage = styled.div`
 			position: sticky;
 			top: 80px;
 
-			@media (max-width: 920px) or (max-height: 860px) {
-				position: relative;
-				top: 0;
-			}
-
 			&__article-car-parameters {
-				/* display: inline-flex;
+				display: inline-block;
 				justify-content: center;
 				flex-direction: column;
-				margin-bottom: 40px; */
+				margin-bottom: 20px;
 			}
 
 			&__article-reviews-settings {
-				/* display: inline-flex;
-				justify-content: center;
-				flex-direction: column; */
+			}
+
+			@media (max-width: 920px) or (max-height: 860px) {
+				position: relative;
+				top: 0;
+
+				&__article-car-parameters,
+				&__article-reviews-settings {
+					margin-bottom: 30px;
+					display: block;
+					flex-direction: column;
+					justify-content: center;
+
+					button {
+						width: 100%; // FIXME: bad, need to add className for MUI Button
+					}
+				}
 			}
 		}
 
@@ -179,7 +188,18 @@ export const StyledReviewsPage = styled.div`
 				}
 
 				&__pagination {
+					display: inline-flex;
+					justify-content: center;
+					width: 90%;
+					margin-inline: auto; // FIXME: bad, need to change for centering inside block of content
 					margin-bottom: 20px;
+
+					@media (max-width: 920px) {
+						width: 100%;
+						margin-inline: 0;
+						display: flex;
+						justify-content: center;
+					}
 				}
 
 				&__block {

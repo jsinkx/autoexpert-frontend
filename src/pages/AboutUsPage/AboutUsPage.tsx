@@ -1,5 +1,6 @@
 import { MainLayout } from '@layouts/MainLayout/MainLayout'
 
+import KOSTYA_IMAGE__SECOND from '@assets/images/kostya-2.webp'
 import KOSTYA_IMAGE from '@assets/images/kostya.webp'
 
 import { StyledAboutUsPage } from './AboutUsPage.styles'
@@ -8,12 +9,14 @@ export const AboutUsPage = () => {
 	return (
 		<MainLayout>
 			<StyledAboutUsPage>
-				<h2 className="page__title">О нас</h2>
 				<div className="page__content">
-					<img src={KOSTYA_IMAGE} alt="Костя" className="content-row__section__image" />
+					<div className="content__row">
+						<img src={KOSTYA_IMAGE} alt="Костя" className="content__row__image" />
+						<img src={KOSTYA_IMAGE__SECOND} alt="Костя" className="content__row__image" />
+					</div>
 					<p>
-						<span className="span--color-blue"> Константин Леманский </span> - автор идеи, разработчик,
-						предприниматель
+						<span className="span--color-blue span--underline"> Константин Леманский </span> - автор идеи,
+						разработчик, предприниматель
 					</p>
 					<p>
 						<span className="span--color-blue"> Однажды </span> я задумался о покупке нового{' '}

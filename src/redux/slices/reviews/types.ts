@@ -50,6 +50,12 @@ export type ReviewsSliceInitialState = {
 	currentReviewsScores: string[]
 	_reviews: Review[]
 	reviews: Review[]
+	countReviewsByScore: {
+		POSITIVE: number
+		NEGATIVE: number
+		NEUTRAL: number
+		'': number
+	}
 	tagsSorting: 'asc' | 'desc'
 	tags: Tag[]
 }

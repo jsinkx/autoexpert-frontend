@@ -70,9 +70,9 @@ const initialState: CarsSliceInitialState = {
 
 	// Selected by user
 	currentKeyword: '',
-	currentBrand: null,
-	currentModel: null,
-	currentBody: null,
+	currentBrand: [],
+	currentModel: [],
+	currentBody: [],
 	currentSiteSources: [] as SiteSource[],
 	currentSynonyms: [] as string[],
 }
@@ -87,14 +87,25 @@ export const carsSlice = createSlice({
 			state.synonyms = []
 			state.currentSynonyms = []
 		},
-		setCurrentBrand(state, action: PayloadAction<CarBrand | null>) {
+		setCurrentBrand(state, action: PayloadAction<CarBrand[]>) {
 			state.currentBrand = action.payload
 		},
-		setCurrentModel(state, action: PayloadAction<CarModel | null>) {
+
+		setCurrentModel(state, action: PayloadAction<CarModel[]>) {
 			state.currentModel = action.payload
 		},
-		setCurrentBody(state, action: PayloadAction<CarBody | null>) {
+
+		setCurrentBody(state, action: PayloadAction<CarBody[]>) {
 			state.currentBody = action.payload
+		},
+		resetCurrentBrand(state) {
+			state.currentBrand = []
+		},
+		resetCurrentModel(state) {
+			state.currentModel = []
+		},
+		resetCurrentBody(state) {
+			state.currentBody = []
 		},
 		setCurrentSiteSources(state, action: PayloadAction<SiteSource[]>) {
 			state.currentSiteSources = action.payload
@@ -160,6 +171,9 @@ export const {
 	setCurrentBrand,
 	setCurrentModel,
 	setCurrentBody,
+	resetCurrentBrand,
+	resetCurrentModel,
+	resetCurrentBody,
 	setCurrentSiteSources,
 	resetCarsState,
 	setCurrentSynonyms,
