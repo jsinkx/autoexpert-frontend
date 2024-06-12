@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Colors } from '@shared/colors'
+import { API_URL } from '@shared/constants'
 import { paths } from '@shared/paths'
 
 import { CustomLink } from '@components/CustomLink/CustomLink'
@@ -16,6 +17,11 @@ const MENU_ITEMS = [
 	{
 		name: 'О нас',
 		path: paths.aboutUs,
+	},
+	{
+		name: 'API',
+		path: `${API_URL}/docs`,
+		isNextTab: true,
 	},
 ]
 
@@ -53,7 +59,7 @@ export const HeaderMenu = () => {
 					'aria-labelledby': 'basic-button',
 				}}
 			>
-				{MENU_ITEMS.map(({ name, path }) => (
+				{MENU_ITEMS.map(({ name, path, isNextTab }) => (
 					<MenuItem
 						key={name}
 						onClick={handleClose}
@@ -63,6 +69,7 @@ export const HeaderMenu = () => {
 					>
 						<CustomLink
 							to={path}
+							target={isNextTab ? '_blank' : '_self'}
 							style={{
 								width: '100%',
 								padding: '10px',

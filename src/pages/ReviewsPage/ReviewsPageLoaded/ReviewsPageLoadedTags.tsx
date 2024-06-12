@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Status } from '@shared/status'
 
 import { selectReviews } from '@redux/slices/reviews/selectors'
-import { setTagsSorting } from '@redux/slices/reviews/slice'
+import { setSelectedTags, setTagsSorting, updateReviews } from '@redux/slices/reviews/slice'
 
 import useAppSelector from '@hooks/useAppSelector'
 
@@ -24,12 +24,18 @@ const LOADING_TAGS = Array.from({ length: 17 }, () => ({
 export const ReviewsPageLoadedTags = () => {
 	const dispatch = useDispatch()
 
-	const { status, tags: tagsData, tagsSorting } = useAppSelector(selectReviews)
+	const { status, tags: tagsData, tagsSorting, selectedTags } = useAppSelector(selectReviews)
 
 	const isLoading = status === Status.LOADING
 
 	const tags = isLoading ? LOADING_TAGS : tagsData
 	const tagsSortingIsDesc = tagsSorting === 'desc'
+
+	const handleClickSelectTag = (tag: TagType) => () => {
+		dispatch(setSelectedTags(tag))
+
+		dispatch(updateReviews())
+	}
 
 	const handleClickSetTagsSorting = (params: { isDesc: boolean }) => () => {
 		dispatch(setTagsSorting(params))
@@ -57,8 +63,12 @@ export const ReviewsPageLoadedTags = () => {
 						</Breadcrumbs>
 					</div>
 					<div className="reviews-loaded__block__tags">
-						{tags.map(({ id, title, lemma, count, isAdjective }, index) =>
-							isAdjective ? (
+						{tags.map((tag, index) => {
+							const { id, title, lemma, count, isAdjective } = tag
+							const isTagSelected =
+								selectedTags.length === 0 || selectedTags.map((selectedTag) => selectedTag.id).includes(tag.id)
+
+							return isAdjective ? (
 								<Tag
 									key={id || index}
 									id={id}
@@ -66,10 +76,11 @@ export const ReviewsPageLoadedTags = () => {
 									title={title}
 									lemma={lemma}
 									count={count}
-									className="reviews-loaded__block__tags__tag"
+									className={`reviews-loaded__block__tags__tag ${isTagSelected && 'reviews-loaded__block__tags__tag--active'}`}
+									onClick={handleClickSelectTag(tag)}
 								/>
-							) : null,
-						)}
+							) : null
+						})}
 					</div>
 				</>
 			)}

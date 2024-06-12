@@ -7,15 +7,13 @@ import { REVIEWS_SORTING_OPTIONS } from '@shared/reviews-sorting-options'
 import { Status } from '@shared/status'
 
 import { countReviewsByScore } from '@utils/count-reviews-by-score'
+import { filterReviewsByTags } from '@utils/filter-reviews-by-tags'
 import { filterReviewsScores } from '@utils/filter-reviews-scores'
 import { filterReviewsSitesSources } from '@utils/filter-reviews-sites-sources'
-// import { filterReviewsSitesSources } from '@utils/filter-reviews-sites-sources'
 import { sortReviews } from '@utils/sort-reviews'
 import { sortTags } from '@utils/sort-tags'
 import { toReviewsAndTagsArray } from '@utils/to-reviews-and-tags-array'
 
-// eslint-disable-next-line
-// import { store } from '@redux/store'
 import { Review } from '@entities/review.types'
 import { SiteSource } from '@entities/site-sources.types'
 import { Tag } from '@entities/tag.types'
@@ -50,7 +48,7 @@ export const fetchReviews = createAsyncThunk<FetchAdjectivesResult, FetchAdjecti
 const initialState: ReviewsSliceInitialState = {
 	status: Status.INIT,
 	message: '',
-	currentSiteSources: [],
+	currentSiteSources: ['auto.ru', 'avito', 'drom'],
 	reviewsSorting: '',
 	currentReviewsScores: Object.keys(REVIEWS_SORTING_OPTIONS)!.slice(0, -1), // Remove last value with '', means all
 	_reviews: [] as Review[], // Clean reviews, to return for this array after filters
@@ -63,6 +61,7 @@ const initialState: ReviewsSliceInitialState = {
 	},
 	tagsSorting: 'desc',
 	tags: [] as Tag[],
+	selectedTags: [],
 }
 
 export const reviewsSlice = createSlice({
@@ -83,8 +82,30 @@ export const reviewsSlice = createSlice({
 			state.tags = sortTags(state.tags, action.payload.isDesc)
 			state.tagsSorting = action.payload.isDesc ? 'desc' : 'asc'
 		},
+		setSelectedTags: (state, action: PayloadAction<Tag>) => {
+			const selectedTag = action.payload
+			const selectedTags = state.selectedTags
+			const selectedTagsIds = selectedTags.map((tagItem) => tagItem.id)
+
+			let newSelectedTags = []
+
+			if (selectedTagsIds.includes(selectedTag.id))
+				newSelectedTags = selectedTags.filter((selectedTagItem) => selectedTagItem.id !== selectedTag.id)
+			else newSelectedTags = [...selectedTags, selectedTag]
+
+			state.selectedTags = newSelectedTags
+		},
+		applySelectedTags: (state) => {
+			const selectedTags = state.selectedTags
+
+			const filteredReviewsTags = !selectedTags.length
+				? state.reviews
+				: filterReviewsByTags(state.reviews, selectedTags)
+
+			state.reviews = filteredReviewsTags
+		},
 		applyReviewsSettings: (state) => {
-			const filteredReviewsScores = filterReviewsScores(state._reviews, state.currentReviewsScores)
+			const filteredReviewsScores = filterReviewsScores(state.reviews, state.currentReviewsScores)
 			const filteredReviewsSiteSources = filterReviewsSitesSources(
 				filteredReviewsScores,
 				state.currentSiteSources,
@@ -92,22 +113,30 @@ export const reviewsSlice = createSlice({
 
 			state.reviews = filteredReviewsSiteSources
 		},
+		updateReviews: (state) => {
+			state.reviews = state._reviews
+
+			reviewsSlice.caseReducers.applySelectedTags(state)
+			reviewsSlice.caseReducers.applyReviewsSettings(state)
+		},
 	},
 	extraReducers: (builder) => {
 		// Fetch reviews
 		builder.addCase(fetchReviews.pending, (state) => {
 			state.status = Status.LOADING
 			state.message = ''
-			state._reviews = [] as Review[]
-			state.reviews = [] as Review[]
-			state.tags = [] as Tag[]
+			state._reviews = []
+			state.reviews = []
+			state.tags = []
 		})
 		builder.addCase(fetchReviews.rejected, (state, action) => {
 			state.status = Status.ERROR
 			state.message = action.error.message as string
-			state._reviews = [] as Review[]
-			state.reviews = [] as Review[]
-			state.tags = [] as Tag[]
+			state._reviews = []
+			state.reviews = []
+			state.tags = []
+			state.selectedTags = []
+			state.selectedTags = []
 		})
 		builder.addCase(fetchReviews.fulfilled, (state, action) => {
 			const reviews = sortReviews(action.payload.reviews, state.reviewsSorting)
@@ -121,6 +150,7 @@ export const reviewsSlice = createSlice({
 				'': reviews.length,
 			}
 			state.tags = sortTags(action.payload.tags, state.tagsSorting === 'desc')
+			state.selectedTags = []
 			state.message = ''
 			state.status = Status.SUCCESS
 		})
@@ -133,5 +163,8 @@ export const {
 	setReviewsScores,
 	setReviewsSorting,
 	setTagsSorting,
+	setSelectedTags,
+	applySelectedTags,
 	applyReviewsSettings,
+	updateReviews,
 } = reviewsSlice.actions

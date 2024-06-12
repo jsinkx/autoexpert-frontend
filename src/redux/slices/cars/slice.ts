@@ -22,8 +22,8 @@ export const fetchCarParameters = createAsyncThunk<FetchCarParametersResult>(
 	'cars/fetchCarParameters',
 	async (_, { rejectWithValue }) => {
 		try {
-			const { data: dataCars } = await axiosInstance<GetCarsResponse>('/search/get_cars')
-			const { data: dataSources } = await axiosInstance<GetSiteSourcesResponse>('/search/get_sources')
+			const { data: dataCars } = await axiosInstance<GetCarsResponse>('/vars/get_cars')
+			const { data: dataSources } = await axiosInstance<GetSiteSourcesResponse>('/vars/get_sources')
 
 			const cars = toCarsArray(dataCars)
 

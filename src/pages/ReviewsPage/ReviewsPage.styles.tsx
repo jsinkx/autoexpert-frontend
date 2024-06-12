@@ -269,6 +269,18 @@ export const StyledReviewsPage = styled.div`
 						&__tag {
 							margin-right: 20px;
 							margin-bottom: 15px;
+							cursor: pointer;
+							transition: all 0.2s ease-in-out;
+							opacity: 0.37;
+
+							&--active {
+								opacity: 1;
+								border: none;
+							}
+
+							&:hover {
+								opacity: 0.75;
+							}
 						}
 					}
 

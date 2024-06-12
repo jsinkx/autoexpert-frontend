@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, FC, Fragment, useState } from 'react'
 
+import { ALL_SIGNS_REGEXP, PUNCTUATION_REGEXP } from '@shared/regexps'
+
 import { CustomLink } from '@components/CustomLink/CustomLink'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
@@ -17,9 +19,6 @@ type ReviewProps = {
 	isLoading?: boolean
 } & ReviewType &
 	ComponentPropsWithoutRef<'div'>
-
-const ALL_SIGNS_REGEXP = /[s.,%():;!?"'«»!@#$%^&*-_=+[\]{}<>`~|/]/g
-const PUNCTUATION_REGEXP = /[\s.,!?...)%]/g
 
 const selectTagsInText = (text: string, tags: Tag[]) => {
 	const textArray = text.split(' ')
@@ -77,11 +76,12 @@ export const Review: FC<ReviewProps> = ({
 				<h5 className="review__title--header">
 					{brand} {model} {body}
 				</h5>
-
-				<CustomLink to={sourceUrl} target="_blank" className="review__title--source-url">
-					Читать полностью
-					<ReviewSiteSourceIcon source={source} />
-				</CustomLink>
+				{sourceUrl !== '' && (
+					<CustomLink to={sourceUrl} target="_blank" className="review__title--source-url">
+						Читать полностью
+						<ReviewSiteSourceIcon source={source} />
+					</CustomLink>
+				)}
 			</div>
 			<p className={`review__text ${isExpandedReview && 'review__text--expanded'}`}> {selectedTagsInText} </p>
 			{text.length > MAX_REVIEW_TEXT_LENGTH && (

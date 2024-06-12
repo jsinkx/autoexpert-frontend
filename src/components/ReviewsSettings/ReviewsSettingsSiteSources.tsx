@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { selectCarsState } from '@redux/slices/cars/selectors'
 import { fetchCarParameters, setCurrentSiteSources } from '@redux/slices/cars/slice'
+import { selectReviews } from '@redux/slices/reviews/selectors'
 import { setCurrentSiteSources as setCurrentSiteSourcesInReviews } from '@redux/slices/reviews/slice'
 
 import useAppDispatch from '@hooks/useAppDispatch'
@@ -26,6 +27,7 @@ export const ReviewsSettingsSiteSources = () => {
 	const asyncDispatch = useAppDispatch()
 
 	const { currentSiteSources, siteSources } = useAppSelector(selectCarsState)
+	const { currentSiteSources: currentSiteSourcesInReviews } = useAppSelector(selectReviews)
 
 	const [isFocused, setIsFocused] = useState(false)
 
@@ -51,6 +53,10 @@ export const ReviewsSettingsSiteSources = () => {
 	useEffect(() => {
 		dispatch(setCurrentSiteSourcesInReviews(siteSources))
 	}, [dispatch, siteSources])
+
+	useEffect(() => {
+		dispatch(setCurrentSiteSources(currentSiteSourcesInReviews))
+	}, [dispatch, currentSiteSourcesInReviews])
 
 	if (!siteSources.length)
 		return (

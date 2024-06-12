@@ -29,7 +29,7 @@ export const toReviewsAndTagsArray = (data: GetReviewsResponse) => {
 
 			if (!tagsObject[lemmaAdjective]) {
 				tagsObject[lemmaAdjective] = tagAdjective
-			} else tagsObject[lemmaAdjective].count++
+			} else ++tagsObject[lemmaAdjective].count
 
 			// Collect keywords
 
@@ -44,7 +44,7 @@ export const toReviewsAndTagsArray = (data: GetReviewsResponse) => {
 
 			if (!tagsObject[lemmaKeyword]) {
 				tagsObject[lemmaKeyword] = tagKeyword
-			} else tagsObject[lemmaKeyword].count++
+			} else ++tagsObject[lemmaKeyword].count
 
 			tagsInText.push(...[tagAdjective, tagKeyword])
 		})

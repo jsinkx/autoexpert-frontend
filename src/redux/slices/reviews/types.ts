@@ -58,4 +58,5 @@ export type ReviewsSliceInitialState = {
 	}
 	tagsSorting: 'asc' | 'desc'
 	tags: Tag[]
+	selectedTags: Tag[]
 }

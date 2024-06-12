@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { applyReviewsSettings } from '@redux/slices/reviews/slice'
+import { updateReviews } from '@redux/slices/reviews/slice'
 
 import { Button } from '@mui/material'
 
@@ -15,7 +15,7 @@ const ReviewsSettings: FC<ReviewsSettingsProps> = ({ ...props }) => {
 	const dispatch = useDispatch()
 
 	const handleClickApplySettings = () => {
-		dispatch(applyReviewsSettings())
+		dispatch(updateReviews())
 	}
 
 	return (

@@ -15,7 +15,7 @@ import { ReviewsPageLoadedTags } from './ReviewsPageLoadedTags'
 const DISPLAY_REVIEWS_COUNT_ON_PAGE = 10
 
 export const ReviewsPageLoaded = () => {
-	const { status, reviews, _reviews } = useAppSelector(selectReviews)
+	const { status, reviews } = useAppSelector(selectReviews)
 
 	const [currentPage, setCurrentPage] = useState(1)
 
@@ -29,7 +29,7 @@ export const ReviewsPageLoaded = () => {
 
 	useEffect(() => {
 		setCurrentPage(1)
-	}, [_reviews])
+	}, [reviews])
 
 	if (isError) return <ReviewsPageError />
 
