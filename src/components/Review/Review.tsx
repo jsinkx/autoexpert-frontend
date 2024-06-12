@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC, Fragment, useState } from 'react'
+import { ComponentPropsWithoutRef, FC, Fragment, useEffect, useRef, useState } from 'react'
 
 import { ALL_SIGNS_REGEXP, PUNCTUATION_REGEXP } from '@shared/regexps'
 
@@ -42,8 +42,6 @@ const selectTagsInText = (text: string, tags: Tag[]) => {
 	})
 }
 
-const MAX_REVIEW_TEXT_LENGTH = 430
-
 export const Review: FC<ReviewProps> = ({
 	isLoading,
 	id,
@@ -58,12 +56,25 @@ export const Review: FC<ReviewProps> = ({
 	sourceUrl,
 	...props
 }) => {
+	const reviewElementRef = useRef<HTMLParagraphElement>(null)
+
 	const selectedTagsInText = isLoading ? [] : selectTagsInText(text, [...tags, ...tagsInText])
+
+	const [isOverflowed, setIsOverflowed] = useState(false)
 	const [isExpandedReview, setIsExpandedReview] = useState(false)
 
 	const handleClickExpandReview = () => {
 		setIsExpandedReview(!isExpandedReview)
 	}
+
+	useEffect(() => {
+		const element = reviewElementRef.current // document.querySelector('.')
+
+		if (element) {
+			console.log(element?.scrollHeight!, element?.clientHeight!)
+			setIsOverflowed(element?.scrollHeight! > element?.clientHeight!)
+		}
+	}, [])
 
 	return isLoading ? (
 		<StyledReview $isLoading $score={score} title="Загрузка" {...props}>
@@ -83,8 +94,10 @@ export const Review: FC<ReviewProps> = ({
 					</CustomLink>
 				)}
 			</div>
-			<p className={`review__text ${isExpandedReview && 'review__text--expanded'}`}> {selectedTagsInText} </p>
-			{text.length > MAX_REVIEW_TEXT_LENGTH && (
+			<p ref={reviewElementRef} className={`review__text ${isExpandedReview && 'review__text--expanded'}`}>
+				{selectedTagsInText}
+			</p>
+			{isOverflowed && (
 				<IconButton onClick={handleClickExpandReview} className="review__open-more" size="large">
 					{isExpandedReview ? (
 						<KeyboardArrowUpIcon fontSize="large" />

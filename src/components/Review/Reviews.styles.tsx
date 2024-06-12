@@ -75,13 +75,6 @@ export const StyledReview = styled.article<StyledReviewProps>`
 			border-radius: 4px;
 			background-color: ${Colors.YELLOW};
 		}
-
-		.punctuation {
-			padding-inline: 0 !important;
-			border-radius: 0 !important;
-			background-color: inherit !important;
-			border: 1px solid blue;
-		}
 	}
 
 	.review__open-more {
