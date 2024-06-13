@@ -15,10 +15,13 @@ Car aggregation service with reviews
 - Vite
 - Typescript
 - React 19 RC
+- Redux Toolkit
 - axios
-- react-router-dom
 - styled-components
 - MUI
+- lodash.debounce
+- d3.js
+- chart.js
 
 ## Config app
 
@@ -45,6 +48,10 @@ docker run --name autoexpert-frontend-app --restart=always -d -p 80:80 autoexper
 
 ### By package manage (don't recommended)
 
+### For development bun and pnpm available
+
+### Despite project has `bun.lockb`, I don't recommend use it for production (build app), stay on pnpm or other
+
 _Check installation part_
 
 ```sh
@@ -58,7 +65,7 @@ pn serve
 
 1. [`git`](https://git-scm.com/)
 2. [`Node.js`](https://nodejs.org/)
-3. [`pnpm`](https://pnpm.io/installation)
+3. [`pnpm`](https://pnpm.io/installation) or [`bun`](https://bun.sh/docs/installation)
 4. Install all dependencies `package.json`
 
 **Warning**: before use `pn` command, need to read alias in `.bashrc` or `alias.bat`, also instead `pn` can

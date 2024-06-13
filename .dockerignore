@@ -29,7 +29,10 @@ debug
 *.sw?
 
 # Other
-README.md
-alias.bat
 .husky
 .git
+.gitignore
+commitlint.config.ts
+.env.example
+alias.bat
+*.md
