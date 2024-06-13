@@ -18,6 +18,7 @@ Car aggregation service with reviews
 - axios
 - react-router-dom
 - styled-components
+- MUI
 
 ## Config app
 

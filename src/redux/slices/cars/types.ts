@@ -13,7 +13,7 @@ export type GetCarsResponse = {
 
 export type GetSiteSourcesResponse = SiteSource[]
 
-export type GetSynonymsResponse = string[]
+export type PostSynonymsResponse = string[]
 
 // Thunks
 

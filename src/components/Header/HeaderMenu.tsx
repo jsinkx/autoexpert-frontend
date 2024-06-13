@@ -15,6 +15,10 @@ const MENU_ITEMS = [
 		path: paths.reviews,
 	},
 	{
+		name: 'Облако слов отзывов',
+		path: paths.wordcloud,
+	},
+	{
 		name: 'О нас',
 		path: paths.aboutUs,
 	},

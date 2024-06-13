@@ -29,7 +29,7 @@ export const isValidGetReviewsParams = ({
 	else if (isLoading) message = 'Загрузка...'
 
 	return {
-		message: message || 'Получить отзывы',
+		message,
 		isValid: message === '',
 	}
 }

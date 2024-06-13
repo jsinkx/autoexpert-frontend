@@ -13,6 +13,19 @@ const { ReviewsPage } = lazily(
 	() => import(/* webpackChunkName: "ReviewsPage" */ '@pages/ReviewsPage/ReviewsPage'),
 )
 
+// Charts
+
+const { ChartsPage } = lazily(
+	() => import(/* webpackChunkName: "WordcloudPage" */ '@pages/ChartsPage/ChartsPage'),
+)
+
+const { ChartsPageContentWordcloud } = lazily(
+	() =>
+		import(
+			/* webpackChunkName: "WordcloudPage" */ '@pages/ChartsPage/ChatsPageContent/ChartsPageContentWordcloud'
+		),
+)
+
 const { AboutUsPage } = lazily(
 	() => import(/* webpackChunkName: "AboutUsPage" */ '@pages/AboutUsPage/AboutUsPage'),
 )
@@ -28,6 +41,14 @@ const routes = [
 			{
 				path: paths.reviews,
 				element: <ReviewsPage />,
+			},
+			{
+				path: paths.wordcloud,
+				element: (
+					<ChartsPage>
+						<ChartsPageContentWordcloud />
+					</ChartsPage>
+				),
 			},
 			{
 				path: paths.aboutUs,

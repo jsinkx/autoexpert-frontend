@@ -15,7 +15,7 @@ import {
 	FetchCarSynonymsResult,
 	GetCarsResponse,
 	GetSiteSourcesResponse,
-	GetSynonymsResponse,
+	PostSynonymsResponse,
 } from './types'
 
 export const fetchCarParameters = createAsyncThunk<FetchCarParametersResult>(
@@ -43,7 +43,7 @@ export const fetchCarSynonyms = createAsyncThunk<FetchCarSynonymsResult, FetchCa
 	'cars/fetchCarSynonyms',
 	async (keyword, { rejectWithValue }) => {
 		try {
-			const { data: dataSynonyms } = await axiosInstance.post<GetSynonymsResponse>(
+			const { data: dataSynonyms } = await axiosInstance.post<PostSynonymsResponse>(
 				`/search/synonims?word=${keyword}`,
 			)
 

@@ -8,14 +8,14 @@ import { Tag } from '@entities/tag.types'
 // API
 
 // Now in use only 1 word, 1 brand and 1 model
-export type GetReviewsRequest = {
+export type PostReviewsRequest = {
 	words: string[]
 	marks: CarBrand[]
 	models: CarModel[]
 	body_types: CarBody[]
 }
 
-export type GetReviewsResponse = {
+export type PostReviewsResponse = {
 	[key: ReviewId]: {
 		adjectives: {
 			key_word: ReviewKeyWord
@@ -35,7 +35,7 @@ export type GetReviewsResponse = {
 }
 
 // Thunks
-export type FetchAdjectivesParameters = GetReviewsRequest
+export type FetchAdjectivesParams = PostReviewsRequest
 export type FetchAdjectivesResult = {
 	reviews: Review[]
 	tags: Tag[]

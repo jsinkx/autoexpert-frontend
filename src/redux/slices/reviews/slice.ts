@@ -19,21 +19,21 @@ import { SiteSource } from '@entities/site-sources.types'
 import { Tag } from '@entities/tag.types'
 
 import {
-	FetchAdjectivesParameters,
+	FetchAdjectivesParams,
 	FetchAdjectivesResult,
-	GetReviewsRequest,
-	GetReviewsResponse,
+	PostReviewsRequest,
+	PostReviewsResponse,
 	ReviewsSliceInitialState,
 } from './types'
 
-export const fetchReviews = createAsyncThunk<FetchAdjectivesResult, FetchAdjectivesParameters>(
+export const fetchReviews = createAsyncThunk<FetchAdjectivesResult, FetchAdjectivesParams>(
 	'reviews/fetchReviews',
 	async (params, { rejectWithValue }) => {
 		try {
 			const { data } = await axiosInstance.post<
-				GetReviewsResponse,
-				AxiosResponse<GetReviewsResponse>,
-				GetReviewsRequest
+				PostReviewsResponse,
+				AxiosResponse<PostReviewsResponse>,
+				PostReviewsRequest
 			>('/search/find_adj', params)
 
 			return toReviewsAndTagsArray(data)

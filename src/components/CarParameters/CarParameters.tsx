@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC } from 'react'
+import { ComponentPropsWithoutRef, FC, MouseEventHandler } from 'react'
 
 import { Status } from '@shared/status'
 
@@ -6,9 +6,7 @@ import { isValidGetReviewsParams } from '@utils/is-valid-get-reviews-params'
 
 import { selectCarsState } from '@redux/slices/cars/selectors'
 import { selectReviews } from '@redux/slices/reviews/selectors'
-import { fetchReviews } from '@redux/slices/reviews/slice'
 
-import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
 import { Button } from '@mui/material'
@@ -23,6 +21,9 @@ type CarParametersProps = {
 	isDisplayBrandParams?: boolean
 	isDisplaySiteSources?: boolean
 	isDisplaySynonyms?: boolean
+	isDisplayButtonApply?: boolean
+	buttonText?: string
+	callback: () => void
 } & ComponentPropsWithoutRef<'article'>
 
 export const CarParameters: FC<CarParametersProps> = ({
@@ -30,10 +31,12 @@ export const CarParameters: FC<CarParametersProps> = ({
 	isDisplayBrandParams,
 	isDisplaySiteSources,
 	isDisplaySynonyms,
+	isDisplayButtonApply = true,
+	buttonText = 'Получить',
+	callback,
+	children,
 	...props
 }) => {
-	const dispatch = useAppDispatch()
-
 	const { currentKeyword, currentBrand, currentModel, currentBody, currentSynonyms } =
 		useAppSelector(selectCarsState)
 
@@ -47,15 +50,8 @@ export const CarParameters: FC<CarParametersProps> = ({
 		isLoading: statusReviews === Status.LOADING,
 	})
 
-	const handleClickGetReviews = () => {
-		const params = {
-			words: currentSynonyms,
-			marks: currentBrand,
-			models: currentModel,
-			body_types: currentBody,
-		}
-
-		dispatch(fetchReviews(params))
+	const handleClickGetReviews: MouseEventHandler<HTMLButtonElement> = () => {
+		callback()
 	}
 
 	return (
@@ -63,9 +59,13 @@ export const CarParameters: FC<CarParametersProps> = ({
 			{isDisplayKeywordSearch && <CartParametersKeywordsSearch />}
 			{isDisplayBrandParams && <CarParametersBrand />}
 			{isDisplaySynonyms && <CarParametersSynonyms />}
-			<Button onClick={handleClickGetReviews} variant="contained" disabled={!isValidParams.isValid}>
-				{isValidParams.message}
-			</Button>
+			{/* Extra parameters */}
+			{children}
+			{isDisplayButtonApply && (
+				<Button onClick={handleClickGetReviews} variant="contained" disabled={!isValidParams.isValid}>
+					{isValidParams.isValid ? buttonText : isValidParams.message}
+				</Button>
+			)}
 		</StyledCarParameters>
 	)
 }

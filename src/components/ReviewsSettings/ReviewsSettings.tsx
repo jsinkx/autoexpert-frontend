@@ -9,9 +9,11 @@ import { StyledReviewsSettings } from './ReviewsSettings.styles'
 import { ReviewsSettingsFilterScore } from './ReviewsSettingsFilterScore'
 import { ReviewsSettingsSiteSources } from './ReviewsSettingsSiteSources'
 
-type ReviewsSettingsProps = {} & ComponentPropsWithoutRef<'article'>
+type ReviewsSettingsProps = {
+	isDisplayButtonApply?: boolean
+} & ComponentPropsWithoutRef<'article'>
 
-const ReviewsSettings: FC<ReviewsSettingsProps> = ({ ...props }) => {
+const ReviewsSettings: FC<ReviewsSettingsProps> = ({ isDisplayButtonApply = true, ...props }) => {
 	const dispatch = useDispatch()
 
 	const handleClickApplySettings = () => {
@@ -22,9 +24,11 @@ const ReviewsSettings: FC<ReviewsSettingsProps> = ({ ...props }) => {
 		<StyledReviewsSettings {...props}>
 			<ReviewsSettingsSiteSources />
 			<ReviewsSettingsFilterScore />
-			<Button onClick={handleClickApplySettings} variant="contained">
-				Применить
-			</Button>
+			{isDisplayButtonApply && (
+				<Button onClick={handleClickApplySettings} variant="contained">
+					Применить
+				</Button>
+			)}
 		</StyledReviewsSettings>
 	)
 }

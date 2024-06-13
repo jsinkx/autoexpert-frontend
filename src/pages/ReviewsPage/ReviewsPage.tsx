@@ -5,6 +5,7 @@ import { Status } from '@shared/status'
 import { selectCarsState } from '@redux/slices/cars/selectors'
 import { fetchCarParameters } from '@redux/slices/cars/slice'
 import { selectReviews } from '@redux/slices/reviews/selectors'
+import { fetchReviews } from '@redux/slices/reviews/slice'
 
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
@@ -24,7 +25,8 @@ import { ReviewsPageLoaded } from './ReviewsPageLoaded/ReviewsPageLoaded'
 export const ReviewsPage = () => {
 	const dispatch = useAppDispatch()
 
-	const { currentBrand, statusCars } = useAppSelector(selectCarsState)
+	const { currentSynonyms, currentModel, currentBody, currentBrand, statusCars } =
+		useAppSelector(selectCarsState)
 	const { status: statusReviews } = useAppSelector(selectReviews)
 
 	const carName = currentBrand.join(', ')
@@ -34,6 +36,17 @@ export const ReviewsPage = () => {
 
 	const isReviewsInit = statusReviews === Status.INIT
 	const isReviewsLoaded = statusReviews === Status.SUCCESS
+
+	const handleGetReviews = () => {
+		const params = {
+			words: currentSynonyms,
+			marks: currentBrand,
+			models: currentModel,
+			body_types: currentBody,
+		}
+
+		dispatch(fetchReviews(params))
+	}
 
 	useEffect(() => {
 		const getCarsParameters = async () => {
@@ -56,17 +69,18 @@ export const ReviewsPage = () => {
 						<ReviewsPageError />
 					) : (
 						<>
-							<div className="section-settings">
+							<section className="section-settings">
 								<CarParameters
 									isDisplayBrandParams
 									isDisplaySiteSources
 									isDisplayKeywordSearch
 									isDisplaySynonyms
+									buttonText="Получить отзывы"
+									callback={handleGetReviews}
 									className="section-settings__article-car-parameters"
 								/>
 								{isReviewsLoaded && <ReviewsSettings className="section-settings__article-reviews-settings" />}
-							</div>
-
+							</section>
 							<section className="section-reviews">
 								{isReviewsInit && <ReviewsPageInfo />}
 								{!isReviewsInit && <ReviewsPageLoaded />}
