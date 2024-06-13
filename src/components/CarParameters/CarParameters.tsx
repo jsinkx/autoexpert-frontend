@@ -27,11 +27,10 @@ type CarParametersProps = {
 } & ComponentPropsWithoutRef<'article'>
 
 export const CarParameters: FC<CarParametersProps> = ({
-	isDisplayKeywordSearch,
-	isDisplayBrandParams,
-	isDisplaySiteSources,
-	isDisplaySynonyms,
-	isDisplayButtonApply = true,
+	isDisplayKeywordSearch = false,
+	isDisplayBrandParams = false,
+	isDisplaySynonyms = false,
+	isDisplayButtonApply = false,
 	buttonText = 'Получить',
 	callback,
 	children,
@@ -42,11 +41,17 @@ export const CarParameters: FC<CarParametersProps> = ({
 
 	const { status: statusReviews } = useAppSelector(selectReviews)
 	const isValidParams = isValidGetReviewsParams({
-		keyword: currentKeyword,
-		brand: currentBrand,
-		model: currentModel,
-		body: currentBody,
-		synonyms: currentSynonyms,
+		keyword: {
+			value: currentKeyword,
+			active: isDisplayKeywordSearch,
+		},
+		brand: {
+			value: currentBrand,
+			active: isDisplayBrandParams,
+		},
+		model: { value: currentModel, active: isDisplayBrandParams },
+		body: { value: currentBody, active: isDisplayBrandParams },
+		synonyms: { value: currentSynonyms, active: isDisplaySynonyms },
 		isLoading: statusReviews === Status.LOADING,
 	})
 

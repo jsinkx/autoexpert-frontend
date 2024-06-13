@@ -6,13 +6,13 @@ import { axiosInstance } from '@shared/axios'
 import { REVIEWS_SORTING_OPTIONS } from '@shared/reviews-sorting-options'
 import { Status } from '@shared/status'
 
+import { toReviewsAndTagsArray } from '@utils/converters/to-reviews-and-tags-array'
 import { countReviewsByScore } from '@utils/count-reviews-by-score'
-import { filterReviewsByTags } from '@utils/filter-reviews-by-tags'
-import { filterReviewsScores } from '@utils/filter-reviews-scores'
-import { filterReviewsSitesSources } from '@utils/filter-reviews-sites-sources'
-import { sortReviews } from '@utils/sort-reviews'
-import { sortTags } from '@utils/sort-tags'
-import { toReviewsAndTagsArray } from '@utils/to-reviews-and-tags-array'
+import { filterReviewsByTags } from '@utils/filters/filter-reviews-by-tags'
+import { filterReviewsScores } from '@utils/filters/filter-reviews-scores'
+import { filterReviewsSitesSources } from '@utils/filters/filter-reviews-sites-sources'
+import { sortReviews } from '@utils/sort/sort-reviews'
+import { sortTags } from '@utils/sort/sort-tags'
 
 import { Review } from '@entities/review.types'
 import { SiteSource } from '@entities/site-sources.types'
@@ -25,6 +25,8 @@ import {
 	PostReviewsResponse,
 	ReviewsSliceInitialState,
 } from './types'
+
+// Thunks
 
 export const fetchReviews = createAsyncThunk<FetchAdjectivesResult, FetchAdjectivesParams>(
 	'reviews/fetchReviews',
@@ -44,6 +46,8 @@ export const fetchReviews = createAsyncThunk<FetchAdjectivesResult, FetchAdjecti
 		}
 	},
 )
+
+// Slice
 
 const initialState: ReviewsSliceInitialState = {
 	status: Status.INIT,

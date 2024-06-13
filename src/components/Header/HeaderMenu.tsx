@@ -19,6 +19,10 @@ const MENU_ITEMS = [
 		path: paths.wordcloud,
 	},
 	{
+		name: 'Средняя оценка авто',
+		path: paths.avgCarScores,
+	},
+	{
 		name: 'О нас',
 		path: paths.aboutUs,
 	},

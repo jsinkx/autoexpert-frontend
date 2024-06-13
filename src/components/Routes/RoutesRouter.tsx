@@ -16,13 +16,19 @@ const { ReviewsPage } = lazily(
 // Charts
 
 const { ChartsPage } = lazily(
-	() => import(/* webpackChunkName: "WordcloudPage" */ '@pages/ChartsPage/ChartsPage'),
+	() => import(/* webpackChunkName: "ChartsPage" */ '@pages/ChartsPage/ChartsPage'),
 )
 
 const { ChartsPageContentWordcloud } = lazily(
 	() =>
 		import(
-			/* webpackChunkName: "WordcloudPage" */ '@pages/ChartsPage/ChatsPageContent/ChartsPageContentWordcloud'
+			/* webpackChunkName: "ChartsPageContentWordcloud" */ '@pages/ChartsPage/ChatsPageContent/ChartsPageContentWordcloud'
+		),
+)
+const { ChartsPageContentAvgCarScores } = lazily(
+	() =>
+		import(
+			/* webpackChunkName: "ChartsPageContentAvgCarScores" */ '@pages/ChartsPage/ChatsPageContent/ChartsPageContentAvgCarScores'
 		),
 )
 
@@ -47,6 +53,14 @@ const routes = [
 				element: (
 					<ChartsPage>
 						<ChartsPageContentWordcloud />
+					</ChartsPage>
+				),
+			},
+			{
+				path: paths.avgCarScores,
+				element: (
+					<ChartsPage>
+						<ChartsPageContentAvgCarScores />
 					</ChartsPage>
 				),
 			},

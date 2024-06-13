@@ -1,11 +1,14 @@
 import { CarBody, CarBrand, CarModel } from '@entities/car.types'
 
 type IsValidGetReviewsParam = {
-	keyword: string
-	brand: CarBrand[]
-	model: CarModel[]
-	body: CarBody[]
-	synonyms: string[]
+	keyword: {
+		value: string
+		active: boolean
+	}
+	brand: { value: CarBrand[]; active: boolean }
+	model: { value: CarModel[]; active: boolean }
+	body: { value: CarBody[]; active: boolean }
+	synonyms: { value: string[]; active: boolean }
 	isLoading: boolean
 }
 
@@ -21,11 +24,11 @@ export const isValidGetReviewsParams = ({
 
 	// Don't use !keyword, because !0 will be true, and we don't want that
 
-	if (keyword === '') message = 'Введите ключевое слово'
-	else if (!brand.length) message = 'Выберите марку автомобиля'
-	else if (!model.length) message = 'Выберете модель автомобиля'
-	else if (!body.length) message = 'Выберите корпус автомобиля'
-	else if (!synonyms.length) message = 'Выберите синонимы'
+	if (keyword.active && keyword.value === '') message = 'Введите ключевое слово'
+	else if (brand.active && !brand.value.length) message = 'Выберите марку автомобиля'
+	else if (model.active && !model.value.length) message = 'Выберете модель автомобиля'
+	else if (body.active && !body.value.length) message = 'Выберите корпус автомобиля'
+	else if (synonyms.active && !synonyms.value.length) message = 'Выберите синонимы'
 	else if (isLoading) message = 'Загрузка...'
 
 	return {

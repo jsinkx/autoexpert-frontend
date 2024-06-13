@@ -10,10 +10,17 @@ import { ReviewsSettingsFilterScore } from './ReviewsSettingsFilterScore'
 import { ReviewsSettingsSiteSources } from './ReviewsSettingsSiteSources'
 
 type ReviewsSettingsProps = {
+	isDisplaySiteSources?: boolean
+	isDisplayFilterScore?: boolean
 	isDisplayButtonApply?: boolean
 } & ComponentPropsWithoutRef<'article'>
 
-const ReviewsSettings: FC<ReviewsSettingsProps> = ({ isDisplayButtonApply = true, ...props }) => {
+const ReviewsSettings: FC<ReviewsSettingsProps> = ({
+	isDisplayButtonApply = false,
+	isDisplaySiteSources = false,
+	isDisplayFilterScore = false,
+	...props
+}) => {
 	const dispatch = useDispatch()
 
 	const handleClickApplySettings = () => {
@@ -22,8 +29,8 @@ const ReviewsSettings: FC<ReviewsSettingsProps> = ({ isDisplayButtonApply = true
 
 	return (
 		<StyledReviewsSettings {...props}>
-			<ReviewsSettingsSiteSources />
-			<ReviewsSettingsFilterScore />
+			{isDisplaySiteSources && <ReviewsSettingsSiteSources />}
+			{isDisplayFilterScore && <ReviewsSettingsFilterScore />}
 			{isDisplayButtonApply && (
 				<Button onClick={handleClickApplySettings} variant="contained">
 					Применить

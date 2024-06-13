@@ -3,7 +3,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { axiosInstance } from '@shared/axios'
 import { Status } from '@shared/status'
 
-import { toCarsArray } from '@utils/to-cars-array'
+import { toCarsArray } from '@utils/converters/to-cars-array'
 
 import { Car, CarBody, CarBrand, CarModel } from '@entities/car.types'
 import { SiteSource } from '@entities/site-sources.types'
@@ -17,6 +17,8 @@ import {
 	GetSiteSourcesResponse,
 	PostSynonymsResponse,
 } from './types'
+
+// Thunks
 
 export const fetchCarParameters = createAsyncThunk<FetchCarParametersResult>(
 	'cars/fetchCarParameters',
@@ -55,6 +57,8 @@ export const fetchCarSynonyms = createAsyncThunk<FetchCarSynonymsResult, FetchCa
 		}
 	},
 )
+
+// Slice
 
 const initialState: CarsSliceInitialState = {
 	statusCars: Status.INIT,
@@ -118,7 +122,7 @@ export const carsSlice = createSlice({
 			state.currentSynonyms = action.payload
 		},
 		resetCarsState(state) {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			// eslint-disable-line @typescript-eslint/no-unused-vars
 			state = initialState
 		},
 	},

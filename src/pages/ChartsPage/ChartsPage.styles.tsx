@@ -119,5 +119,21 @@ export const StyledChartsPage = styled.div`
 				}
 			}
 		}
+
+		.section-avg-car-scores {
+			margin-inline: 10%;
+			margin-top: 40px;
+
+			&__avg-car-score {
+				width: 70%;
+				min-width: 400px;
+				margin-bottom: 30px;
+
+				@media (max-width: 920px) {
+					min-width: 300px;
+					margin-inline: auto;
+				}
+			}
+		}
 	}
 `

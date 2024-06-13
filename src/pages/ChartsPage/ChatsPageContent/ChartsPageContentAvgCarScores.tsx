@@ -6,31 +6,30 @@ import { selectCarsState } from '@redux/slices/cars/selectors'
 import { fetchCarParameters } from '@redux/slices/cars/slice'
 import { selectReviews } from '@redux/slices/reviews/selectors'
 import { selectReviewCharts } from '@redux/slices/reviewsCharts/selectors'
-import { fetchWordcloud } from '@redux/slices/reviewsCharts/slice'
+import { fetchAvgCarScores } from '@redux/slices/reviewsCharts/slice'
 
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
 import { LoadingPage } from '@pages/LoadingPage/LoadingPage'
 
+import { AvgCarScore } from '@components/AvgCarScore/AvgCarScore'
 import { CarParameters } from '@components/CarParameters/CarParameters'
 import ReviewsSettings from '@components/ReviewsSettings/ReviewsSettings'
-import { Wordcloud } from '@components/Wordcloud/Wordcloud'
 
 import { Alert } from '@mui/material'
 
 import { ChartsPageError } from '../ChartsPageError'
 import { ChartsPageLoading } from '../ChartsPageLoading'
 
-export const ChartsPageContentWordcloud = () => {
+export const ChartsPageContentAvgCarScores = () => {
 	const dispatch = useAppDispatch()
 
-	const { currentSynonyms, currentSiteSources, currentModel, currentBody, currentBrand, statusCars } =
-		useAppSelector(selectCarsState)
+	const { currentModel, currentBody, currentBrand, statusCars } = useAppSelector(selectCarsState)
 
 	const { currentReviewsScores } = useAppSelector(selectReviews)
 
-	const { status: statusReviewsCharts, message, wordcloudData } = useAppSelector(selectReviewCharts)
+	const { status: statusReviewsCharts, message, avgCarScores } = useAppSelector(selectReviewCharts)
 
 	const carName = currentBrand.join(', ')
 
@@ -40,17 +39,15 @@ export const ChartsPageContentWordcloud = () => {
 	const isReviewsChartsLoading = statusReviewsCharts === Status.LOADING
 	const isReviewsChartsLoaded = statusReviewsCharts === Status.SUCCESS
 
-	const handleGetWordcloudData = () => {
+	const handleGetAvgScores = () => {
 		const params = {
-			words: currentSynonyms,
 			marks: currentBrand,
 			models: currentModel,
 			body_types: currentBody,
-			sources: currentSiteSources,
 			sentiments: currentReviewsScores,
 		}
 
-		dispatch(fetchWordcloud(params))
+		dispatch(fetchAvgCarScores(params))
 	}
 
 	useEffect(() => {
@@ -66,7 +63,7 @@ export const ChartsPageContentWordcloud = () => {
 	return (
 		<>
 			<h2 className="page__title">
-				{isReviewsChartsLoaded ? `Облако слов об автомобилях ${carName} ` : 'Облако слов'}
+				{isReviewsChartsLoaded ? `Средняя оценка по автомобилям ${carName} ` : 'Средняя оценка по автомобилям'}
 			</h2>
 			<div className="page__content">
 				{isCarsError ? (
@@ -76,27 +73,28 @@ export const ChartsPageContentWordcloud = () => {
 						<section className="section-settings">
 							<CarParameters
 								isDisplayBrandParams
-								isDisplaySiteSources
-								isDisplayKeywordSearch
-								isDisplaySynonyms
 								isDisplayButtonApply
-								buttonText="Получить облако слов"
-								callback={handleGetWordcloudData}
+								buttonText="Получить оценку"
+								callback={handleGetAvgScores}
 								className="section-settings__article-car-parameters"
 							>
-								<ReviewsSettings
-									isDisplaySiteSources
-									isDisplayFilterScore
-									className="section-settings__article-settings"
-								/>
+								<ReviewsSettings isDisplayFilterScore className="section-settings__article-settings" />
 							</CarParameters>
 						</section>
-						<section className="section-chart section-wordcloud">
+						<section className="section-chart section-avg-car-scores">
 							{isReviewsChartsLoading && <ChartsPageLoading />}
-							{isReviewsChartsLoaded && !wordcloudData.length && (
-								<Alert severity="warning">Не удалось составить облако слов по данным параметрам</Alert>
+							{isReviewsChartsLoaded && !avgCarScores.length && (
+								<Alert severity="warning">Не удалось получить среднюю оценку по данным параметрам</Alert>
 							)}
-							{isReviewsChartsLoaded && <Wordcloud words={wordcloudData} className="section-chart__wordcloud" />}
+							{isReviewsChartsLoaded &&
+								avgCarScores.map(({ name, score }) => (
+									<AvgCarScore
+										key={name}
+										name={name}
+										score={score}
+										className="section-avg-car-scores__avg-car-score"
+									/>
+								))}
 						</section>
 					</>
 				)}

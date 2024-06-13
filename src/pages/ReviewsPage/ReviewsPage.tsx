@@ -75,11 +75,19 @@ export const ReviewsPage = () => {
 									isDisplaySiteSources
 									isDisplayKeywordSearch
 									isDisplaySynonyms
+									isDisplayButtonApply
 									buttonText="Получить отзывы"
 									callback={handleGetReviews}
 									className="section-settings__article-car-parameters"
 								/>
-								{isReviewsLoaded && <ReviewsSettings className="section-settings__article-reviews-settings" />}
+								{isReviewsLoaded && (
+									<ReviewsSettings
+										isDisplaySiteSources
+										isDisplayFilterScore
+										isDisplayButtonApply
+										className="section-settings__article-reviews-settings"
+									/>
+								)}
 							</section>
 							<section className="section-reviews">
 								{isReviewsInit && <ReviewsPageInfo />}
