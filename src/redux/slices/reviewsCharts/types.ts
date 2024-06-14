@@ -2,6 +2,7 @@ import { Status } from '@shared/status'
 
 import { AvgCarScore } from '@entities/avg-car-score.types'
 import { CarBody, CarBrand, CarModel } from '@entities/car.types'
+import { ReviewScores } from '@entities/review-scores.types'
 import { SiteSource } from '@entities/site-sources.types'
 import { WordcloudWord } from '@entities/wordcloud-word.types'
 
@@ -27,6 +28,15 @@ export type PostChartsAvgPersonalScoreRequest = {
 
 export type PostChartsAvgPersonalScoreResponse = [string, number][]
 
+export type PostChartsSentimentRequest = {
+	marks: CarBrand[]
+	models: CarModel[]
+	body_types: CarBody[]
+	sources: SiteSource[]
+}
+
+export type PostChartsSentimentResponse = [string, number][]
+
 // Thunks
 export type FetchWordcloudParams = PostChartsWordcloudRequest
 
@@ -36,6 +46,10 @@ export type FetchAvgPersonalScoreParams = PostChartsAvgPersonalScoreRequest
 
 export type FetchAvgPersonalScoreResult = AvgCarScore[]
 
+export type FetchReviewsScoresParams = PostChartsSentimentRequest
+
+export type FetchReviewsScoresResult = ReviewScores
+
 // Initial state
 
 export type ReviewsChartsInitialState = {
@@ -43,4 +57,5 @@ export type ReviewsChartsInitialState = {
 	message: string
 	wordcloudData: WordcloudWord[]
 	avgCarScores: AvgCarScore[]
+	reviewsScores: ReviewScores
 }

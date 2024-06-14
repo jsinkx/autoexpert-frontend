@@ -11,6 +11,10 @@ import { IconButton, Menu, MenuItem } from '@mui/material'
 
 const MENU_ITEMS = [
 	{
+		name: 'О нас',
+		path: paths.aboutUs,
+	},
+	{
 		name: 'Подбор отзывов',
 		path: paths.reviews,
 	},
@@ -19,12 +23,12 @@ const MENU_ITEMS = [
 		path: paths.wordcloud,
 	},
 	{
-		name: 'Средняя оценка авто',
+		name: 'Средняя оценка автомобилей',
 		path: paths.avgCarScores,
 	},
 	{
-		name: 'О нас',
-		path: paths.aboutUs,
+		name: 'Рейтинг отзывов автомобилей',
+		path: paths.reviewsScores,
 	},
 	{
 		name: 'API',

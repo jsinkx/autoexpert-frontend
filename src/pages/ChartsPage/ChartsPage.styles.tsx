@@ -68,6 +68,7 @@ export const StyledChartsPage = styled.div`
 			margin-inline: 10%;
 
 			.chart-loading {
+				width: 100%;
 				height: 100%;
 			}
 
@@ -121,6 +122,10 @@ export const StyledChartsPage = styled.div`
 		}
 
 		.section-avg-car-scores {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
 			margin-inline: 10%;
 			margin-top: 40px;
 
@@ -133,6 +138,17 @@ export const StyledChartsPage = styled.div`
 					min-width: 300px;
 					margin-inline: auto;
 				}
+			}
+		}
+
+		.section-reviews-scores {
+			display: flex;
+			justify-content: center;
+
+			&__barchart {
+				width: 90%;
+				min-width: 400px;
+				margin-top: 40px;
 			}
 		}
 	}

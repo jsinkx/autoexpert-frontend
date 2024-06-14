@@ -6,15 +6,20 @@ import { axiosInstance } from '@shared/axios'
 import { Status } from '@shared/status'
 
 import { toAvgCarScoresArray } from '@utils/converters/to-avg-car-scores-array'
+import { toReviewsScoresObject } from '@utils/converters/to-reviews-scores-object'
 import { toWordcloudArray } from '@utils/converters/to-wordcloud-array'
 
 import {
 	FetchAvgPersonalScoreParams,
 	FetchAvgPersonalScoreResult,
+	FetchReviewsScoresParams,
+	FetchReviewsScoresResult,
 	FetchWordcloudParams,
 	FetchWordcloudResult,
 	PostChartsAvgPersonalScoreRequest,
 	PostChartsAvgPersonalScoreResponse,
+	PostChartsSentimentRequest,
+	PostChartsSentimentResponse,
 	PostChartsWordcloudRequest,
 	PostChartsWordcloudResponse,
 	ReviewsChartsInitialState,
@@ -60,6 +65,25 @@ export const fetchAvgCarScores = createAsyncThunk<FetchAvgPersonalScoreResult, F
 	},
 )
 
+export const fetchReviewsScores = createAsyncThunk<FetchReviewsScoresResult, FetchReviewsScoresParams>(
+	'fetchReviewsScores',
+	async (params, { rejectWithValue }) => {
+		try {
+			const { data } = await axiosInstance.post<
+				PostChartsSentimentResponse,
+				AxiosResponse<PostChartsSentimentResponse>,
+				PostChartsSentimentRequest
+			>(`/charts/sentiment_chart?skip_bad_sentiments=true`, params)
+
+			return toReviewsScoresObject(data)
+		} catch {
+			const message = 'Произошла неизвестная ошибка'
+
+			return rejectWithValue({ message })
+		}
+	},
+)
+
 // Slice
 
 const initialState: ReviewsChartsInitialState = {
@@ -67,12 +91,15 @@ const initialState: ReviewsChartsInitialState = {
 	message: '',
 	wordcloudData: [],
 	avgCarScores: [],
+	reviewsScores: {},
 }
 
 const reviewsChartsSlice = createSlice({
 	name: 'reviewsCharts',
 	initialState,
-	reducers: {},
+	reducers: {
+		resetReviewsCharts: () => initialState,
+	},
 	extraReducers: (builder) => {
 		// Fetch wordcloud
 		builder.addCase(fetchWordcloud.pending, (state) => {
@@ -106,7 +133,25 @@ const reviewsChartsSlice = createSlice({
 			state.message = ''
 			state.avgCarScores = action.payload
 		})
+		// Fetch reviews scores
+		builder.addCase(fetchReviewsScores.pending, (state) => {
+			state.status = Status.LOADING
+			state.message = ''
+			state.reviewsScores = {}
+		})
+		builder.addCase(fetchReviewsScores.rejected, (state, action) => {
+			state.status = Status.ERROR
+			state.message = action.error.message as string
+			state.reviewsScores = {}
+		})
+		builder.addCase(fetchReviewsScores.fulfilled, (state, action) => {
+			state.status = Status.SUCCESS
+			state.message = ''
+			state.reviewsScores = action.payload
+		})
 	},
 })
 
 export const reviewChartsReducer = reviewsChartsSlice.reducer
+
+export const { resetReviewsCharts } = reviewsChartsSlice.actions

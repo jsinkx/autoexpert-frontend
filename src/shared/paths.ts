@@ -4,4 +4,5 @@ export const paths = {
 	aboutUs: '/about-us',
 	wordcloud: '/wordcloud',
 	avgCarScores: '/avg-car-scores',
+	reviewsScores: '/reviews-scores',
 } as const

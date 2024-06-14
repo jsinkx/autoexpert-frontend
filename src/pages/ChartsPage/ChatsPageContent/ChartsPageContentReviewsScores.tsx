@@ -5,16 +5,14 @@ import { Status } from '@shared/status'
 
 import { selectCarsState } from '@redux/slices/cars/selectors'
 import { fetchCarParameters } from '@redux/slices/cars/slice'
-import { selectReviews } from '@redux/slices/reviews/selectors'
 import { selectReviewCharts } from '@redux/slices/reviewsCharts/selectors'
-import { fetchAvgCarScores, resetReviewsCharts } from '@redux/slices/reviewsCharts/slice'
+import { fetchReviewsScores, resetReviewsCharts } from '@redux/slices/reviewsCharts/slice'
 
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
 import { LoadingPage } from '@pages/LoadingPage/LoadingPage'
 
-import { AvgCarScore } from '@components/AvgCarScore/AvgCarScore'
 import { CarParameters } from '@components/CarParameters/CarParameters'
 import ReviewsSettings from '@components/ReviewsSettings/ReviewsSettings'
 
@@ -22,16 +20,16 @@ import { Alert } from '@mui/material'
 
 import { ChartsPageError } from '../ChartsPageError'
 import { ChartsPageLoading } from '../ChartsPageLoading'
+import { ChartsPageBarchart } from './ChartsPageBarchart'
 
-export const ChartsPageContentAvgCarScores = () => {
+export const ChartsPageContentReviewsScores = () => {
 	const dispatch = useDispatch()
 	const asyncDispatch = useAppDispatch()
 
-	const { currentModel, currentBody, currentBrand, statusCars } = useAppSelector(selectCarsState)
+	const { currentModel, currentBody, currentBrand, statusCars, currentSiteSources } =
+		useAppSelector(selectCarsState)
 
-	const { currentReviewsScores } = useAppSelector(selectReviews)
-
-	const { status: statusReviewsCharts, message, avgCarScores } = useAppSelector(selectReviewCharts)
+	const { status: statusReviewsCharts, message, reviewsScores } = useAppSelector(selectReviewCharts)
 
 	const carName = currentBrand.join(', ')
 
@@ -46,10 +44,10 @@ export const ChartsPageContentAvgCarScores = () => {
 			marks: currentBrand,
 			models: currentModel,
 			body_types: currentBody,
-			sentiments: currentReviewsScores,
+			sources: currentSiteSources,
 		}
 
-		asyncDispatch(fetchAvgCarScores(params))
+		asyncDispatch(fetchReviewsScores(params))
 	}
 
 	useEffect(() => {
@@ -63,12 +61,13 @@ export const ChartsPageContentAvgCarScores = () => {
 			dispatch(resetReviewsCharts())
 		}
 	}, [asyncDispatch, dispatch])
+
 	if (isCarsLoading) return <LoadingPage />
 
 	return (
 		<>
 			<h2 className="page__title">
-				{isReviewsChartsLoaded ? `Средняя оценка по автомобилям ${carName} ` : 'Средняя оценка по автомобилям'}
+				{isReviewsChartsLoaded ? `Рейтинг отзывов автомобилей ${carName} ` : 'Рейтинг отзывов'}
 			</h2>
 			<div className="page__content">
 				{isCarsError ? (
@@ -79,27 +78,23 @@ export const ChartsPageContentAvgCarScores = () => {
 							<CarParameters
 								isDisplayBrandParams
 								isDisplayButtonApply
-								buttonText="Получить оценку"
+								buttonText="Получить рейтинг"
 								callback={handleGetAvgScores}
 								className="section-settings__article-car-parameters"
 							>
-								<ReviewsSettings isDisplayFilterScore className="section-settings__article-settings" />
+								<ReviewsSettings isDisplaySiteSources className="section-settings__article-settings" />
 							</CarParameters>
 						</section>
-						<section className="section-chart section-avg-car-scores">
+						<section className="section-chart section-reviews-scores">
 							{isReviewsChartsLoading && <ChartsPageLoading />}
-							{isReviewsChartsLoaded && !avgCarScores.length && (
+							{isReviewsChartsLoaded && !Object.keys(reviewsScores).length && (
 								<Alert severity="warning">Не удалось получить среднюю оценку по данным параметрам</Alert>
 							)}
-							{isReviewsChartsLoaded &&
-								avgCarScores.map(({ name, score }) => (
-									<AvgCarScore
-										key={name}
-										name={name}
-										score={score}
-										className="section-avg-car-scores__avg-car-score"
-									/>
-								))}
+							{isReviewsChartsLoaded && (
+								<div className="section-reviews-scores__barchart">
+									<ChartsPageBarchart carName={carName} reviewsScores={reviewsScores} />
+								</div>
+							)}
 						</section>
 					</>
 				)}

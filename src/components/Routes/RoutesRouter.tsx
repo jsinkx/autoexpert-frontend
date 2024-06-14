@@ -9,6 +9,10 @@ const { NotFoundPage } = lazily(
 	() => import(/* webpackChunkName: "NotFoundPage" */ '@pages/NotFoundPage/NotFoundPage'),
 )
 
+const { AboutUsPage } = lazily(
+	() => import(/* webpackChunkName: "AboutUsPage" */ '@pages/AboutUsPage/AboutUsPage'),
+)
+
 const { ReviewsPage } = lazily(
 	() => import(/* webpackChunkName: "ReviewsPage" */ '@pages/ReviewsPage/ReviewsPage'),
 )
@@ -25,15 +29,18 @@ const { ChartsPageContentWordcloud } = lazily(
 			/* webpackChunkName: "ChartsPageContentWordcloud" */ '@pages/ChartsPage/ChatsPageContent/ChartsPageContentWordcloud'
 		),
 )
+const { ChartsPageContentReviewsScores } = lazily(
+	() =>
+		import(
+			/* webpackChunkName: "ChartsPageContentReviewsScores" */ '@pages/ChartsPage/ChatsPageContent/ChartsPageContentReviewsScores'
+		),
+)
+
 const { ChartsPageContentAvgCarScores } = lazily(
 	() =>
 		import(
 			/* webpackChunkName: "ChartsPageContentAvgCarScores" */ '@pages/ChartsPage/ChatsPageContent/ChartsPageContentAvgCarScores'
 		),
-)
-
-const { AboutUsPage } = lazily(
-	() => import(/* webpackChunkName: "AboutUsPage" */ '@pages/AboutUsPage/AboutUsPage'),
 )
 
 const routes = [
@@ -45,14 +52,27 @@ const routes = [
 				element: <NotFoundPage />,
 			},
 			{
+				path: paths.aboutUs,
+				element: <AboutUsPage />,
+			},
+			{
 				path: paths.reviews,
 				element: <ReviewsPage />,
 			},
+			// Charts
 			{
 				path: paths.wordcloud,
 				element: (
 					<ChartsPage>
 						<ChartsPageContentWordcloud />
+					</ChartsPage>
+				),
+			},
+			{
+				path: paths.reviewsScores,
+				element: (
+					<ChartsPage>
+						<ChartsPageContentReviewsScores />
 					</ChartsPage>
 				),
 			},
@@ -63,10 +83,6 @@ const routes = [
 						<ChartsPageContentAvgCarScores />
 					</ChartsPage>
 				),
-			},
-			{
-				path: paths.aboutUs,
-				element: <AboutUsPage />,
 			},
 		],
 	},

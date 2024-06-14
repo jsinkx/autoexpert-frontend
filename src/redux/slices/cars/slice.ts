@@ -121,10 +121,7 @@ export const carsSlice = createSlice({
 		setCurrentSynonyms(state, action: PayloadAction<string[]>) {
 			state.currentSynonyms = action.payload
 		},
-		resetCarsState(state) {
-			// eslint-disable-line @typescript-eslint/no-unused-vars
-			state = initialState
-		},
+		resetCarsState: () => initialState,
 	},
 	extraReducers: (builder) => {
 		// Fetch car parameters

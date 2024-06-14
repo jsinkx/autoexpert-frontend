@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 import { Status } from '@shared/status'
 
@@ -6,7 +7,7 @@ import { selectCarsState } from '@redux/slices/cars/selectors'
 import { fetchCarParameters } from '@redux/slices/cars/slice'
 import { selectReviews } from '@redux/slices/reviews/selectors'
 import { selectReviewCharts } from '@redux/slices/reviewsCharts/selectors'
-import { fetchWordcloud } from '@redux/slices/reviewsCharts/slice'
+import { fetchWordcloud, resetReviewsCharts } from '@redux/slices/reviewsCharts/slice'
 
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
@@ -23,7 +24,8 @@ import { ChartsPageError } from '../ChartsPageError'
 import { ChartsPageLoading } from '../ChartsPageLoading'
 
 export const ChartsPageContentWordcloud = () => {
-	const dispatch = useAppDispatch()
+	const dispatch = useDispatch()
+	const asyncDispatch = useAppDispatch()
 
 	const { currentSynonyms, currentSiteSources, currentModel, currentBody, currentBrand, statusCars } =
 		useAppSelector(selectCarsState)
@@ -50,16 +52,20 @@ export const ChartsPageContentWordcloud = () => {
 			sentiments: currentReviewsScores,
 		}
 
-		dispatch(fetchWordcloud(params))
+		asyncDispatch(fetchWordcloud(params))
 	}
 
 	useEffect(() => {
 		const getCarsParameters = async () => {
-			dispatch(fetchCarParameters())
+			asyncDispatch(fetchCarParameters())
 		}
 
 		getCarsParameters()
-	}, [dispatch])
+
+		return () => {
+			dispatch(resetReviewsCharts())
+		}
+	}, [asyncDispatch, dispatch])
 
 	if (isCarsLoading) return <LoadingPage />
 
