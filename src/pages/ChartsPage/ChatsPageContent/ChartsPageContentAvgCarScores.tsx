@@ -68,7 +68,7 @@ export const ChartsPageContentAvgCarScores = () => {
 	return (
 		<>
 			<h2 className="page__title">
-				{isReviewsChartsLoaded ? `Средняя оценка по автомобилям ${carName} ` : 'Средняя оценка по автомобилям'}
+				{isReviewsChartsLoaded ? `Средняя оценка по автомобилям ${carName}` : 'Средняя оценка по автомобилям'}
 			</h2>
 			<div className="page__content">
 				{isCarsError ? (

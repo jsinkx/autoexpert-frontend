@@ -2,9 +2,15 @@ import { Status } from '@shared/status'
 
 import { AvgCarScore } from '@entities/avg-car-score.types'
 import { CarBody, CarBrand, CarModel } from '@entities/car.types'
+import { IndicatorItem } from '@entities/indicator-item.types'
 import { ReviewScores } from '@entities/review-scores.types'
 import { SiteSource } from '@entities/site-sources.types'
 import { WordcloudWord } from '@entities/wordcloud-word.types'
+
+type IndicatorComparison = {
+	pros: IndicatorItem[]
+	cons: IndicatorItem[]
+}
 
 // API
 
@@ -37,6 +43,14 @@ export type PostChartsSentimentRequest = {
 
 export type PostChartsSentimentResponse = [string, number][]
 
+export type PostChartsProsConsRequest = {
+	marks: CarBrand[]
+	models: CarModel[]
+	body_types: CarBody[]
+}
+
+export type PostChartsProsConsResponse = [string, number][]
+
 // Thunks
 export type FetchWordcloudParams = PostChartsWordcloudRequest
 
@@ -50,6 +64,9 @@ export type FetchReviewsScoresParams = PostChartsSentimentRequest
 
 export type FetchReviewsScoresResult = ReviewScores
 
+export type FetchIndicatorComparisonParams = PostChartsProsConsRequest
+export type FetchIndicatorComparisonResult = IndicatorComparison
+
 // Initial state
 
 export type ReviewsChartsInitialState = {
@@ -58,4 +75,5 @@ export type ReviewsChartsInitialState = {
 	wordcloudData: WordcloudWord[]
 	avgCarScores: AvgCarScore[]
 	reviewsScores: ReviewScores
+	indicatorsComparison: IndicatorComparison
 }

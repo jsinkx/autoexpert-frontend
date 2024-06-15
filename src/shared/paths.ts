@@ -5,4 +5,5 @@ export const paths = {
 	wordcloud: '/wordcloud',
 	avgCarScores: '/avg-car-scores',
 	reviewsScores: '/reviews-scores',
+	indicatorsComparison: '/indicators-comparison',
 } as const

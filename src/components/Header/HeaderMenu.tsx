@@ -23,6 +23,10 @@ const MENU_ITEMS = [
 		path: paths.wordcloud,
 	},
 	{
+		name: 'Сравнение показателей',
+		path: paths.indicatorsComparison,
+	},
+	{
 		name: 'Средняя оценка автомобилей',
 		path: paths.avgCarScores,
 	},

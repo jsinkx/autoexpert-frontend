@@ -6,7 +6,7 @@ import { Status } from '@shared/status'
 import { selectCarsState } from '@redux/slices/cars/selectors'
 import { fetchCarParameters } from '@redux/slices/cars/slice'
 import { selectReviewCharts } from '@redux/slices/reviewsCharts/selectors'
-import { fetchReviewsScores, resetReviewsCharts } from '@redux/slices/reviewsCharts/slice'
+import { fetchIndicatorsComparison, resetReviewsCharts } from '@redux/slices/reviewsCharts/slice'
 
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
@@ -14,22 +14,20 @@ import useAppSelector from '@hooks/useAppSelector'
 import { LoadingPage } from '@pages/LoadingPage/LoadingPage'
 
 import { CarParameters } from '@components/CarParameters/CarParameters'
-import ReviewsSettings from '@components/ReviewsSettings/ReviewsSettings'
+import { ComparisonItem } from '@components/ComparisonItem/ComparisonItem'
 
 import { Alert } from '@mui/material'
 
 import { ChartsPageError } from '../ChartsPageError'
 import { ChartsPageLoading } from '../ChartsPageLoading'
-import { ChartsPageBarchart } from './Charts/BarChartReviewsScores'
 
-export const ChartsPageContentReviewsScores = () => {
+export const ChartsPageContentIndicatorsComparison = () => {
 	const dispatch = useDispatch()
 	const asyncDispatch = useAppDispatch()
 
-	const { currentModel, currentBody, currentBrand, statusCars, currentSiteSources } =
-		useAppSelector(selectCarsState)
+	const { currentModel, currentBody, currentBrand, statusCars } = useAppSelector(selectCarsState)
 
-	const { status: statusReviewsCharts, message, reviewsScores } = useAppSelector(selectReviewCharts)
+	const { status: statusReviewsCharts, message, indicatorsComparison } = useAppSelector(selectReviewCharts)
 
 	const carName = currentBrand.join(', ')
 
@@ -39,15 +37,14 @@ export const ChartsPageContentReviewsScores = () => {
 	const isReviewsChartsLoading = statusReviewsCharts === Status.LOADING
 	const isReviewsChartsLoaded = statusReviewsCharts === Status.SUCCESS
 
-	const handleGetAvgScores = () => {
+	const handleGetIndicatorsComparison = () => {
 		const params = {
 			marks: currentBrand,
 			models: currentModel,
 			body_types: currentBody,
-			sources: currentSiteSources,
 		}
 
-		asyncDispatch(fetchReviewsScores(params))
+		asyncDispatch(fetchIndicatorsComparison(params))
 	}
 
 	useEffect(() => {
@@ -61,13 +58,12 @@ export const ChartsPageContentReviewsScores = () => {
 			dispatch(resetReviewsCharts())
 		}
 	}, [asyncDispatch, dispatch])
-
 	if (isCarsLoading) return <LoadingPage />
 
 	return (
 		<>
 			<h2 className="page__title">
-				{isReviewsChartsLoaded ? `Рейтинг отзывов автомобилей ${carName}` : 'Рейтинг отзывов'}
+				{isReviewsChartsLoaded ? `Сравнение показателей для ${carName}` : 'Сравнение показателей'}
 			</h2>
 			<div className="page__content">
 				{isCarsError ? (
@@ -78,21 +74,28 @@ export const ChartsPageContentReviewsScores = () => {
 							<CarParameters
 								isDisplayBrandParams
 								isDisplayButtonApply
-								buttonText="Получить рейтинг"
-								callback={handleGetAvgScores}
+								buttonText="Сравнить"
+								callback={handleGetIndicatorsComparison}
 								className="section-settings__article-car-parameters"
-							>
-								<ReviewsSettings isDisplaySiteSources className="section-settings__article-settings" />
-							</CarParameters>
+							/>
 						</section>
-						<section className="section-chart section-reviews-scores">
+						<section className="section-chart section-indicators-comparison">
 							{isReviewsChartsLoading && <ChartsPageLoading />}
-							{isReviewsChartsLoaded && !Object.keys(reviewsScores).length && (
-								<Alert severity="warning">Не удалось получить среднюю оценку по данным параметрам</Alert>
+							{isReviewsChartsLoaded && !Object.keys(indicatorsComparison).length && (
+								<Alert severity="warning">Не удалось сравнить</Alert>
 							)}
 							{isReviewsChartsLoaded && (
-								<div className="section-reviews-scores__barchart">
-									<ChartsPageBarchart carName={carName} reviewsScores={reviewsScores} />
+								<div className="section-indicators-comparison__items">
+									<ComparisonItem
+										isPros
+										items={indicatorsComparison.pros}
+										className="section-indicators-comparison__items__item"
+									/>
+									<ComparisonItem
+										isPros={false}
+										items={indicatorsComparison.cons}
+										className="section-indicators-comparison__items__item"
+									/>
 								</div>
 							)}
 						</section>

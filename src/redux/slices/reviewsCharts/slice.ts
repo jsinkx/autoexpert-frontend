@@ -6,18 +6,23 @@ import { axiosInstance } from '@shared/axios'
 import { Status } from '@shared/status'
 
 import { toAvgCarScoresArray } from '@utils/converters/to-avg-car-scores-array'
+import { toIndicatorItemArray } from '@utils/converters/to-indicator-item-array'
 import { toReviewsScoresObject } from '@utils/converters/to-reviews-scores-object'
 import { toWordcloudArray } from '@utils/converters/to-wordcloud-array'
 
 import {
 	FetchAvgPersonalScoreParams,
 	FetchAvgPersonalScoreResult,
+	FetchIndicatorComparisonParams,
+	FetchIndicatorComparisonResult,
 	FetchReviewsScoresParams,
 	FetchReviewsScoresResult,
 	FetchWordcloudParams,
 	FetchWordcloudResult,
 	PostChartsAvgPersonalScoreRequest,
 	PostChartsAvgPersonalScoreResponse,
+	PostChartsProsConsRequest,
+	PostChartsProsConsResponse,
 	PostChartsSentimentRequest,
 	PostChartsSentimentResponse,
 	PostChartsWordcloudRequest,
@@ -84,6 +89,34 @@ export const fetchReviewsScores = createAsyncThunk<FetchReviewsScoresResult, Fet
 	},
 )
 
+export const fetchIndicatorsComparison = createAsyncThunk<
+	FetchIndicatorComparisonResult,
+	FetchIndicatorComparisonParams
+>('fetchIndicatorsComparison', async (params, { rejectWithValue }) => {
+	try {
+		const { data: dataCons } = await axiosInstance.post<
+			PostChartsProsConsResponse,
+			AxiosResponse<PostChartsProsConsResponse>,
+			PostChartsProsConsRequest
+		>(`/charts/cons_chart`, params)
+
+		const { data: dataPros } = await axiosInstance.post<
+			PostChartsProsConsResponse,
+			AxiosResponse<PostChartsProsConsResponse>,
+			PostChartsProsConsRequest
+		>(`/charts/pros_chart`, params)
+
+		return {
+			pros: toIndicatorItemArray(dataPros),
+			cons: toIndicatorItemArray(dataCons),
+		}
+	} catch {
+		const message = 'Произошла неизвестная ошибка'
+
+		return rejectWithValue({ message })
+	}
+})
+
 // Slice
 
 const initialState: ReviewsChartsInitialState = {
@@ -92,6 +125,7 @@ const initialState: ReviewsChartsInitialState = {
 	wordcloudData: [],
 	avgCarScores: [],
 	reviewsScores: {},
+	indicatorsComparison: { pros: [], cons: [] },
 }
 
 const reviewsChartsSlice = createSlice({
@@ -148,6 +182,22 @@ const reviewsChartsSlice = createSlice({
 			state.status = Status.SUCCESS
 			state.message = ''
 			state.reviewsScores = action.payload
+		})
+		// Fetch indicators comparison
+		builder.addCase(fetchIndicatorsComparison.pending, (state) => {
+			state.status = Status.LOADING
+			state.message = ''
+			state.indicatorsComparison = { pros: [], cons: [] }
+		})
+		builder.addCase(fetchIndicatorsComparison.rejected, (state, action) => {
+			state.status = Status.ERROR
+			state.message = action.error.message as string
+			state.indicatorsComparison = { pros: [], cons: [] }
+		})
+		builder.addCase(fetchIndicatorsComparison.fulfilled, (state, action) => {
+			state.status = Status.SUCCESS
+			state.message = ''
+			state.indicatorsComparison = action.payload
 		})
 	},
 })

@@ -151,5 +151,19 @@ export const StyledChartsPage = styled.div`
 				margin-top: 40px;
 			}
 		}
+
+		.section-indicators-comparison {
+			margin-top: 40px;
+
+			&__items {
+				display: flex;
+				justify-content: center;
+
+				&__item {
+					width: 70%;
+					margin-left: 20px;
+				}
+			}
+		}
 	}
 `

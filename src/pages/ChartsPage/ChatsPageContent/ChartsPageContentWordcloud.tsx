@@ -72,7 +72,7 @@ export const ChartsPageContentWordcloud = () => {
 	return (
 		<>
 			<h2 className="page__title">
-				{isReviewsChartsLoaded ? `Облако слов об автомобилях ${carName} ` : 'Облако слов'}
+				{isReviewsChartsLoaded ? `Облако слов об автомобилях ${carName}` : 'Облако слов'}
 			</h2>
 			<div className="page__content">
 				{isCarsError ? (

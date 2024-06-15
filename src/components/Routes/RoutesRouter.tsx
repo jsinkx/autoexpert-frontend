@@ -43,6 +43,13 @@ const { ChartsPageContentAvgCarScores } = lazily(
 		),
 )
 
+const { ChartsPageContentIndicatorsComparison } = lazily(
+	() =>
+		import(
+			/* webpackChunkName: "ChartsPageContentIndicatorsComparison" */ '@pages/ChartsPage/ChatsPageContent/ChartsPageContentIndicatorsComparison'
+		),
+)
+
 const routes = [
 	{
 		element: <ErrorBoundaryLayout />,
@@ -81,6 +88,14 @@ const routes = [
 				element: (
 					<ChartsPage>
 						<ChartsPageContentAvgCarScores />
+					</ChartsPage>
+				),
+			},
+			{
+				path: paths.indicatorsComparison,
+				element: (
+					<ChartsPage>
+						<ChartsPageContentIndicatorsComparison />
 					</ChartsPage>
 				),
 			},
