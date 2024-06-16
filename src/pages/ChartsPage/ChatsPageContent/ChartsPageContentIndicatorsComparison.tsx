@@ -75,6 +75,7 @@ export const ChartsPageContentIndicatorsComparison = () => {
 								isDisplayBrandParams
 								isDisplayButtonApply
 								buttonText="Сравнить"
+								isLoading={isReviewsChartsLoading}
 								callback={handleGetIndicatorsComparison}
 								className="section-settings__article-car-parameters"
 							/>
@@ -85,18 +86,18 @@ export const ChartsPageContentIndicatorsComparison = () => {
 								<Alert severity="warning">Не удалось сравнить</Alert>
 							)}
 							{isReviewsChartsLoaded && (
-								<div className="section-indicators-comparison__items">
+								<>
 									<ComparisonItem
 										isPros
 										items={indicatorsComparison.pros}
-										className="section-indicators-comparison__items__item"
+										className="section-indicators-comparison__item"
 									/>
 									<ComparisonItem
 										isPros={false}
 										items={indicatorsComparison.cons}
-										className="section-indicators-comparison__items__item"
+										className="section-indicators-comparison__item"
 									/>
-								</div>
+								</>
 							)}
 						</section>
 					</>

@@ -86,6 +86,7 @@ export const ChartsPageContentWordcloud = () => {
 								isDisplayKeywordSearch
 								isDisplaySynonyms
 								isDisplayButtonApply
+								isLoading={isReviewsChartsLoading}
 								buttonText="Получить облако слов"
 								callback={handleGetWordcloudData}
 								className="section-settings__article-car-parameters"

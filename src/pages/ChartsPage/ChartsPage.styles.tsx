@@ -154,15 +154,21 @@ export const StyledChartsPage = styled.div`
 
 		.section-indicators-comparison {
 			margin-top: 40px;
+			display: flex;
 
-			&__items {
-				display: flex;
-				justify-content: center;
+			@media (max-width: 600px) {
+				flex-direction: column;
 
 				&__item {
-					width: 70%;
-					margin-left: 20px;
+					width: 100%;
+					margin-bottom: 20px;
+					margin-inline: auto !important;
 				}
+			}
+
+			&__item {
+				width: 70%;
+				margin-inline: 20px;
 			}
 		}
 	}

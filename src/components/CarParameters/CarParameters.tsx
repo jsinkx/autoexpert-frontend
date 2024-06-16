@@ -22,6 +22,7 @@ type CarParametersProps = {
 	isDisplaySiteSources?: boolean
 	isDisplaySynonyms?: boolean
 	isDisplayButtonApply?: boolean
+	isLoading?: boolean
 	buttonText?: string
 	callback: () => void
 } & ComponentPropsWithoutRef<'article'>
@@ -31,6 +32,7 @@ export const CarParameters: FC<CarParametersProps> = ({
 	isDisplayBrandParams = false,
 	isDisplaySynonyms = false,
 	isDisplayButtonApply = false,
+	isLoading: isLoadingQuery = false,
 	buttonText = 'Получить',
 	callback,
 	children,
@@ -52,7 +54,7 @@ export const CarParameters: FC<CarParametersProps> = ({
 		model: { value: currentModel, active: isDisplayBrandParams },
 		body: { value: currentBody, active: isDisplayBrandParams },
 		synonyms: { value: currentSynonyms, active: isDisplaySynonyms },
-		isLoading: statusReviews === Status.LOADING,
+		isLoading: isLoadingQuery || statusReviews === Status.LOADING,
 	})
 
 	const handleClickGetReviews: MouseEventHandler<HTMLButtonElement> = () => {

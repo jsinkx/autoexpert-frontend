@@ -1,11 +1,11 @@
 import { REVIEWS_SORTING_OPTIONS } from '@shared/reviews-sorting-options'
 
-import { GetReviewsResponse } from '@redux/slices/reviews/types'
+import { PostReviewsResponse } from '@redux/slices/reviews/types'
 
 import { Review } from '@entities/review.types'
 import { Tag } from '@entities/tag.types'
 
-export const toReviewsAndTagsArray = (data: GetReviewsResponse) => {
+export const toReviewsAndTagsArray = (data: PostReviewsResponse) => {
 	const reviews: Review[] = []
 
 	const tagsObject: { [key: string]: Tag } = {}
@@ -29,7 +29,7 @@ export const toReviewsAndTagsArray = (data: GetReviewsResponse) => {
 
 			if (!tagsObject[lemmaAdjective]) {
 				tagsObject[lemmaAdjective] = tagAdjective
-			} else ++tagsObject[lemmaAdjective].count
+			} else ++tagsObject[lemmaAdjective!]!.count
 
 			// Collect keywords
 
@@ -44,7 +44,7 @@ export const toReviewsAndTagsArray = (data: GetReviewsResponse) => {
 
 			if (!tagsObject[lemmaKeyword]) {
 				tagsObject[lemmaKeyword] = tagKeyword
-			} else ++tagsObject[lemmaKeyword].count
+			} else ++tagsObject[lemmaKeyword!]!.count
 
 			tagsInText.push(...[tagAdjective, tagKeyword])
 		})

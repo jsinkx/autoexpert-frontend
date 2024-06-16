@@ -78,6 +78,7 @@ export const ChartsPageContentReviewsScores = () => {
 							<CarParameters
 								isDisplayBrandParams
 								isDisplayButtonApply
+								isLoading={isReviewsChartsLoading}
 								buttonText="Получить рейтинг"
 								callback={handleGetAvgScores}
 								className="section-settings__article-car-parameters"
