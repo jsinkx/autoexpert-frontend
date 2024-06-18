@@ -166,6 +166,11 @@ export const StyledChartsPage = styled.div`
 				}
 			}
 
+			&__alert {
+				width: 100%;
+				height: 10%;
+			}
+
 			&__item {
 				width: 70%;
 				margin-inline: 20px;

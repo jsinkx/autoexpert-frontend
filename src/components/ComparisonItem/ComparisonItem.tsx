@@ -46,15 +46,17 @@ export const ComparisonItem: FC<ComparisonItemProps> = ({ isPros, items: _items,
 					</li>
 				))}
 			</ul>
-			<IconButton onClick={handleClickExpandItem} className="open-more" size="large">
-				{isExpandedItem ? (
-					<KeyboardArrowUpIcon fontSize="large" />
-				) : (
-					<Badge badgeContent={_items.length - SHOW_TOP} color={isPros ? 'success' : 'error'}>
-						<KeyboardArrowDownIcon fontSize="large" />
-					</Badge>
-				)}
-			</IconButton>
+			{_items.length > SHOW_TOP && (
+				<IconButton onClick={handleClickExpandItem} className="open-more" size="large">
+					{isExpandedItem ? (
+						<KeyboardArrowUpIcon fontSize="large" />
+					) : (
+						<Badge badgeContent={_items.length - SHOW_TOP} color={isPros ? 'success' : 'error'}>
+							<KeyboardArrowDownIcon fontSize="large" />
+						</Badge>
+					)}
+				</IconButton>
+			)}
 		</StyledComparisonItem>
 	)
 }

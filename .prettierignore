@@ -21,6 +21,7 @@ node_modules
 .env.example
 
 # Editor & other
+.vite
 .vscode/*
 !.vscode/extensions.json
 .idea

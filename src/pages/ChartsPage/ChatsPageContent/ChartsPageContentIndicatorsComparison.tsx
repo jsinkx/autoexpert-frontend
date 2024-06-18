@@ -58,8 +58,13 @@ export const ChartsPageContentIndicatorsComparison = () => {
 			dispatch(resetReviewsCharts())
 		}
 	}, [asyncDispatch, dispatch])
+
 	if (isCarsLoading) return <LoadingPage />
 
+	const isProsNull = !Object.keys(indicatorsComparison.pros).length
+	const isConsNull = !Object.keys(indicatorsComparison.cons).length
+
+	const isIndicatorsComparisonNull = isProsNull && isConsNull
 	return (
 		<>
 			<h2 className="page__title">
@@ -82,21 +87,27 @@ export const ChartsPageContentIndicatorsComparison = () => {
 						</section>
 						<section className="section-chart section-indicators-comparison">
 							{isReviewsChartsLoading && <ChartsPageLoading />}
-							{isReviewsChartsLoaded && !Object.keys(indicatorsComparison).length && (
-								<Alert severity="warning">Не удалось сравнить</Alert>
+							{isReviewsChartsLoaded && isIndicatorsComparisonNull && (
+								<Alert severity="warning" className="section-indicators-comparison__alert">
+									Не удалось сравнить
+								</Alert>
 							)}
 							{isReviewsChartsLoaded && (
 								<>
-									<ComparisonItem
-										isPros
-										items={indicatorsComparison.pros}
-										className="section-indicators-comparison__item"
-									/>
-									<ComparisonItem
-										isPros={false}
-										items={indicatorsComparison.cons}
-										className="section-indicators-comparison__item"
-									/>
+									{!isProsNull && (
+										<ComparisonItem
+											isPros
+											items={indicatorsComparison.pros}
+											className="section-indicators-comparison__item"
+										/>
+									)}
+									{!isConsNull && (
+										<ComparisonItem
+											isPros={false}
+											items={indicatorsComparison.cons}
+											className="section-indicators-comparison__item"
+										/>
+									)}
 								</>
 							)}
 						</section>

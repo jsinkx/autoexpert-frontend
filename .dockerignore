@@ -17,6 +17,7 @@ dist-ssr
 node_modules
 
 # Editor directories and files
+.vite
 .vscode/*
 !.vscode/extensions.json
 .idea

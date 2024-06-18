@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Colors } from '@shared/colors'
+
 export const StyledCarParameters = styled.article`
 	margin-bottom: 20px;
 	display: inline;
@@ -27,6 +29,22 @@ export const StyledCarParameters = styled.article`
 			margin-bottom: 7px;
 			font-weight: 600;
 			user-select: none;
+		}
+
+		&__info {
+			margin-top: 10px;
+			display: flex;
+			align-items: center;
+			user-select: none;
+
+			&__icon {
+				margin-bottom: -4px;
+				margin-right: 3px;
+			}
+
+			span {
+				color: ${Colors.INACTIVE_GREY_FONT};
+			}
 		}
 
 		.car-parameters__select {
