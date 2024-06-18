@@ -68,10 +68,9 @@ export const Review: FC<ReviewProps> = ({
 	}
 
 	useEffect(() => {
-		const element = reviewElementRef.current // document.querySelector('.')
+		const element = reviewElementRef.current
 
 		if (element) {
-			console.log(element?.scrollHeight!, element?.clientHeight!)
 			setIsOverflowed(element?.scrollHeight! > element?.clientHeight!)
 		}
 	}, [])

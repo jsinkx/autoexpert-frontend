@@ -78,7 +78,7 @@ export const reviewsSlice = createSlice({
 		setReviewsScores: (state, action: PayloadAction<string[]>) => {
 			state.currentReviewsScores = action.payload
 		},
-		setReviewsSorting: (state, action: PayloadAction<{ score: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' | '' }>) => {
+		setReviewsSorting: (state, action: PayloadAction<{ score: '' | 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' }>) => {
 			state.reviews = sortReviews(state.reviews, action.payload.score)
 			state.reviewsSorting = action.payload.score
 		},
@@ -118,7 +118,16 @@ export const reviewsSlice = createSlice({
 			state.reviews = filteredReviewsSiteSources
 		},
 		updateReviews: (state) => {
+			const setReviewsSortingAction: PayloadAction<{ score: '' | 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' }> = {
+				payload: {
+					score: state.reviewsSorting,
+				},
+				type: 'reviewsSlice/setReviewsSorting',
+			}
+
 			state.reviews = state._reviews
+
+			reviewsSlice.caseReducers.setReviewsSorting(state, setReviewsSortingAction)
 
 			reviewsSlice.caseReducers.applySelectedTags(state)
 			reviewsSlice.caseReducers.applyReviewsSettings(state)

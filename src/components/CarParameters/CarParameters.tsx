@@ -19,7 +19,6 @@ import { CartParametersKeywordsSearch } from './CartParametersKeywordsSearch'
 type CarParametersProps = {
 	isDisplayKeywordSearch?: boolean
 	isDisplayBrandParams?: boolean
-	isDisplaySiteSources?: boolean
 	isDisplaySynonyms?: boolean
 	isDisplayButtonApply?: boolean
 	isLoading?: boolean

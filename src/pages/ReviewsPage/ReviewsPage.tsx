@@ -72,7 +72,6 @@ export const ReviewsPage = () => {
 							<section className="section-settings">
 								<CarParameters
 									isDisplayBrandParams
-									isDisplaySiteSources
 									isDisplayKeywordSearch
 									isDisplaySynonyms
 									isDisplayButtonApply
