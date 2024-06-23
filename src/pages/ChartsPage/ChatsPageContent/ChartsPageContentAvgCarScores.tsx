@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { Status } from '@shared/status'
 
@@ -24,8 +23,7 @@ import { ChartsPageError } from '../ChartsPageError'
 import { ChartsPageLoading } from '../ChartsPageLoading'
 
 export const ChartsPageContentAvgCarScores = () => {
-	const dispatch = useDispatch()
-	const asyncDispatch = useAppDispatch()
+	const dispatch = useAppDispatch()
 
 	const { currentModel, currentBody, currentBrand, statusCars } = useAppSelector(selectCarsState)
 
@@ -49,12 +47,12 @@ export const ChartsPageContentAvgCarScores = () => {
 			sentiments: currentReviewsScores,
 		}
 
-		asyncDispatch(fetchAvgCarScores(params))
+		dispatch(fetchAvgCarScores(params))
 	}
 
 	useEffect(() => {
 		const getCarsParameters = async () => {
-			asyncDispatch(fetchCarParameters())
+			dispatch(fetchCarParameters())
 		}
 
 		getCarsParameters()
@@ -62,7 +60,7 @@ export const ChartsPageContentAvgCarScores = () => {
 		return () => {
 			dispatch(resetReviewsCharts())
 		}
-	}, [asyncDispatch, dispatch])
+	}, [dispatch])
 	if (isCarsLoading) return <LoadingPage />
 
 	return (

@@ -86,7 +86,7 @@ export const Review: FC<ReviewProps> = ({
 				<h5 className="review__title--header">
 					{brand} {model} {body}
 				</h5>
-				{sourceUrl !== '' && (
+				{sourceUrl && (
 					<CustomLink to={sourceUrl} target="_blank" className="review__title--source-url">
 						Читать полностью
 						<ReviewSiteSourceIcon source={source} />

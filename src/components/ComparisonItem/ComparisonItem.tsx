@@ -39,12 +39,20 @@ export const ComparisonItem: FC<ComparisonItemProps> = ({ isPros, items: _items,
 		<StyledComparisonItem $isPros={isPros} {...props}>
 			<h3>{isPros ? 'ДОСТОИНСТВА' : 'НЕДОСТАТКИ'}</h3>
 			<ul className="comparison-item__list">
-				{items.map(({ name }) => (
-					<li key={name} className="comparison-item__list__item">
-						{itemIcon}
-						{name}
-					</li>
-				))}
+				{items.map(({ name, count }) => {
+					const itemsTotalCount = _items.map(({ count: _count }) => _count).reduce((a, b) => a + b, 0)
+					const itemPercentage = ((count / itemsTotalCount) * 100).toFixed(2)
+
+					return (
+						<li key={name} className="comparison-item__list__item">
+							{itemIcon}
+							<span>
+								{name} - <span className="comparison-item__list__item--percentage"> {itemPercentage}% </span>
+							</span>
+							<span className="comparison-item__list__item--count"> {count} </span>
+						</li>
+					)
+				})}
 			</ul>
 			{_items.length > SHOW_TOP && (
 				<IconButton onClick={handleClickExpandItem} className="open-more" size="large">

@@ -132,6 +132,7 @@ export const reviewsSlice = createSlice({
 			reviewsSlice.caseReducers.applySelectedTags(state)
 			reviewsSlice.caseReducers.applyReviewsSettings(state)
 		},
+		resetReviews: () => initialState,
 	},
 	extraReducers: (builder) => {
 		// Fetch reviews
@@ -180,4 +181,5 @@ export const {
 	applySelectedTags,
 	applyReviewsSettings,
 	updateReviews,
+	resetReviews,
 } = reviewsSlice.actions

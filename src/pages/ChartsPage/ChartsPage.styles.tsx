@@ -142,14 +142,8 @@ export const StyledChartsPage = styled.div`
 		}
 
 		.section-reviews-scores {
-			display: flex;
-			justify-content: center;
-
-			&__barchart {
-				width: 90%;
-				min-width: 400px;
-				margin-top: 40px;
-			}
+			width: 30%;
+			margin-inline: auto;
 		}
 
 		.section-indicators-comparison {

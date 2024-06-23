@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { Status } from '@shared/status'
 
@@ -20,11 +19,10 @@ import { Alert } from '@mui/material'
 
 import { ChartsPageError } from '../ChartsPageError'
 import { ChartsPageLoading } from '../ChartsPageLoading'
-import { ChartsPageBarchart } from './Charts/BarChartReviewsScores'
+import { ChartsPagePiechart } from './Charts/PieChartReviewsScores'
 
 export const ChartsPageContentReviewsScores = () => {
-	const dispatch = useDispatch()
-	const asyncDispatch = useAppDispatch()
+	const dispatch = useAppDispatch()
 
 	const { currentModel, currentBody, currentBrand, statusCars, currentSiteSources } =
 		useAppSelector(selectCarsState)
@@ -47,12 +45,12 @@ export const ChartsPageContentReviewsScores = () => {
 			sources: currentSiteSources,
 		}
 
-		asyncDispatch(fetchReviewsScores(params))
+		dispatch(fetchReviewsScores(params))
 	}
 
 	useEffect(() => {
 		const getCarsParameters = async () => {
-			asyncDispatch(fetchCarParameters())
+			dispatch(fetchCarParameters())
 		}
 
 		getCarsParameters()
@@ -60,7 +58,7 @@ export const ChartsPageContentReviewsScores = () => {
 		return () => {
 			dispatch(resetReviewsCharts())
 		}
-	}, [asyncDispatch, dispatch])
+	}, [dispatch])
 
 	if (isCarsLoading) return <LoadingPage />
 
@@ -93,7 +91,7 @@ export const ChartsPageContentReviewsScores = () => {
 							)}
 							{isReviewsChartsLoaded && (
 								<div className="section-reviews-scores__barchart">
-									<ChartsPageBarchart carName={carName} reviewsScores={reviewsScores} />
+									<ChartsPagePiechart carName={carName} reviewsScores={reviewsScores} />
 								</div>
 							)}
 						</section>

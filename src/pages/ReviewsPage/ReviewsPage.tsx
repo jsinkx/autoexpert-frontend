@@ -5,7 +5,7 @@ import { Status } from '@shared/status'
 import { selectCarsState } from '@redux/slices/cars/selectors'
 import { fetchCarParameters } from '@redux/slices/cars/slice'
 import { selectReviews } from '@redux/slices/reviews/selectors'
-import { fetchReviews } from '@redux/slices/reviews/slice'
+import { fetchReviews, resetReviews } from '@redux/slices/reviews/slice'
 
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
@@ -54,9 +54,18 @@ export const ReviewsPage = () => {
 		}
 
 		getCarsParameters()
+
+		return () => {
+			dispatch(resetReviews())
+		}
 	}, [dispatch])
 
-	if (isCarsLoading) return <LoadingPage />
+	if (isCarsLoading)
+		return (
+			<MainLayout>
+				<LoadingPage />
+			</MainLayout>
+		)
 
 	return (
 		<MainLayout>

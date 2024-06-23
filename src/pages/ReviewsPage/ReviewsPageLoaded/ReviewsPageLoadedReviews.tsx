@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { REVIEWS_SORTING_OPTIONS } from '@shared/reviews-sorting-options'
 import { Status } from '@shared/status'
@@ -7,6 +6,7 @@ import { Status } from '@shared/status'
 import { selectReviews } from '@redux/slices/reviews/selectors'
 import { setReviewsSorting } from '@redux/slices/reviews/slice'
 
+import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
 import { Review } from '@components/Review/Review'
@@ -34,7 +34,7 @@ export const ReviewsPageLoadedReviews: FC<ReviewsPageLoadedReviewsProps> = ({
 	reviewsOnPage,
 	currentPage,
 }) => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const {
 		status,

@@ -1,10 +1,9 @@
-import { useDispatch } from 'react-redux'
-
 import { Status } from '@shared/status'
 
 import { selectReviews } from '@redux/slices/reviews/selectors'
 import { setSelectedTags, setTagsSorting, updateReviews } from '@redux/slices/reviews/slice'
 
+import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
 import { Tag } from '@components/Tag/Tag'
@@ -22,7 +21,7 @@ const LOADING_TAGS = Array.from({ length: 17 }, () => ({
 })) as TagType[]
 
 export const ReviewsPageLoadedTags = () => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const { status, tags: tagsData, tagsSorting, selectedTags } = useAppSelector(selectReviews)
 

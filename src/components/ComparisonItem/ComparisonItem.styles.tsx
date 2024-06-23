@@ -7,9 +7,16 @@ type StyledComparisonItemProps = {
 }
 
 const getColor = (isPros: boolean) => {
-	if (isPros) return Colors.GREEN
+	if (isPros)
+		return {
+			fontColor: Colors.GREEN_MUI,
+			backgroundColor: Colors.GREEN,
+		}
 
-	return Colors.RED
+	return {
+		fontColor: Colors.RED_MUI,
+		backgroundColor: Colors.RED,
+	}
 }
 
 export const StyledComparisonItem = styled.div<StyledComparisonItemProps>`
@@ -26,7 +33,6 @@ export const StyledComparisonItem = styled.div<StyledComparisonItemProps>`
 	.comparison-item__list {
 		margin: 0;
 		margin-top: 5px;
-		/* margin-left: 25px; */
 		padding: 0;
 		text-decoration: none;
 
@@ -36,7 +42,16 @@ export const StyledComparisonItem = styled.div<StyledComparisonItemProps>`
 			display: flex;
 			align-items: center;
 			font-size: 1.2em;
-			background-color: ${({ $isPros }) => getColor($isPros)};
+			background-color: ${({ $isPros }) => getColor($isPros).backgroundColor};
+
+			&--percentage {
+				margin-left: 5px;
+				color: ${({ $isPros }) => getColor($isPros).fontColor};
+			}
+
+			&--count {
+				margin-left: auto;
+			}
 		}
 	}
 
