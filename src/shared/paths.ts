@@ -1,6 +1,7 @@
 export const paths = {
 	any: '*',
 	reviews: '/',
+	addReview: '/add-review',
 	aboutUs: '/about-us',
 	wordcloud: '/wordcloud',
 	avgCarScores: '/avg-car-scores',

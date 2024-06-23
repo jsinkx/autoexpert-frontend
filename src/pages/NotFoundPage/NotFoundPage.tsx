@@ -7,6 +7,7 @@ import { StyledNotFoundPage } from './NotFoundPage.styles'
 export const NotFoundPage = () => {
 	return (
 		<MainLayout>
+			<title> Страница не найдена - Автоэксперт </title>
 			<StyledNotFoundPage>
 				<h2 className="page__title">Страница не найдена </h2>
 				<img className="page__image" src={WHITE_CAT_DRIVE_GIF} alt="404" />

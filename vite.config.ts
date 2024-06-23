@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import eslint from 'vite-plugin-eslint'
 import { ViteMinifyPlugin } from 'vite-plugin-minify'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -17,11 +17,10 @@ export default ({ mode }) => {
 			eslint(), // Linting
 			react({
 				babel: {
-					plugins: [['babel-plugin-react-compiler']],
+					babelrc: true,
 				},
 			}),
 			ViteMinifyPlugin({}), // Minify
-			splitVendorChunkPlugin(), // Split vendor chunks
 		],
 		build: {
 			outDir: './dist',

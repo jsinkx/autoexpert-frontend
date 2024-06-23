@@ -65,6 +65,7 @@ export const ChartsPageContentIndicatorsComparison = () => {
 	const isIndicatorsComparisonNull = isProsNull && isConsNull
 	return (
 		<>
+			<title> Сравнение показателей - Автоэксперт </title>
 			<h2 className="page__title">
 				{isReviewsChartsLoaded ? `Сравнение показателей для ${carName}` : 'Сравнение показателей'}
 			</h2>

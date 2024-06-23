@@ -52,6 +52,7 @@ export const ChartsPagePiechart: FC<ChartsPagePiechartProps> = ({ carName, revie
 				text: `Окрасы текста отзывов для ${carName}`,
 				font: {
 					size: 24,
+					family: 'sans-serif',
 				},
 			},
 			legend: {

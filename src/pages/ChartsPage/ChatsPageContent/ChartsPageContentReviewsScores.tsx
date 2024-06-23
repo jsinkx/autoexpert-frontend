@@ -64,6 +64,7 @@ export const ChartsPageContentReviewsScores = () => {
 
 	return (
 		<>
+			<title> Рейтинг отзывов - Автоэксперт </title>
 			<h2 className="page__title">
 				{isReviewsChartsLoaded ? `Рейтинг отзывов автомобилей ${carName}` : 'Рейтинг отзывов'}
 			</h2>

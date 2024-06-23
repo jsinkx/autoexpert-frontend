@@ -69,6 +69,7 @@ export const ReviewsPage = () => {
 
 	return (
 		<MainLayout>
+			<title> Подбор отзывов - Автоэксперт </title>
 			<StyledReviewsPage>
 				<h2 className="page__title">
 					{isReviewsLoaded ? `Отзывы об автомобилях ${carName} ` : 'Подбор отзывов'}

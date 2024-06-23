@@ -32,7 +32,6 @@ debug
 *.njsproj
 *.sln
 *.sw?
-.eslintrc
 .bashrc
 *.bat
 Dockerfile*

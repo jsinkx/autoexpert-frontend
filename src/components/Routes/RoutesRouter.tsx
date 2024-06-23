@@ -17,6 +17,10 @@ const { ReviewsPage } = lazily(
 	() => import(/* webpackChunkName: "ReviewsPage" */ '@pages/ReviewsPage/ReviewsPage'),
 )
 
+const { AddReviewPage } = lazily(
+	() => import(/* webpackChunkName: "AddReviewPage" */ '@pages/AddReviewPage/AddReviewPage'),
+)
+
 // Charts
 
 const { ChartsPage } = lazily(
@@ -65,6 +69,10 @@ const routes = [
 			{
 				path: paths.reviews,
 				element: <ReviewsPage />,
+			},
+			{
+				path: paths.addReview,
+				element: <AddReviewPage />,
 			},
 			// Charts
 			{

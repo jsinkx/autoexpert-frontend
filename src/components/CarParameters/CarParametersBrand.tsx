@@ -14,17 +14,9 @@ import {
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
-import {
-	Alert,
-	Button,
-	Checkbox,
-	FormControl,
-	ListItemIcon,
-	ListItemText,
-	MenuItem,
-	Select,
-	SelectChangeEvent,
-} from '@mui/material'
+import { Input } from '@components/Input/Input'
+
+import { Alert, Button, SelectChangeEvent } from '@mui/material'
 
 import { CarBody, CarBrand, CarModel } from '@entities/car.types'
 
@@ -36,7 +28,7 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 
 	const { cars, currentBrand, currentModel, currentBody } = useAppSelector(selectCarsState)
 
-	const handleChangeCarBrand = (event: SelectChangeEvent<CarBrand[]>) => {
+	const handleChangeCarBrand = (event: SelectChangeEvent<CarBrand | CarBrand[]>) => {
 		const {
 			target: { value },
 		} = event
@@ -48,7 +40,7 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 		dispatch(resetCurrentBody())
 	}
 
-	const handleChangeCarModel = (event: SelectChangeEvent<CarModel[]>) => {
+	const handleChangeCarModel = (event: SelectChangeEvent<CarModel | CarModel[]>) => {
 		const {
 			target: { value },
 		} = event
@@ -59,7 +51,7 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 		dispatch(resetCurrentBody())
 	}
 
-	const handleChangeCaBody = (event: SelectChangeEvent<CarBody[]>) => {
+	const handleChangeCaBody = (event: SelectChangeEvent<CarBody | CarBody[]>) => {
 		const {
 			target: { value },
 		} = event
@@ -99,67 +91,39 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 
 	return (
 		<div className="car-parameters">
-			<p className="car-parameters__label"> Марка </p>
-			<FormControl size="small" sx={{ width: '300px' }} className="car-parameters__input">
-				<Select
-					multiple
-					value={currentBrand}
-					onChange={handleChangeCarBrand}
-					renderValue={(selected) => selected.join(', ')}
-				>
-					{carBrands.map((carBrand) => (
-						<MenuItem key={carBrand} value={carBrand}>
-							<ListItemIcon>
-								<Checkbox checked={currentBrand.indexOf(carBrand) > -1} />
-							</ListItemIcon>
-							<ListItemText primary={carBrand} />
-						</MenuItem>
-					))}
-				</Select>
-			</FormControl>
+			<Input
+				isSelect
+				multiple
+				selectValues={carBrands}
+				selectedValues={currentBrand}
+				value={currentBrand}
+				onChange={handleChangeCarBrand}
+				label="Марка"
+				className="car-parameters__input"
+			/>
 			{!!currentBrand.length && (
-				<>
-					<p className="car-parameters__label"> Модель </p>
-					<FormControl size="small" sx={{ width: '300px' }} className="car-parameters__input">
-						<Select
-							multiple
-							value={currentModel}
-							onChange={handleChangeCarModel}
-							renderValue={(selected) => selected.join(', ')}
-						>
-							{carModels.map((carModel) => (
-								<MenuItem key={carModel} value={carModel}>
-									<ListItemIcon>
-										<Checkbox checked={currentModel.indexOf(carModel) > -1} />
-									</ListItemIcon>
-									<ListItemText primary={carModel} />
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-				</>
+				<Input
+					isSelect
+					multiple
+					selectValues={carModels}
+					selectedValues={currentModel}
+					value={currentModel}
+					onChange={handleChangeCarModel}
+					label="Модель"
+					className="car-parameters__input"
+				/>
 			)}
 			{!!currentBrand.length && !!currentModel.length && (
-				<>
-					<p className="car-parameters__label"> Корпус </p>
-					<FormControl size="small" sx={{ width: '300px' }} className="car-parameters__input">
-						<Select
-							multiple
-							value={currentBody}
-							onChange={handleChangeCaBody}
-							renderValue={(selected) => selected.join(', ')}
-						>
-							{carBodies.map((carBody) => (
-								<MenuItem key={carBody} value={carBody}>
-									<ListItemIcon>
-										<Checkbox checked={currentBody.indexOf(carBody) > -1} />
-									</ListItemIcon>
-									<ListItemText primary={carBody} />
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-				</>
+				<Input
+					isSelect
+					multiple
+					selectValues={carBodies}
+					selectedValues={currentBody}
+					value={currentBody}
+					onChange={handleChangeCaBody}
+					label="Корпус"
+					className="car-parameters__input"
+				/>
 			)}
 		</div>
 	)

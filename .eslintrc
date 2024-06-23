@@ -1,37 +1,38 @@
 {
 	"env": {
-		"browser": true
+		"browser": true,
 	},
 	"settings": {
 		"react": {
-			"version": "detect"
+			"version": "detect",
 		},
 		"import/resolver": {
 			"alias": {
-			  "map": [
-				["@assets", "./src/assets"],
-				["@components", "./src/components"],
-				["@hooks", "./src/hooks"],
-				["@layouts", "./src/layouts"],
-				["@pages", "./src/pages"],
-				["@redux", "./src/redux"],
-				["@shared", "./src/shared"],
-				["@utils", "./src/utils"],
-				["@entities", "./src/entities"]
-			  ],
-			  "extensions": [".ts", ".tsx"]
-			}
-		  }
+				"map": [
+					["@assets", "./src/assets"],
+					["@components", "./src/components"],
+					["@hooks", "./src/hooks"],
+					["@layouts", "./src/layouts"],
+					["@pages", "./src/pages"],
+					["@redux", "./src/redux"],
+					["@shared", "./src/shared"],
+					["@utils", "./src/utils"],
+					["@entities", "./src/entities"],
+					["@services", "./src/services"],
+				],
+				"extensions": [".ts", ".tsx"],
+			},
 		},
+	},
 	"ignorePatterns": ["*.config.*", "*.d.ts"],
 	"parserOptions": {
 		"ecmaFeatures": {
-			"jsx": true
+			"jsx": true,
 		},
 		"ecmaVersion": "latest",
 		"sourceType": "module",
 		"project": ["./tsconfig.json"],
-		"warnOnUnsupportedTypeScriptVersion": false
+		"warnOnUnsupportedTypeScriptVersion": false,
 	},
 	"extends": [
 		"airbnb",
@@ -44,16 +45,16 @@
 		"plugin:import/warnings",
 		"plugin:import/typescript",
 		"plugin:prettier/recommended",
-		"prettier"
+		"prettier",
 	],
-	"plugins": ["import", "react", "eslint-plugin-react-compiler", "prettier"],
+	"plugins": ["import", "react", "prettier", "eslint-plugin-react-compiler"],
 	"root": true,
 	"rules": {
 		"prettier/prettier": [
 			"error",
 			{
-				"endOfLine": "auto"
-			}
+				"endOfLine": "auto",
+			},
 		],
 		"@typescript-eslint/ban-ts-comment": "off",
 		"@typescript-eslint/ban-types": "off",
@@ -82,7 +83,7 @@
 		"no-undef": 0,
 		"no-empty": 0,
 		"no-param-reassign": "off",
-		"no-underscore-dangle": "off", 
+		"no-underscore-dangle": "off",
 		"no-useless-escape": 1,
 		"no-fallthrough": 1,
 		"no-extra-boolean-cast": 1,
@@ -90,7 +91,8 @@
 		"no-case-declarations": "off",
 		"no-restricted-globals": "off",
 		"no-control-regex": "off",
-		"react-compiler/react-compiler": 2,
+		"no-bitwise": "off",
+		"react-compiler/react-compiler": "error",
 		"react/no-deprecated": "warn",
 		"react/no-unescaped-entities": "warn",
 		"react/no-string-refs": "warn",
@@ -112,8 +114,8 @@
 			2,
 			{
 				"namedComponents": "arrow-function",
-				"unnamedComponents": "arrow-function"
-			}
+				"unnamedComponents": "arrow-function",
+			},
 		],
 		"jsx-a11y/no-noninteractive-element-interactions": "off",
 		"jsx-a11y/click-events-have-key-events": "off",
@@ -122,16 +124,16 @@
 			"error",
 			{
 				"components": ["Link"],
-				"specialLink": ["to"]
-			}
+				"specialLink": ["to"],
+			},
 		],
 		"jsx-a11y/label-has-for": [
 			2,
 			{
 				"required": {
-					"every": ["id"]
-				}
-			}
-		]
-	}
+					"every": ["id"],
+				},
+			},
+		],
+	},
 }

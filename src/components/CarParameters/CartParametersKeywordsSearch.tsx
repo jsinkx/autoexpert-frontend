@@ -9,7 +9,8 @@ import { fetchCarSynonyms, setCurrentKeyword, setSynonyms } from '@redux/slices/
 import useAppDispatch from '@hooks/useAppDispatch'
 import useAppSelector from '@hooks/useAppSelector'
 
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import { InfoText } from '@components/InfoText/InfoText'
+
 import SearchIcon from '@mui/icons-material/Search'
 import { FormControl, IconButton, InputAdornment, OutlinedInput } from '@mui/material'
 
@@ -77,12 +78,10 @@ export const CartParametersKeywordsSearch: FC<CartParametersKeywordsSearchProps>
 					className="car-parameters__search"
 				/>
 			</FormControl>
-			<p className="car-parameters__info">
-				<span>
-					<InfoOutlinedIcon fontSize="small" className="car-parameters__info__icon" />
-					Существительное, например, машина, двигатель, трансмиссия
-				</span>
-			</p>
+			<InfoText
+				text="Существительное, например, машина, двигатель, трансмиссия"
+				className="car-parameters__info"
+			/>
 		</div>
 	)
 }

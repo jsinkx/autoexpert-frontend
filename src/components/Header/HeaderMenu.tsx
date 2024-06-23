@@ -15,6 +15,10 @@ const MENU_ITEMS = [
 		path: paths.aboutUs,
 	},
 	{
+		name: 'Добавить отзыв',
+		path: paths.addReview,
+	},
+	{
 		name: 'Подбор отзывов',
 		path: paths.reviews,
 	},

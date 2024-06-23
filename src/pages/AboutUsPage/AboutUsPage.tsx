@@ -8,6 +8,7 @@ import { StyledAboutUsPage } from './AboutUsPage.styles'
 export const AboutUsPage = () => {
 	return (
 		<MainLayout>
+			<title> О нас - Автоэксперт </title>
 			<StyledAboutUsPage>
 				<div className="page__content">
 					<div className="content__row">

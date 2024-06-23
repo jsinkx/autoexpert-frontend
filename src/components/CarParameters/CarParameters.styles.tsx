@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 
-import { Colors } from '@shared/colors'
-
 export const StyledCarParameters = styled.article`
 	margin-bottom: 20px;
 	display: inline;
 
 	.car-parameters {
 		margin-bottom: 20px;
+
+		&__input {
+			margin-bottom: 20px;
+		}
 
 		@media (max-width: 920px) {
 			&__label {
@@ -33,18 +35,6 @@ export const StyledCarParameters = styled.article`
 
 		&__info {
 			margin-top: 10px;
-			display: flex;
-			align-items: center;
-			user-select: none;
-
-			&__icon {
-				margin-bottom: -4px;
-				margin-right: 3px;
-			}
-
-			span {
-				color: ${Colors.INACTIVE_GREY_FONT};
-			}
 		}
 
 		.car-parameters__select {

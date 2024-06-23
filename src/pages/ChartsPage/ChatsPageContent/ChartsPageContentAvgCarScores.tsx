@@ -65,6 +65,7 @@ export const ChartsPageContentAvgCarScores = () => {
 
 	return (
 		<>
+			<title> Средняя оценка - Автоэксперт </title>
 			<h2 className="page__title">
 				{isReviewsChartsLoaded ? `Средняя оценка по автомобилям ${carName}` : 'Средняя оценка по автомобилям'}
 			</h2>

@@ -10,7 +10,8 @@
 			"@redux/*": ["src/redux/*"],
 			"@shared/*": ["src/shared/*"],
 			"@utils/*": ["src/utils/*"],
-			"@entities/*": ["src/entities/*"]
+			"@entities/*": ["src/entities/*"],
+			"@services/*": ["src/redux/services/*"]
 		},
 		"target": "ESNext",
 		"lib": ["dom", "dom.iterable", "esnext"],
