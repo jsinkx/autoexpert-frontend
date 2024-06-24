@@ -99,6 +99,7 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 				value={currentBrand}
 				onChange={handleChangeCarBrand}
 				label="Марка"
+				sx={{ width: '300px' }}
 				className="car-parameters__input"
 			/>
 			{!!currentBrand.length && (
@@ -110,6 +111,7 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 					value={currentModel}
 					onChange={handleChangeCarModel}
 					label="Модель"
+					sx={{ width: '300px' }}
 					className="car-parameters__input"
 				/>
 			)}
@@ -122,6 +124,7 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 					value={currentBody}
 					onChange={handleChangeCaBody}
 					label="Корпус"
+					sx={{ width: '300px' }}
 					className="car-parameters__input"
 				/>
 			)}

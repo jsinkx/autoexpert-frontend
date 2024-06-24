@@ -16,17 +16,24 @@ export const StyledCustomLink = styled(CustomLink)`
 `
 
 export const StyledHeader = styled.header`
+	width: 100%;
+	padding-block: 15px;
 	display: flex;
 	align-items: center;
-	background-color: ${Colors.BLACK};
-	padding-block: 5px;
+	background-color: ${Colors.WHITE};
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+
+	@media (max-width: 920px) {
+		justify-content: center;
+	}
 
 	.header__nav {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 
-		&__logo--text {
+		&__logo {
 			display: flex;
 			align-items: center;
 			height: 40px;
@@ -35,9 +42,13 @@ export const StyledHeader = styled.header`
 			font-size: 1.9em;
 			user-select: none;
 
-			&__logo {
-				width: 40px;
+			&__image {
+				width: 42px;
 				margin-right: 10px;
+			}
+
+			&__text {
+				color: ${Colors.BLACK} !important;
 			}
 		}
 	}

@@ -32,7 +32,7 @@ const ReviewsSettings: FC<ReviewsSettingsProps> = ({
 			{isDisplaySiteSources && <ReviewsSettingsSiteSources />}
 			{isDisplayFilterScore && <ReviewsSettingsFilterScore />}
 			{isDisplayButtonApply && (
-				<Button onClick={handleClickApplySettings} variant="contained">
+				<Button onClick={handleClickApplySettings} variant="contained" className="button-apply">
 					Применить фильтры
 				</Button>
 			)}

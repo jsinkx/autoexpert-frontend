@@ -41,6 +41,17 @@ export const StyledReview = styled.article<StyledReviewProps>`
 		display: flex;
 		align-items: center;
 
+		@media (max-width: 920px) or (max-height: 860px) {
+			&--header {
+				font-size: 1em !important;
+			}
+
+			&--source-url {
+				width: 64% !important;
+				font-size: 0.9em !important;
+			}
+		}
+
 		&--header {
 			margin: 0;
 			margin-left: 10px;

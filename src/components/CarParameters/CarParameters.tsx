@@ -68,7 +68,12 @@ export const CarParameters: FC<CarParametersProps> = ({
 			{/* Extra parameters */}
 			{children}
 			{isDisplayButtonApply && (
-				<Button onClick={handleClickGetReviews} variant="contained" disabled={!isValidParams.isValid}>
+				<Button
+					onClick={handleClickGetReviews}
+					variant="contained"
+					disabled={!isValidParams.isValid}
+					className="button-apply"
+				>
 					{isValidParams.isValid ? buttonText : isValidParams.message}
 				</Button>
 			)}

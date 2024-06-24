@@ -15,6 +15,7 @@ dist-ssr
 
 # Libs
 node_modules
+bun.lockb
 
 # Editor directories and files
 .vite

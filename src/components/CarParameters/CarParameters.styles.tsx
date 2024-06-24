@@ -34,6 +34,7 @@ export const StyledCarParameters = styled.article`
 		}
 
 		&__info {
+			width: 300px;
 			margin-top: 10px;
 		}
 
@@ -50,5 +51,9 @@ export const StyledCarParameters = styled.article`
 		display: flex;
 		align-items: center;
 		font-size: 1em;
+	}
+
+	.button-apply {
+		width: 300px;
 	}
 `

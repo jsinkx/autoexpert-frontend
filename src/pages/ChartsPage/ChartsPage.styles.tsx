@@ -7,6 +7,7 @@ export const StyledChartsPage = styled.div`
 
 		@media (max-width: 920px) {
 			text-align: center;
+			font-size: 1.5em;
 		}
 	}
 
@@ -54,10 +55,6 @@ export const StyledChartsPage = styled.div`
 					display: block;
 					flex-direction: column;
 					justify-content: center;
-
-					button {
-						width: 100%; // FIXME: bad, need to add className for MUI Button
-					}
 				}
 			}
 		}
@@ -73,7 +70,7 @@ export const StyledChartsPage = styled.div`
 			}
 
 			@media (max-width: 920px) {
-				width: initial;
+				width: 100%;
 				min-height: initial;
 
 				.chart-loading {
@@ -144,30 +141,35 @@ export const StyledChartsPage = styled.div`
 		.section-reviews-scores {
 			width: 30%;
 			margin-inline: auto;
+
+			@media (max-width: 920px) {
+				width: 100%;
+			}
 		}
 
 		.section-indicators-comparison {
 			margin-top: 40px;
 			display: flex;
 
-			@media (max-width: 600px) {
+			&__item {
+				width: 70%;
+				margin-inline: 20px;
+			}
+
+			@media (max-width: 920px) {
 				flex-direction: column;
 
 				&__item {
 					width: 100%;
 					margin-bottom: 20px;
 					margin-inline: auto !important;
+					font-size: 0.87em !important;
 				}
 			}
 
 			&__alert {
 				width: 100%;
 				height: 10%;
-			}
-
-			&__item {
-				width: 70%;
-				margin-inline: 20px;
 			}
 		}
 	}

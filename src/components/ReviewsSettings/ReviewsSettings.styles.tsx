@@ -43,4 +43,8 @@ export const StyledReviewsSettings = styled.article`
 		align-items: center;
 		font-size: 1em;
 	}
+
+	.button-apply {
+		width: 300px;
+	}
 `

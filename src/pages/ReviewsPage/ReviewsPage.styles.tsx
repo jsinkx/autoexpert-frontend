@@ -3,19 +3,22 @@ import styled from 'styled-components'
 import { Colors } from '@shared/colors'
 
 export const StyledReviewsPage = styled.div`
+	margin-bottom: 20px;
+
 	.page__title {
 		margin-top: 0;
 		font-size: 2em;
 
-		@media (max-width: 920px) {
+		@media (max-width: 920px) or (max-height: 860px) {
 			text-align: center;
+			font-size: 1.5em;
 		}
 	}
 
 	.page__content {
 		display: flex;
 
-		@media (max-width: 920px) {
+		@media (max-width: 920px) or (max-height: 860px) {
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
@@ -56,10 +59,6 @@ export const StyledReviewsPage = styled.div`
 					display: block;
 					flex-direction: column;
 					justify-content: center;
-
-					button {
-						width: 100%; // FIXME: bad, need to add className for MUI Button
-					}
 				}
 			}
 		}
@@ -72,7 +71,7 @@ export const StyledReviewsPage = styled.div`
 				margin-inline: 3%;
 			}
 
-			@media (max-width: 920px) {
+			@media (max-width: 920px) or (max-height: 860px) {
 				margin-inline: 0;
 
 				&__title {
@@ -80,7 +79,7 @@ export const StyledReviewsPage = styled.div`
 					text-align: center;
 				}
 
-				&__paragraph--step-info {
+				/* &__paragraph--step-info {
 					flex-direction: column;
 					font-size: 1.05em !important;
 
@@ -90,7 +89,7 @@ export const StyledReviewsPage = styled.div`
 						margin-right: 0 !important;
 						margin-bottom: 15px;
 					}
-				}
+				} */
 			}
 
 			&__title {
@@ -105,6 +104,10 @@ export const StyledReviewsPage = styled.div`
 				display: flex;
 				align-items: center;
 				font-size: 1.3em;
+
+				@media (max-width: 920px) or (max-height: 860px) {
+					justify-content: center;
+				}
 
 				&__emoji {
 					margin-right: 10px;
@@ -141,7 +144,7 @@ export const StyledReviewsPage = styled.div`
 					margin-left: 90px;
 				}
 
-				@media (max-width: 920px) {
+				@media (max-width: 920px) or (max-height: 860px) {
 					width: 350px;
 					margin-block: 40px;
 					margin-inline: auto;
@@ -159,7 +162,7 @@ export const StyledReviewsPage = styled.div`
 				justify-content: center;
 				margin-block: 30px;
 
-				@media (max-width: 920px) {
+				@media (max-width: 920px) or (max-height: 860px) {
 					margin-top: 0px;
 				}
 			}
@@ -167,7 +170,7 @@ export const StyledReviewsPage = styled.div`
 			// ReviewsPageLoaded
 
 			.reviews-loaded {
-				@media (max-width: 920px) {
+				@media (max-width: 920px) or (max-height: 860px) {
 					&__block {
 						&__title {
 							text-align: center;
@@ -194,7 +197,7 @@ export const StyledReviewsPage = styled.div`
 					margin-inline: auto; // FIXME: bad, need to change for centering inside block of content
 					margin-bottom: 20px;
 
-					@media (max-width: 920px) {
+					@media (max-width: 920px) or (max-height: 860px) {
 						width: 100%;
 						margin-inline: 0;
 						display: flex;
@@ -211,7 +214,7 @@ export const StyledReviewsPage = styled.div`
 						font-size: 1.65em;
 						margin-bottom: 12px;
 
-						@media (max-width: 920px) {
+						@media (max-width: 920px) or (max-height: 860px) {
 							flex-direction: column;
 						}
 
@@ -253,7 +256,7 @@ export const StyledReviewsPage = styled.div`
 						align-items: center;
 						user-select: none;
 
-						@media (max-width: 920px) {
+						@media (max-width: 920px) or (max-height: 860px) {
 							flex-direction: column;
 						}
 					}
@@ -265,6 +268,17 @@ export const StyledReviewsPage = styled.div`
 						justify-content: left;
 						flex-wrap: wrap;
 						overflow-y: auto;
+
+						@media (max-width: 920px) or (max-height: 860px) {
+							width: 100%;
+							justify-content: flex-start;
+
+							&__tag {
+								margin-inline: 0 !important;
+								margin-right: 8px !important;
+								font-size: 0.95em !important;
+							}
+						}
 
 						&__tag {
 							margin-right: 20px;
@@ -288,6 +302,11 @@ export const StyledReviewsPage = styled.div`
 						&__review {
 							width: 90%;
 							margin-bottom: 40px;
+
+							@media (max-width: 920px) or (max-height: 860px) {
+								width: 100%;
+								font-size: 0.9em;
+							}
 						}
 					}
 				}

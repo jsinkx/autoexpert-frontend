@@ -91,7 +91,7 @@ export const ChartsPageContentReviewsScores = () => {
 								<Alert severity="warning">Не удалось получить среднюю оценку по данным параметрам</Alert>
 							)}
 							{isReviewsChartsLoaded && (
-								<div className="section-reviews-scores__barchart">
+								<div className="section-reviews-scores__piechart">
 									<ChartsPagePiechart carName={carName} reviewsScores={reviewsScores} />
 								</div>
 							)}

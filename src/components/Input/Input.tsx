@@ -8,8 +8,10 @@ import {
 	MenuItem,
 	Select,
 	SelectProps,
+	SxProps,
 	TextField,
 	TextFieldProps,
+	Theme,
 } from '@mui/material'
 
 import { StyledInput } from './Input.styles'
@@ -18,8 +20,10 @@ type InputProps = {
 	label: string
 	value: string | string[]
 	selectValues?: string[]
-	isRequired?: boolean
 	selectedValues?: string | string[]
+	size?: 'small' | 'medium'
+	sx?: SxProps<Theme>
+	isRequired?: boolean
 	isSelect?: boolean
 } & (TextFieldProps | SelectProps<string | string[]>)
 
@@ -29,6 +33,8 @@ export const Input: FC<InputProps> = ({
 	value,
 	selectValues = [],
 	selectedValues = [],
+	size = 'small',
+	sx = {},
 	isRequired = false,
 	isSelect = false,
 	...props
@@ -40,7 +46,7 @@ export const Input: FC<InputProps> = ({
 				{isRequired && <span className="label--required-mark">*</span>}
 			</p>
 			{isSelect ? (
-				<FormControl>
+				<FormControl size={size} sx={sx}>
 					<Select
 						value={value || ''}
 						renderValue={(selected) => (typeof selected === 'object' ? selected.join(', ') : selected)}
@@ -57,7 +63,7 @@ export const Input: FC<InputProps> = ({
 					</Select>
 				</FormControl>
 			) : (
-				<TextField className="input" variant="outlined" {...(props as TextFieldProps)} />
+				<TextField className="input" variant="outlined" size={size} sx={sx} {...(props as TextFieldProps)} />
 			)}
 		</StyledInput>
 	)

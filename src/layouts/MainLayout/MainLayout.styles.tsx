@@ -5,6 +5,11 @@ export const StyledMainLayout = styled.div`
 	display: flex;
 	flex-direction: column;
 
+	.main-layout__header {
+		position: fixed;
+		z-index: 9;
+	}
+
 	.main-layout__header,
 	.main-layout__main-content,
 	.main-layout__footer {
@@ -12,7 +17,7 @@ export const StyledMainLayout = styled.div`
 	}
 
 	.main-layout__main-content {
-		margin-top: 35px;
+		margin-top: 90px;
 		flex: 1 0 auto;
 	}
 `
