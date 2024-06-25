@@ -91,6 +91,7 @@ export const StyledAboutUsPage = styled.div`
 
 				&__author {
 					text-align: right;
+					font-size: 1.05em;
 					user-select: none;
 				}
 			}

@@ -9,7 +9,7 @@ export const StyledReviewsPage = styled.div`
 		margin-top: 0;
 		font-size: 2em;
 
-		@media (max-width: 920px) or (max-height: 860px) {
+		@media (max-width: 920px) {
 			text-align: center;
 			font-size: 1.5em;
 		}
@@ -18,7 +18,7 @@ export const StyledReviewsPage = styled.div`
 	.page__content {
 		display: flex;
 
-		@media (max-width: 920px) or (max-height: 860px) {
+		@media (max-width: 920px) {
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
@@ -39,6 +39,11 @@ export const StyledReviewsPage = styled.div`
 			position: sticky;
 			top: 80px;
 
+			@media (max-height: 860px) {
+				position: relative !important;
+				top: 0 !important;
+			}
+
 			&__article-car-parameters {
 				display: inline-block;
 				justify-content: center;
@@ -49,7 +54,7 @@ export const StyledReviewsPage = styled.div`
 			&__article-reviews-settings {
 			}
 
-			@media (max-width: 920px) or (max-height: 860px) {
+			@media (max-width: 920px) {
 				position: relative;
 				top: 0;
 
@@ -71,7 +76,7 @@ export const StyledReviewsPage = styled.div`
 				margin-inline: 3%;
 			}
 
-			@media (max-width: 920px) or (max-height: 860px) {
+			@media (max-width: 920px) {
 				margin-inline: 0;
 
 				&__title {
@@ -105,7 +110,7 @@ export const StyledReviewsPage = styled.div`
 				align-items: center;
 				font-size: 1.3em;
 
-				@media (max-width: 920px) or (max-height: 860px) {
+				@media (max-width: 920px) {
 					justify-content: center;
 				}
 
@@ -144,7 +149,7 @@ export const StyledReviewsPage = styled.div`
 					margin-left: 90px;
 				}
 
-				@media (max-width: 920px) or (max-height: 860px) {
+				@media (max-width: 920px) {
 					width: 350px;
 					margin-block: 40px;
 					margin-inline: auto;
@@ -162,7 +167,7 @@ export const StyledReviewsPage = styled.div`
 				justify-content: center;
 				margin-block: 30px;
 
-				@media (max-width: 920px) or (max-height: 860px) {
+				@media (max-width: 920px) {
 					margin-top: 0px;
 				}
 			}
@@ -170,7 +175,7 @@ export const StyledReviewsPage = styled.div`
 			// ReviewsPageLoaded
 
 			.reviews-loaded {
-				@media (max-width: 920px) or (max-height: 860px) {
+				@media (max-width: 920px) {
 					&__block {
 						&__title {
 							text-align: center;
@@ -197,7 +202,7 @@ export const StyledReviewsPage = styled.div`
 					margin-inline: auto; // FIXME: bad, need to change for centering inside block of content
 					margin-bottom: 20px;
 
-					@media (max-width: 920px) or (max-height: 860px) {
+					@media (max-width: 920px) {
 						width: 100%;
 						margin-inline: 0;
 						display: flex;
@@ -214,7 +219,7 @@ export const StyledReviewsPage = styled.div`
 						font-size: 1.65em;
 						margin-bottom: 12px;
 
-						@media (max-width: 920px) or (max-height: 860px) {
+						@media (max-width: 920px) {
 							flex-direction: column;
 						}
 
