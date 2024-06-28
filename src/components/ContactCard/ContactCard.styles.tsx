@@ -32,6 +32,10 @@ export const StyledContactCard = styled.div`
 			margin-block: 10px;
 			font-size: 1.2em !important;
 			color: ${Colors.SILVER};
+
+			@media (max-width: 920px) {
+				font-size: 1em !important;
+			}
 		}
 
 		&__nav-links {

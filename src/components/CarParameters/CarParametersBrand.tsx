@@ -123,7 +123,7 @@ export const CarParametersBrand: FC<CarParametersBrandProps> = () => {
 					selectedValues={currentBody}
 					value={currentBody}
 					onChange={handleChangeCaBody}
-					label="Корпус"
+					label="Кузов"
 					sx={{ width: '300px' }}
 					className="car-parameters__input"
 				/>

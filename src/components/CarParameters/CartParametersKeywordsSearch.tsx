@@ -78,10 +78,7 @@ export const CartParametersKeywordsSearch: FC<CartParametersKeywordsSearchProps>
 					className="car-parameters__search"
 				/>
 			</FormControl>
-			<InfoText
-				text="Существительное, например, машина, двигатель, трансмиссия"
-				className="car-parameters__info"
-			/>
+			<InfoText text="Существительное, например, машина, двигатель, фара" className="car-parameters__info" />
 		</div>
 	)
 }
